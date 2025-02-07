@@ -49,6 +49,7 @@ echo "Installing Node-RED..."
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)<<EOF
 y
 y
+/home/$USER/.node-red/settings.js
 n
 n
 flows.json
@@ -64,7 +65,7 @@ mkdir -p "$NODE_RED_DIR"
 
 # Wait for Node-RED installation to complete before proceeding
 echo "Waiting for Node-RED installation to finalize..."
-sleep 10  # Allow some time for setup completion
+sleep 3  # Allow some time for setup completion
 
 # Enable Node-RED service
 echo "Enabling Node-RED service..."
