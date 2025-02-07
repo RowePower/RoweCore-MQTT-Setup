@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Ensure the script is executable (useful when pulled from a repository)
+# Ensure the script is executable
 chmod +x "$0"
 
 # Function to set a new hostname
@@ -9,10 +9,10 @@ set_hostname() {
     if [[ "$CHANGE_HOSTNAME" =~ ^[Yy]$ ]]; then
         read -p "Enter a new device name: " NEW_HOSTNAME
 
-        # Validate hostname (only allows letters, numbers, and hyphens, but no spaces)
+        # Validate hostname (letters, numbers, hyphens only)
         if [[ ! "$NEW_HOSTNAME" =~ ^[a-zA-Z0-9-]+$ ]]; then
             echo "Invalid device name. Only letters, numbers, and hyphens are allowed. Try again."
-            set_hostname  # Re-run the function if invalid
+            set_hostname  # Retry if invalid
         else
             echo "Setting new device name: $NEW_HOSTNAME"
             sudo hostnamectl set-hostname "$NEW_HOSTNAME"
@@ -44,32 +44,30 @@ sudo apt-get install -y grafana
 sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
 
-# Install Node-RED with predefined responses (bypasses interactive prompts)
+# Install Node-RED (ensuring it completes)
 echo "Installing Node-RED..."
-bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered) <<EOF
-n
-n
-flows.json
+bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
 
-default
-monaco
-y
-EOF
+# Ensure Node-RED directory exists
+NODE_RED_DIR="$(eval echo ~$SUDO_USER)/.node-red"
+mkdir -p "$NODE_RED_DIR"
 
-# Enable Node-RED to start on boot
+# Wait for Node-RED installation to complete before proceeding
+echo "Waiting for Node-RED installation to finalize..."
+sleep 10  # Allow some time for setup completion
+
+# Enable Node-RED service
 echo "Enabling Node-RED service..."
 sudo systemctl enable nodered.service
+sudo systemctl start nodered.service
 
 # Install required Node-RED modules
 echo "Installing Node-RED modules..."
-cd ~/.node-red
+cd "$NODE_RED_DIR" || exit
 
-# Existing modules
 npm install node-red-contrib-os@0.2.1
 npm install node-red-dashboard@3.6.5
 npm install node-red-contrib-modbus@5.43.0
-
-# Additional modules
 npm install @flowfuse/node-red-dashboard@1.22.0
 npm install @flowfuse/node-red-dashboard-2-ui-iframe@1.1.0
 npm install @flowfuse/node-red-dashboard-2-ui-led@1.1.0
@@ -77,8 +75,7 @@ npm install @omrid01/node-red-dashboard-2-table-tabulator@0.6.3
 
 # Overwrite Node-RED flows.json from repository
 echo "Updating Node-RED flows..."
-NODE_RED_DIR="/home/$USER/.node-red"
-REPO_FLOWS_FILE="/home/admin/RoweCore-MQTT-Setup/flows.json"  # Keeping your original path
+REPO_FLOWS_FILE="/home/admin/RoweCore-MQTT-Setup/flows.json"  # Keeping original path
 
 if [ -f "$REPO_FLOWS_FILE" ]; then
     if [ -f "$NODE_RED_DIR/flows.json" ]; then
@@ -99,13 +96,14 @@ sudo systemctl restart nodered.service
 # Prompt for a new hostname
 set_hostname
 
-# Display message and delay before reboot
-echo -e "\nInstallation complete! The device will reboot in 10 seconds..."
+# Countdown before reboot to allow users to read messages
+echo -e "\nInstallation complete! The device will reboot in:"
 for i in {10..1}; do
-    echo -ne "Rebooting in $i seconds...\r"
+    printf "Rebooting in %d seconds...\r" "$i"
     sleep 1
 done
 echo -e "\nRebooting now..."
 
 # Reboot the system
 sudo reboot
+
