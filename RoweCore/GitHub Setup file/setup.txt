@@ -1,10 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
-# Ensure the script is executable (useful when pulled from a repository)
-chmod +x "$0"
-
 # Function to set a new hostname
 set_hostname() {
     read -p "Do you want to change the hostname? (y/n): " CHANGE_HOSTNAME
@@ -68,27 +63,6 @@ npm install @flowfuse/node-red-dashboard@1.22.0
 npm install @flowfuse/node-red-dashboard-2-ui-iframe@1.1.0
 npm install @flowfuse/node-red-dashboard-2-ui-led@1.1.0
 npm install @omrid01/node-red-dashboard-2-table-tabulator@0.6.3
-
-# Overwrite Node-RED flows.json
-echo "Updating Node-RED flows..."
-NODE_RED_DIR="/home/$USER/.node-red"
-REPO_FLOWS_FILE="$(pwd)/flows.json"
-
-if [ -f "$REPO_FLOWS_FILE" ]; then
-    if [ -f "$NODE_RED_DIR/flows.json" ]; then
-        echo "Backing up existing flows.json to flows_backup.json..."
-        mv "$NODE_RED_DIR/flows.json" "$NODE_RED_DIR/flows_backup.json"
-    fi
-
-    echo "Copying new flows.json..."
-    cp "$REPO_FLOWS_FILE" "$NODE_RED_DIR/flows.json"
-else
-    echo "Error: flows.json not found in the repository."
-fi
-
-# Restart Node-RED to apply changes
-echo "Restarting Node-RED..."
-sudo systemctl restart nodered.service
 
 # Prompt for a new hostname
 set_hostname

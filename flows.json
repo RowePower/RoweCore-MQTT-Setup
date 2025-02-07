@@ -1,0 +1,2351 @@
+[
+    {
+        "id": "fc9c2f1e7b907c9a",
+        "type": "tab",
+        "label": "Device Info",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "39d2c7aea4f81417",
+        "type": "tab",
+        "label": "MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f0fb0bd6b5fcfabc",
+        "type": "tab",
+        "label": "Network Config",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c87e73927481cb24",
+        "type": "tab",
+        "label": "Modbus Reads",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3763e3b111ee67d0",
+        "type": "mqtt-broker",
+        "name": "TestDacServer",
+        "broker": "192.168.1.43",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "TestDac3/Status",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "TestDac3 has Connected",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "TestDac3/Status",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "TestDac3 has Disconnected ",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "050dd6bc71020b90",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "cc23215c49fa7f71",
+        "type": "ui_tab",
+        "name": "Device Info",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "fe32b5dea012ee3e",
+        "type": "ui_tab",
+        "name": "Network Config",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "92253b61eb08b0dc",
+        "type": "ui_group",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Eth Port ",
+        "tab": "fe32b5dea012ee3e",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "36560999b7d86f0c",
+        "type": "ui_group",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Wifi ",
+        "tab": "fe32b5dea012ee3e",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f3a909aaf33ffc6b",
+        "type": "ui_group",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Actions",
+        "tab": "fe32b5dea012ee3e",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "7a880b53170c6bf7",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "fe32b5dea012ee3e",
+        "order": 2,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4fad382cc333fc8d",
+        "type": "modbus-client",
+        "name": "",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "0.0.0.0",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "cbcdd1ed9c84e5fa",
+        "type": "inject",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "c43ffaaf56257baf",
+                "6933a8b1ed1b7762",
+                "d437f76b67b0fc1f",
+                "08e3cdc847d57da0",
+                "0d15410e2cd0742c",
+                "5241dc728cf23b7d"
+            ]
+        ]
+    },
+    {
+        "id": "f512e6b1bf6808a0",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 12",
+        "func": "if (msg.payload && typeof msg.payload.hostname === 'string') {\n    // Set the flow context variable with the hostname\n    flow.set('HostName', msg.payload.hostname);\n\n    // Assign the hostname to msg.payload\n    msg.payload = msg.payload.hostname;\n\n    return msg;\n} else {\n    // Handle cases where hostname is missing or not a string\n    node.error(\"msg.payload.hostname is not available or not a string\", msg);\n    return null; // Stops the flow if there's an error\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 120,
+        "wires": [
+            [
+                "c317661f446cbfb3",
+                "b52198a71641f9b5"
+            ]
+        ]
+    },
+    {
+        "id": "5a22cbd8eb91b412",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 14",
+        "func": "// Read hostname from flow context\nvar hostName = flow.get('HostName') || \"UnknownDevice\";\n\n// Access the value at msg.payload.uptime\nlet uptimeInSeconds = msg.payload.uptime;\n\n// Validate the value\nif (typeof uptimeInSeconds !== 'number' || uptimeInSeconds < 0) {\n    node.error(\"Invalid value: uptime should be a positive number.\", msg);\n    return null; // Stops the flow if the value is invalid\n}\n\n// Conversion constants\nconst SECONDS_IN_A_MINUTE = 60;\nconst SECONDS_IN_AN_HOUR = 3600;\nconst SECONDS_IN_A_DAY = 86400;\nconst SECONDS_IN_A_MONTH = 2592000; // Approximate month duration (30 days)\nconst SECONDS_IN_A_YEAR = 31536000; // Approximate year duration (365 days)\n\n// Calculate each component\nlet years = Math.floor(uptimeInSeconds / SECONDS_IN_A_YEAR);\nuptimeInSeconds %= SECONDS_IN_A_YEAR;\n\nlet months = Math.floor(uptimeInSeconds / SECONDS_IN_A_MONTH);\nuptimeInSeconds %= SECONDS_IN_A_MONTH;\n\nlet days = Math.floor(uptimeInSeconds / SECONDS_IN_A_DAY);\nuptimeInSeconds %= SECONDS_IN_A_DAY;\n\nlet hours = Math.floor(uptimeInSeconds / SECONDS_IN_AN_HOUR);\nuptimeInSeconds %= SECONDS_IN_AN_HOUR;\n\nlet minutes = Math.floor(uptimeInSeconds / SECONDS_IN_A_MINUTE);\nuptimeInSeconds %= SECONDS_IN_A_MINUTE;\n\n// Floor the remaining seconds to ensure there is no decimal point\nlet seconds = Math.floor(uptimeInSeconds);\n\n// Format the result to a shortened format\nlet formattedUptime = `${years > 0 ? years + \"Yrs \" : \"\"}${months > 0 ? months + \"Mos \" : \"\"}${days > 0 ? days + \"Days \" : \"\"}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`.trim();\n\n// Assign the formatted uptime to msg.payload\nmsg.payload = formattedUptime;\n\n// Set the flow context variable with the formatted uptime\nflow.set('UpTime', formattedUptime);\n\n// Set the MQTT topic dynamically based on the hostname\nmsg.topic = `${hostName}/Status/Uptime`;\n\n// Return the message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 160,
+        "wires": [
+            [
+                "488b49ae33ec6799",
+                "284ec2ee8daebe90"
+            ]
+        ]
+    },
+    {
+        "id": "650af29c82bb20a2",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 15",
+        "func": "// Access the array at msg.payload.loadavg\nlet loadAvg = msg.payload.loadavg;\n\n// Validate that loadAvg is an array of length 3\nif (!Array.isArray(loadAvg) || loadAvg.length !== 3) {\n    node.error(\"Invalid value: loadavg should be an array of three numbers.\", msg);\n    return null; // Stops the flow if the value is invalid\n}\n\n// Format each load average value as a percentage string with two decimal places\nlet CPUload1 = loadAvg[0].toFixed(2) + '%';\nlet CPUload2 = loadAvg[1].toFixed(2) + '%';\nlet CPUload3 = loadAvg[2].toFixed(2) + '%';\n\n// Set the flow context variables with each load average value\nflow.set('CPULoad1', CPUload1);\nflow.set('CPULoad2', CPUload2);\nflow.set('CPULoad3', CPUload3);\n\n// Assign the formatted values to the message object\nmsg.payload = {\n    CPUload1: CPUload1,\n    CPUload2: CPUload2,\n    CPUload3: CPUload3\n};\n\n// Return the modified message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 200,
+        "wires": [
+            [
+                "9124ea9f268f4147",
+                "1906e57f6f35a3c3",
+                "afa0bd7c6430a732"
+            ]
+        ]
+    },
+    {
+        "id": "e7190733b0136377",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 16",
+        "func": "// Access the value at msg.payload.memusage\nlet memUsage = msg.payload.memusage;\n\n// Validate the value\nif (typeof memUsage !== 'number' || memUsage < 0) {\n    node.error(\"Invalid value: memusage should be a positive number.\", msg);\n    return null; // Stops the flow if the value is invalid\n}\n\n// Format the memory usage value as a percentage string with two decimal places\nlet formattedMemUsage = memUsage.toFixed(2) + '%';\n\n// Set the flow context variable with the formatted memory usage\nflow.set('MemUsage', formattedMemUsage);\n\n// Assign the formatted value to msg.payload\nmsg.payload = formattedMemUsage;\n\n// Return the modified message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 240,
+        "wires": [
+            [
+                "3c85deb12be19e19"
+            ]
+        ]
+    },
+    {
+        "id": "a5873017f35d88dc",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 17",
+        "func": "// Access the wlan0 address\nlet wlan0Address;\n\ntry {\n    wlan0Address = msg.payload.networkInterfaces.wlan0[0].address;\n} catch (error) {\n    node.warn(\"wlan0 address path is invalid or does not exist.\");\n    wlan0Address = \"N/A\";\n}\n\n// Set the flow context variable with the wlan0 address\nflow.set('WifiIpAddress', wlan0Address);\n\n// Create a new message payload with the wlan0 address\nmsg.payload = {\n    wlan0Address: wlan0Address\n};\n\n// Return the modified message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 280,
+        "wires": [
+            [
+                "0c51f821aee44667"
+            ]
+        ]
+    },
+    {
+        "id": "284ec2ee8daebe90",
+        "type": "link out",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "UpTime_Tx",
+        "mode": "link",
+        "links": [
+            "bdf014e52e967049"
+        ],
+        "x": 1025,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "949cabf34e40b4a9",
+        "type": "link in",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "link in 2",
+        "links": [],
+        "x": 595,
+        "y": 460,
+        "wires": [
+            [
+                "abceed5e782e06f1"
+            ]
+        ]
+    },
+    {
+        "id": "abceed5e782e06f1",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 18",
+        "func": "// Read variables from flow context\nvar hostName = flow.get('HostName') || \"N/A\";\nvar wifiIpAddress = flow.get('WifiIpAddress') || \"N/A\";\nvar ethIpAddress = flow.get('EthIpAddress') || \"N/A\";\nvar upTime = flow.get('UpTime') || \"N/A\";\nvar memUsage = flow.get('MemUsage') || \"N/A\";\nvar cpuLoad1 = flow.get('CPULoad1') || \"N/A\";\nvar cpuLoad2 = flow.get('CPULoad2') || \"N/A\";\nvar cpuLoad3 = flow.get('CPULoad3') || \"N/A\";\nvar cpuTempF = flow.get('CPU_Temp_F') || \"N/A\";\nvar cpuTempC = flow.get('CPU_Temp_C') || \"N/A\";\n\n// Construct MQTT topic dynamically based on the hostname\nvar topic = hostName !== \"N/A\" ? `${hostName}/Status/Details` : \"UnknownDevice/Status/Details\";\n\n// Create an array with one object (one row)\nvar dataArray = [\n    {\n        \"HostName\": hostName,\n        \"Wifi IP Address\": wifiIpAddress,\n        \"Eth IP Address\": ethIpAddress,\n        \"Up Time\": upTime,\n        \"Memory Usage\": memUsage,\n        \"CPU Load 1\": cpuLoad1,\n        \"CPU Load 2\": cpuLoad2,\n        \"CPU Load 3\": cpuLoad3,\n        \"CPU Temp F\": cpuTempF,\n        \"CPU Temp C\": cpuTempC\n    }\n];\n\n// Assign the array to msg.payload\nmsg.payload = dataArray;\n\n// Set the MQTT topic dynamically\nmsg.topic = topic;\n\n// Return the message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 460,
+        "wires": [
+            [
+                "be203c06505427bf"
+            ]
+        ]
+    },
+    {
+        "id": "be203c06505427bf",
+        "type": "link out",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "DataSync_Tx",
+        "mode": "link",
+        "links": [],
+        "x": 825,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "5241dc728cf23b7d",
+        "type": "exec",
+        "z": "fc9c2f1e7b907c9a",
+        "command": "vcgencmd measure_temp",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 430,
+        "y": 340,
+        "wires": [
+            [
+                "33c20f9e39f00e07"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "33c20f9e39f00e07",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "Set Flow CPU Temp",
+        "func": "// 1. Extract the temperature text from the payload (e.g. \"temp=60.3'C\")\nlet tempString = msg.payload;\n\n// 2. Use a regex to capture the numeric part\nlet matches = tempString.match(/temp=([\\d\\.]+)'C/);\n\nif (matches && matches[1]) {\n    // 3. Parse as float\n    let celsiusValue = parseFloat(matches[1]);\n\n    // 4. Convert to Fahrenheit\n    let fahrenheitValue = (celsiusValue * 9 / 5) + 32;\n\n    // 5. Limit to 1 decimal place\n    celsiusValue = parseFloat(celsiusValue.toFixed(1));\n    fahrenheitValue = parseFloat(fahrenheitValue.toFixed(1));\n\n    // 6. Store in flow variables with dimensions\n    flow.set(\"CPU_Temp_C\", `${celsiusValue}°C`);\n    flow.set(\"CPU_Temp_F\", `${fahrenheitValue}°F`);\n\n    // 7. Also update the payload to Fahrenheit with dimension\n    msg.payload = `${fahrenheitValue}°F`;\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c43ffaaf56257baf",
+        "type": "OS",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "f512e6b1bf6808a0"
+            ]
+        ]
+    },
+    {
+        "id": "6933a8b1ed1b7762",
+        "type": "Uptime",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "5a22cbd8eb91b412"
+            ]
+        ]
+    },
+    {
+        "id": "d437f76b67b0fc1f",
+        "type": "Loadavg",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "650af29c82bb20a2"
+            ]
+        ]
+    },
+    {
+        "id": "08e3cdc847d57da0",
+        "type": "Memory",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "scale": "Byte",
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "e7190733b0136377"
+            ]
+        ]
+    },
+    {
+        "id": "0d15410e2cd0742c",
+        "type": "NetworkIntf",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "x": 390,
+        "y": 280,
+        "wires": [
+            [
+                "a5873017f35d88dc",
+                "4a4d39fa20eeb88c"
+            ]
+        ]
+    },
+    {
+        "id": "c317661f446cbfb3",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Hostname",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 910,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "488b49ae33ec6799",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Uptime",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 900,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9124ea9f268f4147",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "CPU1 Load AVG",
+        "format": "{{msg.payload.CPUload1}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3c85deb12be19e19",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Memory Usage",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "0c51f821aee44667",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "WiFi Ip Address",
+        "format": "{{msg.payload.wlan0Address}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "1906e57f6f35a3c3",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "CPU2 Load AVG",
+        "format": "{{msg.payload.CPUload2}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "afa0bd7c6430a732",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "CPU3 Load AVG",
+        "format": "{{msg.payload.CPUload3}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b52198a71641f9b5",
+        "type": "link out",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "Host Name",
+        "mode": "link",
+        "links": [],
+        "x": 775,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "4a4d39fa20eeb88c",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 2 ",
+        "func": "// Access the eth0 address\nlet eth0Address;\n\ntry {\n    eth0Address = msg.payload.networkInterfaces.eth0[0].address;\n} catch (error) {\n    //node.warn(\"eth0 address path is invalid or does not exist.\");\n    eth0Address = \"N/A\";\n}\n\n// Set the flow context variable with the eth0 address\nflow.set('EthIpAddress', eth0Address);\n\n// Create a new message payload with the eth0 address\nmsg.payload = {\n    eth0Address: eth0Address\n};\n\n// Return the modified message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 320,
+        "wires": [
+            [
+                "a18d619c362e5767",
+                "2fa6264eced664d1"
+            ]
+        ]
+    },
+    {
+        "id": "920673c164e6125e",
+        "type": "comment",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "Device Information ",
+        "info": "/**\n * This flow runs once every second, triggered by a timestamp node.\n * \n * - Retrieves system information using various commands and nodes.\n * - Parses and stores the data as flow variables for use in other parts of the flow.\n * - Updates UI elements on the dashboard to display real-time system status.\n * \n * **Collected System Information:**\n *  - **Hostname**: The device's network identifier.\n *  - **Uptime**: Time since the last reboot.\n *  - **CPU Load Averages**: 1-minute, 5-minute, and 15-minute averages of CPU usage.\n *  - **System Memory Usage**: Current memory utilization.\n *  - **Network Information**: \n *    - Wi-Fi IP Address\n *    - Ethernet IP Address\n *  - **CPU Temperature**:\n *    - Retrieved using `vcgencmd measure_temp`.\n *    - Converted from Celsius to Fahrenheit before being stored in flow context.\n * \n * The collected data is continuously refreshed and displayed on the dashboard for real-time monitoring.\n */\n",
+        "x": 170,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b2d978288c429599",
+        "type": "comment",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "MQTT Publish Device Information",
+        "info": "/**\n * This flow is triggered when an incoming MQTT data sync message is received.\n * \n * - Retrieves system status values from flow context variables, including:\n *   - **HostName**, **Wi-Fi IP Address**, **Ethernet IP Address**, **Up Time**\n *   - **Memory Usage**, **CPU Load (1m, 5m, 15m averages)**\n *   - **CPU Temperature (°F and °C)**\n * - Constructs an MQTT topic dynamically based on the device's hostname.\n *   - If no hostname is available, defaults to `\"UnknownDevice/Status/Details\"`.\n * - Formats the data into a structured JSON array containing a single object.\n * - Assigns the formatted data to `msg.payload`.\n * - Publishes the message to the dynamically generated MQTT topic for external monitoring or synchronization.\n */\n",
+        "x": 710,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "a18d619c362e5767",
+        "type": "debug",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "2fa6264eced664d1",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Eth Ip Address ",
+        "format": "{{msg.payload.eth0Address}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "60fa39c9762b987c",
+        "type": "mqtt out",
+        "z": "39d2c7aea4f81417",
+        "name": "\"HostName\"/Status/Uptime",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3763e3b111ee67d0",
+        "x": 220,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "bdf014e52e967049",
+        "type": "link in",
+        "z": "39d2c7aea4f81417",
+        "name": "Uptime in",
+        "links": [
+            "284ec2ee8daebe90"
+        ],
+        "x": 55,
+        "y": 200,
+        "wires": [
+            [
+                "60fa39c9762b987c"
+            ]
+        ]
+    },
+    {
+        "id": "a55ac412545eff0f",
+        "type": "mqtt in",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "topic": "Data/Sync",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3763e3b111ee67d0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 140,
+        "wires": [
+            [
+                "d2a8676816303ca6",
+                "7b5c4e1e8ee07970",
+                "0760f5884e6aeda5"
+            ]
+        ]
+    },
+    {
+        "id": "cdac7990e49193ed",
+        "type": "mqtt out",
+        "z": "39d2c7aea4f81417",
+        "name": "\"HostName\"/Status/Details ",
+        "topic": "",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3763e3b111ee67d0",
+        "x": 220,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d2a8676816303ca6",
+        "type": "link out",
+        "z": "39d2c7aea4f81417",
+        "name": "DataSync_Rx",
+        "mode": "link",
+        "links": [
+            "949cabf34e40b4a9"
+        ],
+        "x": 235,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b8c1466b688d5d2f",
+        "type": "link in",
+        "z": "39d2c7aea4f81417",
+        "name": "Details In",
+        "links": [
+            "be203c06505427bf"
+        ],
+        "x": 55,
+        "y": 260,
+        "wires": [
+            [
+                "cdac7990e49193ed"
+            ]
+        ]
+    },
+    {
+        "id": "f59ce24627f93725",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "function 22",
+        "func": "if (msg.payload && typeof msg.payload.hostname === 'string') {\n    // Set the flow context variable with the hostname\n    flow.set('hostName', msg.payload.hostname);\n\n    // Assign the hostname to msg.payload\n    msg.payload = msg.payload.hostname;\n\n    return msg;\n} else {\n    // Handle cases where hostname is missing or not a string\n    node.error(\"msg.payload.hostname is not available or not a string\", msg);\n    return null; // Stops the flow if there's an error\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa26bc7ad5694521",
+        "type": "inject",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "fa25cba3f4280d30"
+            ]
+        ]
+    },
+    {
+        "id": "9387d5c9b3333244",
+        "type": "mqtt out",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3763e3b111ee67d0",
+        "x": 490,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "0760f5884e6aeda5",
+        "type": "debug",
+        "z": "39d2c7aea4f81417",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "7b5c4e1e8ee07970",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "Publish global values",
+        "func": "// Step 1: Get all global context keys\nvar globalKeys = global.keys();\n\nif (!globalKeys || globalKeys.length === 0) {\n    return null; // Exit if no global context variables are found\n}\n\n// Step 2: Get the hostname from flow context\nvar hostName = flow.get('hostName') || 'defaultHost'; // Use 'defaultHost' if the hostName is not set\n\n// Step 3: Iterate over each global context key\nvar mqttMessages = [];\nglobalKeys.forEach(function(key) {\n    var globalValue = global.get(key);\n\n    // Step 4: Check if the global value has a 'value' property\n    if (globalValue && typeof globalValue === 'object' && globalValue.hasOwnProperty('value')) {\n        // Construct the topic using hostName and the key\n        var individualTopic = `${hostName}/${key}/value`;\n\n        // Add the message to the mqttMessages array\n        mqttMessages.push({\n            topic: individualTopic,\n            payload: globalValue.value // The actual measured value\n        });\n    }\n});\n\n// Step 5: Output the messages\n// If there are multiple messages, use node.send to send them as individual messages\nmqttMessages.forEach(function(message) {\n    node.send({ topic: message.topic, payload: message.payload });\n});\n\nreturn null; // Since we're using node.send, we return null to avoid sending an additional message\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "9387d5c9b3333244"
+            ]
+        ]
+    },
+    {
+        "id": "fa25cba3f4280d30",
+        "type": "OS",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "f59ce24627f93725"
+            ]
+        ]
+    },
+    {
+        "id": "fb9ad6cf62660818",
+        "type": "comment",
+        "z": "39d2c7aea4f81417",
+        "name": "Publish global variables",
+        "info": "/**\n * This flow manages MQTT communication for system status updates and data synchronization.\n * \n * **Key Functions:**\n * \n * 1. **Publishing Uptime Status:**\n *    - Listens for incoming uptime updates via a link node.\n *    - Publishes uptime data to the MQTT topic: `\"HostName\"/Status/Uptime`.\n * \n * 2. **Receiving MQTT Data Sync Message:**\n *    - Subscribes to `Data/Sync` MQTT topic.\n *    - When a sync message is received, it triggers:\n *      - Parsing of the received data.\n *      - Processing system-wide global values for MQTT publishing.\n *      - Debugging/logging of incoming messages.\n * \n * 3. **Publishing System Status Details:**\n *    - Listens for detailed system data via a link node.\n *    - Publishes system details (e.g., hostname, uptime, CPU load, memory usage) to the MQTT topic: `\"HostName\"/Status/Details`.\n * \n * 4. **Handling Global Context Variables for MQTT:**\n *    - Retrieves all global context variables.\n *    - Constructs MQTT topics dynamically using the `hostName` value.\n *    - Sends each global variable’s value to a corresponding MQTT topic formatted as:  \n *      `\"HostName\"/<Variable>/value`.\n * \n * 5. **Hostname Handling:**\n *    - Retrieves the hostname using an OS command node.\n *    - Stores the hostname in the flow context for consistent MQTT topic formatting.\n * \n * 6. **MQTT Broker Configuration:**\n *    - Uses an MQTT broker at `192.168.1.43` with topic-based connection status messages.\n *    - Publishes `\"TestDac3 has Connected\"` on connection and `\"TestDac3 has Disconnected\"` when the connection drops.\n * \n * **Overall Purpose:**\n * - This flow ensures that system information is synchronized across the network via MQTT.\n * - It dynamically updates and publishes critical system status parameters for real-time monitoring.\n */\n",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "6d2c4b5e549990f3",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Assemble Config & Write",
+        "func": "// Helper function to validate IP address format\nfunction isValidIP(ip) {\n    const octets = ip.split('.');\n    if (octets.length !== 4) return false;\n    return octets.every(octet => {\n        const n = parseInt(octet, 10);\n        return n >= 0 && n <= 255 && octet === n.toString();\n    });\n}\n\n// Helper function to validate subnet mask format\nfunction isValidSubnet(subnet) {\n    const validMasks = [\n        \"255.255.255.255\", \"255.255.255.254\", \"255.255.255.252\",\n        \"255.255.255.248\", \"255.255.255.240\", \"255.255.255.224\",\n        \"255.255.255.192\", \"255.255.255.128\", \"255.255.255.0\",\n        \"255.255.254.0\", \"255.255.252.0\", \"255.255.248.0\",\n        \"255.255.240.0\", \"255.255.224.0\", \"255.255.192.0\",\n        \"255.255.128.0\", \"255.255.0.0\", \"255.254.0.0\",\n        \"255.252.0.0\", \"255.248.0.0\", \"255.240.0.0\",\n        \"255.224.0.0\", \"255.192.0.0\", \"255.128.0.0\",\n        \"255.0.0.0\", \"254.0.0.0\", \"252.0.0.0\",\n        \"248.0.0.0\", \"240.0.0.0\", \"224.0.0.0\",\n        \"192.0.0.0\", \"128.0.0.0\", \"0.0.0.0\"\n    ];\n    return validMasks.includes(subnet);\n}\n\n// Gather stored variables for eth0\nvar eth0_dhcp = flow.get('eth0_dhcp') || false;\nvar eth0_ip = flow.get('eth0_ip') || '';\nvar eth0_subnet = flow.get('eth0_subnet') || '';\nvar eth0_gateway = flow.get('eth0_gateway') || '';\nvar eth0_dnsgateway = flow.get('eth0_dnsgateway') || '';\n\n// Gather stored variables for wifi\nvar wifi_dhcp = flow.get('wifi_dhcp') || false;\nvar wifi_ip = flow.get('wifi_ip') || '';\nvar wifi_subnet = flow.get('wifi_subnet') || '';\nvar wifi_gateway = flow.get('wifi_gateway') || '';\nvar wifi_dnsgateway = flow.get('wifi_dnsgateway') || '';\n\n// Validate inputs and collect errors\nlet errors = [];\n\n// Validate eth0\nif (!isValidIP(eth0_ip)) errors.push(`eth0: Invalid IP address: ${eth0_ip}`);\nif (!isValidSubnet(eth0_subnet)) errors.push(`eth0: Invalid Subnet Mask: ${eth0_subnet}`);\nif (!isValidIP(eth0_gateway)) errors.push(`eth0: Invalid Default Gateway: ${eth0_gateway}`);\nif (!isValidIP(eth0_dnsgateway)) errors.push(`eth0: Invalid DNS Gateway: ${eth0_dnsgateway}`);\n\n// Validate wifi\nif (!isValidIP(wifi_ip)) errors.push(`wifi: Invalid IP address: ${wifi_ip}`);\nif (!isValidSubnet(wifi_subnet)) errors.push(`wifi: Invalid Subnet Mask: ${wifi_subnet}`);\nif (!isValidIP(wifi_gateway)) errors.push(`wifi: Invalid Default Gateway: ${wifi_gateway}`);\nif (!isValidIP(wifi_dnsgateway)) errors.push(`wifi: Invalid DNS Gateway: ${wifi_dnsgateway}`);\n\n// Check for errors\nif (errors.length > 0) {\n    // Output errors to the second output\n    return [null, { payload: errors.join(', ') }];\n}\n\n// Assemble configuration object\nvar config = {\n    \"eth0\": {\n        \"dhcp\": eth0_dhcp,\n        \"ip\": eth0_ip,\n        \"subnet\": eth0_subnet,\n        \"gateway\": eth0_gateway,\n        \"dnsgateway\": eth0_dnsgateway\n    },\n    \"wifi\": {\n        \"dhcp\": wifi_dhcp,\n        \"ip\": wifi_ip,\n        \"subnet\": wifi_subnet,\n        \"gateway\": wifi_gateway,\n        \"dnsgateway\": wifi_dnsgateway\n    }\n};\n\n// Convert configuration object to JSON for output\nmsg.payload = JSON.stringify(config, null, 2);\nreturn [msg, null];\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 640,
+        "wires": [
+            [
+                "f0957c64c9283049",
+                "fdec4cd3b794d842"
+            ]
+        ]
+    },
+    {
+        "id": "abeab9f2fec9e5bb",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Store to flow vars",
+        "func": "flow.set(msg.topic, msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f0957c64c9283049",
+        "type": "file",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Write Config",
+        "filename": "/home/orangepi/ConfigFiles/netconfig.json",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 730,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae2b2108ffed2c48",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo reboot now",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Reboot",
+        "x": 420,
+        "y": 880,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "52590aa7fe971e9c",
+        "type": "inject",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "On Startup",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 460,
+        "wires": [
+            [
+                "7d5ba20a500ef851"
+            ]
+        ]
+    },
+    {
+        "id": "7d5ba20a500ef851",
+        "type": "file in",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Read Config",
+        "filename": "/home/admin/ConfigFiles/netconfig.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "041afcbfaad7e32a"
+            ]
+        ]
+    },
+    {
+        "id": "041afcbfaad7e32a",
+        "type": "json",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Parse JSON",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 460,
+        "wires": [
+            [
+                "ed19589e3ba5b307"
+            ]
+        ]
+    },
+    {
+        "id": "ed19589e3ba5b307",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Set Flow Vars from Config",
+        "func": "if (msg.payload) {\n    // Set flow variables for eth0\n    flow.set('eth0_dhcp', msg.payload.eth0.dhcp);\n    flow.set('eth0_ip', msg.payload.eth0.ip);\n    flow.set('eth0_subnet', msg.payload.eth0.subnet);\n    flow.set('eth0_gateway', msg.payload.eth0.gateway);\n    flow.set('eth0_dnsgateway', msg.payload.eth0.dnsgateway);\n\n    // Set flow variables for wifi\n    flow.set('wifi_dhcp', msg.payload.wifi.dhcp);\n    flow.set('wifi_ip', msg.payload.wifi.ip);\n    flow.set('wifi_subnet', msg.payload.wifi.subnet);\n    flow.set('wifi_gateway', msg.payload.wifi.gateway);\n    flow.set('wifi_dnsgateway', msg.payload.wifi.dnsgateway);\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 460,
+        "wires": [
+            [
+                "b392ed6791fb8094"
+            ]
+        ]
+    },
+    {
+        "id": "b392ed6791fb8094",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Update UI with Loaded Vars",
+        "func": "// After loading from file, update UI elements\nreturn [\n {topic:'eth0_dhcp', payload:flow.get('eth0_dhcp')},\n {topic:'eth0_ip', payload:flow.get('eth0_ip')},\n {topic:'eth0_subnet', payload:flow.get('eth0_subnet')},\n {topic:'eth0_dnsgateway', payload:flow.get('eth0_dnsgateway')},\n {topic:'eth0_gateway', payload:flow.get('eth0_gateway')},\n {topic:'wifi_dhcp', payload:flow.get('wifi_dhcp')},\n {topic:'wifi_ip', payload:flow.get('wifi_ip')},\n {topic:'wifi_subnet', payload:flow.get('wifi_subnet')},\n {topic:'wifi_gateway', payload:flow.get('wifi_gateway')},\n {topic:'wifi_dnsgateway', payload:flow.get('wifi_dnsgateway')}\n];",
+        "outputs": 10,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 460,
+        "wires": [
+            [
+                "c6af4fbea7e8a228"
+            ],
+            [
+                "e80f8afa73387e28"
+            ],
+            [
+                "7bd6df7356196650"
+            ],
+            [
+                "4be8fc3bfdbd2863"
+            ],
+            [
+                "dba7ce3a898f7209"
+            ],
+            [
+                "5e3863ba9afa2ba4"
+            ],
+            [
+                "8ff08b5cdcd90757"
+            ],
+            [
+                "cd3c2fa612856ca0"
+            ],
+            [
+                "a148314ebd1b09f5"
+            ],
+            [
+                "43dd600f1e328815"
+            ]
+        ]
+    },
+    {
+        "id": "8f528c766aa6908e",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "function 18",
+        "func": "// Fixed connection name\nconst connectionName = 'Carl 5.0'; // Ensure this matches the exact profile name\n\n// Read flow variables with nullish coalescing for wifi_dhcp\nconst wifi_dhcp = flow.get('wifi_dhcp') ?? true;\n\n// Read other flow variables\nconst wifi_gateway = flow.get('wifi_gateway') || '192.168.1.1'; // Default gateway\nconst wifi_dnsgateway = flow.get('wifi_dnsgateway') || '4.4.4.4'; // Default DNS\nconst wifi_ip = flow.get('wifi_ip') || '192.168.1.135'; // Default IP\nconst wifi_subnet = flow.get('wifi_subnet') || '255.255.255.0'; // Default Subnet Mask\n\n// Debugging outputs\n//node.warn(`wifi_dhcp: ${wifi_dhcp}`);\n//node.warn(`wifi_gateway: ${wifi_gateway}`);\n//node.warn(`wifi_dnsgateway: ${wifi_dnsgateway}`);\n//node.warn(`wifi_ip: ${wifi_ip}`);\n//node.warn(`wifi_subnet: ${wifi_subnet}`);\n\n// Function to convert subnet mask to CIDR\nfunction subnetToCIDR(subnet) {\n    return subnet.split('.').reduce((acc, octet) => {\n        const binary = parseInt(octet, 10).toString(2).padStart(8, '0');\n        return acc + (binary.match(/1/g) || []).length;\n    }, 0);\n}\n\nconst cidr = subnetToCIDR(wifi_subnet);\n//node.warn(`cidr: ${cidr}`);\n\n// Initialize command\nlet cmd = `sudo /usr/bin/nmcli con modify '${connectionName}' ipv4.method `;\n\nif (wifi_dhcp) {\n    // Enable DHCP: Set ipv4.method to auto and reset other IPv4 settings\n    cmd += `'auto' ipv4.addresses \"\" ipv4.gateway \"\" ipv4.dns \"\" connection.autoconnect-priority '0'`;\n} else {\n    // Set Manual Configuration: Set ipv4.method to manual and configure IP settings\n    cmd += `'manual' ipv4.addresses '${wifi_ip}/${cidr}' ipv4.gateway '${wifi_gateway}' ipv4.dns '${wifi_dnsgateway}' connection.autoconnect-priority '0'`;\n}\n\n// Log the command for debugging\n//node.warn(`Executing Command: ${cmd}`);\n\n// Pass the command to the Exec node\nmsg.payload = cmd;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 680,
+        "wires": [
+            [
+                "e82b1f2a137589bb"
+            ]
+        ]
+    },
+    {
+        "id": "fca5dc268c77e96c",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 850,
+        "y": 580,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "fb4184d87390f079",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo nmcli con down \"preconfigured\" && sudo nmcli con up \"preconfigured\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 630,
+        "y": 820,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c01262d09747f0a6",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "function 19",
+        "func": "// Fixed connection name\nconst connectionName = 'Wired connection 1'; // Ensure this matches the exact profile name\n\n// Read flow variables with nullish coalescing for eth0_dhcp\nconst eth0_dhcp = flow.get('eth0_dhcp') ?? true;\n\n// Read other flow variables\nconst eth0_gateway = flow.get('eth0_gateway') || '192.168.1.1'; // Default gateway\nconst eth0_dnsgateway = flow.get('eth0_dnsgateway') || '4.4.4.4'; // Default DNS\nconst eth0_ip = flow.get('eth0_ip') || '192.168.1.135'; // Default IP\nconst eth0_subnet = flow.get('eth0_subnet') || '255.255.255.0'; // Default Subnet Mask\n\n// Debugging outputs\n//node.warn(`eth0_dhcp: ${eth0_dhcp}`);\n//node.warn(`eth0_gateway: ${eth0_gateway}`);\n//node.warn(`eth0_dnsgateway: ${eth0_dnsgateway}`);\n//node.warn(`eth0_ip: ${eth0_ip}`);\n//node.warn(`eth0_subnet: ${eth0_subnet}`);\n\n// Function to convert subnet mask to CIDR\nfunction subnetToCIDR(subnet) {\n    return subnet.split('.').reduce((acc, octet) => {\n        const binary = parseInt(octet, 10).toString(2).padStart(8, '0');\n        return acc + (binary.match(/1/g) || []).length;\n    }, 0);\n}\n\nconst cidr = subnetToCIDR(eth0_subnet);\n//node.warn(`cidr: ${cidr}`);\n\n// Initialize command\nlet cmd = `sudo /usr/bin/nmcli con modify '${connectionName}' ipv4.method `;\n\nif (eth0_dhcp) {\n    // Enable DHCP: Set ipv4.method to auto and reset other IPv4 settings\n    cmd += `'auto' ipv4.addresses \"\" ipv4.gateway \"\" ipv4.dns \"\" connection.autoconnect-priority '0'`;\n} else {\n    // Set Manual Configuration: Set ipv4.method to manual and configure IP settings\n    cmd += `'manual' ipv4.addresses '${eth0_ip}/${cidr}' ipv4.gateway '${eth0_gateway}' ipv4.dns '${eth0_dnsgateway}' connection.autoconnect-priority '0'`;\n}\n\n// Log the command for debugging\n//node.warn(`Executing Command: ${cmd}`);\n\n// Pass the command to the Exec node\nmsg.payload = cmd;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 600,
+        "wires": [
+            [
+                "83e04b1182d38237"
+            ]
+        ]
+    },
+    {
+        "id": "2c5eb68777a0ff94",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo nmcli con down \"Wired connection 1\" && sudo nmcli con up \"Wired connection 1\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 660,
+        "y": 760,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "296336376cd27b93",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 850,
+        "y": 700,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ad09f130521fe327",
+        "type": "delay",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 640,
+        "wires": [
+            [
+                "6d2c4b5e549990f3",
+                "fdec4cd3b794d842"
+            ]
+        ]
+    },
+    {
+        "id": "83e04b1182d38237",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "function 20",
+        "func": "// Helper function to validate IP address format\nfunction isValidIP(ip) {\n    const octets = ip.split('.');\n    if (octets.length !== 4) return false;\n    return octets.every(octet => {\n        const n = parseInt(octet, 10);\n        return n >= 0 && n <= 255 && octet === n.toString();\n    });\n}\n\n// Helper function to validate subnet mask format\nfunction isValidSubnet(subnet) {\n    const validMasks = [\n        \"255.255.255.255\", \"255.255.255.254\", \"255.255.255.252\",\n        \"255.255.255.248\", \"255.255.255.240\", \"255.255.255.224\",\n        \"255.255.255.192\", \"255.255.255.128\", \"255.255.255.0\",\n        \"255.255.254.0\", \"255.255.252.0\", \"255.255.248.0\",\n        \"255.255.240.0\", \"255.255.224.0\", \"255.255.192.0\",\n        \"255.255.128.0\", \"255.255.0.0\", \"255.254.0.0\",\n        \"255.252.0.0\", \"255.248.0.0\", \"255.240.0.0\",\n        \"255.224.0.0\", \"255.192.0.0\", \"255.128.0.0\",\n        \"255.0.0.0\", \"254.0.0.0\", \"252.0.0.0\",\n        \"248.0.0.0\", \"240.0.0.0\", \"224.0.0.0\",\n        \"192.0.0.0\", \"128.0.0.0\", \"0.0.0.0\"\n    ];\n    return validMasks.includes(subnet);\n}\n\n// Gather flow variables\nconst eth0_dhcp = flow.get('eth0_dhcp') ?? true;\nconst eth0_ip = flow.get('eth0_ip') || '';\nconst eth0_subnet = flow.get('eth0_subnet') || '';\nconst eth0_gateway = flow.get('eth0_gateway') || '';\nconst eth0_dnsgateway = flow.get('eth0_dnsgateway') || '';\n\n// Prepare the command\nlet cmd = `sudo /usr/bin/nmcli con modify 'Wired connection 1' ipv4.method `;\n\nif (eth0_dhcp) {\n    // Enable DHCP: Set ipv4.method to auto\n    cmd += `'auto' ipv4.addresses \"\" ipv4.gateway \"\" ipv4.dns \"\" connection.autoconnect-priority '0'`;\n    return [{ payload: cmd }, null];\n} else {\n    // Validate inputs for manual configuration\n    let errors = [];\n    if (!isValidIP(eth0_ip)) errors.push(`Invalid IP address: ${eth0_ip}`);\n    if (!isValidSubnet(eth0_subnet)) errors.push(`Invalid Subnet Mask: ${eth0_subnet}`);\n    if (!isValidIP(eth0_gateway)) errors.push(`Invalid Default Gateway: ${eth0_gateway}`);\n    if (!isValidIP(eth0_dnsgateway)) errors.push(`Invalid DNS Gateway: ${eth0_dnsgateway}`);\n\n    if (errors.length > 0) {\n        // Send errors to the second output as a single string\n        return [null, { payload: errors.join(', ') }];\n    }\n\n    // Calculate CIDR from subnet mask\n    const cidr = eth0_subnet.split('.').reduce((acc, octet) => {\n        const binary = parseInt(octet, 10).toString(2).padStart(8, '0');\n        return acc + (binary.match(/1/g) || []).length;\n    }, 0);\n\n    // Construct the manual configuration command\n    cmd += `'manual' ipv4.addresses '${eth0_ip}/${cidr}' ipv4.gateway '${eth0_gateway}' ipv4.dns '${eth0_dnsgateway}' connection.autoconnect-priority '0'`;\n    return [{ payload: cmd }, null];\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 600,
+        "wires": [
+            [
+                "fca5dc268c77e96c"
+            ],
+            [
+                "bd8f42adc38ce1d9"
+            ]
+        ]
+    },
+    {
+        "id": "e82b1f2a137589bb",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "function 21",
+        "func": "// Helper function to validate IP address format\nfunction isValidIP(ip) {\n    const octets = ip.split('.');\n    if (octets.length !== 4) return false;\n    return octets.every(octet => {\n        const n = parseInt(octet, 10);\n        return n >= 0 && n <= 255 && octet === n.toString();\n    });\n}\n\n// Helper function to validate subnet mask format\nfunction isValidSubnet(subnet) {\n    const validMasks = [\n        \"255.255.255.255\", \"255.255.255.254\", \"255.255.255.252\",\n        \"255.255.255.248\", \"255.255.255.240\", \"255.255.255.224\",\n        \"255.255.255.192\", \"255.255.255.128\", \"255.255.255.0\",\n        \"255.255.254.0\", \"255.255.252.0\", \"255.255.248.0\",\n        \"255.255.240.0\", \"255.255.224.0\", \"255.255.192.0\",\n        \"255.255.128.0\", \"255.255.0.0\", \"255.254.0.0\",\n        \"255.252.0.0\", \"255.248.0.0\", \"255.240.0.0\",\n        \"255.224.0.0\", \"255.192.0.0\", \"255.128.0.0\",\n        \"255.0.0.0\", \"254.0.0.0\", \"252.0.0.0\",\n        \"248.0.0.0\", \"240.0.0.0\", \"224.0.0.0\",\n        \"192.0.0.0\", \"128.0.0.0\", \"0.0.0.0\"\n    ];\n    return validMasks.includes(subnet);\n}\n\n// Gather flow variables\nconst wifi_dhcp = flow.get('wifi_dhcp') ?? true;\nconst wifi_ip = flow.get('wifi_ip') || '';\nconst wifi_subnet = flow.get('wifi_subnet') || '';\nconst wifi_gateway = flow.get('wifi_gateway') || '';\nconst wifi_dnsgateway = flow.get('wifi_dnsgateway') || '';\n\n// Prepare the command\nlet cmd = `sudo /usr/bin/nmcli con modify 'preconfigured' ipv4.method `;\n\nif (wifi_dhcp) {\n    // Enable DHCP: Set ipv4.method to auto\n    cmd += `'auto' ipv4.addresses \"\" ipv4.gateway \"\" ipv4.dns \"\" connection.autoconnect-priority '0'`;\n    return [{ payload: cmd }, null];\n} else {\n    // Validate inputs for manual configuration\n    let errors = [];\n    if (!isValidIP(wifi_ip)) errors.push(`Invalid IP address: ${wifi_ip}`);\n    if (!isValidSubnet(wifi_subnet)) errors.push(`Invalid Subnet Mask: ${wifi_subnet}`);\n    if (!isValidIP(wifi_gateway)) errors.push(`Invalid Default Gateway: ${wifi_gateway}`);\n    if (!isValidIP(wifi_dnsgateway)) errors.push(`Invalid DNS Gateway: ${wifi_dnsgateway}`);\n\n    if (errors.length > 0) {\n        // Send errors to the second output as a single string\n        return [null, { payload: errors.join(', ') }];\n    }\n\n    // Calculate CIDR from subnet mask\n    const cidr = wifi_subnet.split('.').reduce((acc, octet) => {\n        const binary = parseInt(octet, 10).toString(2).padStart(8, '0');\n        return acc + (binary.match(/1/g) || []).length;\n    }, 0);\n\n    // Construct the manual configuration command\n    cmd += `'manual' ipv4.addresses '${wifi_ip}/${cidr}' ipv4.gateway '${wifi_gateway}' ipv4.dns '${wifi_dnsgateway}' connection.autoconnect-priority '0'`;\n    return [{ payload: cmd }, null];\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 680,
+        "wires": [
+            [
+                "296336376cd27b93"
+            ],
+            [
+                "bd8f42adc38ce1d9"
+            ]
+        ]
+    },
+    {
+        "id": "fdec4cd3b794d842",
+        "type": "debug",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "inject-startup",
+        "type": "inject",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Initialize on Startup",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Check File",
+        "payloadType": "str",
+        "x": 190,
+        "y": 220,
+        "wires": [
+            [
+                "file-check"
+            ]
+        ]
+    },
+    {
+        "id": "file-check",
+        "type": "file in",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Check if File Exists",
+        "filename": "/home/admin/ConfigFiles/netconfig.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "allProps": false,
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "switch-file"
+            ]
+        ]
+    },
+    {
+        "id": "switch-file",
+        "type": "switch",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "File Exists?",
+        "property": "error",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 220,
+        "wires": [
+            [
+                "file-already-exists"
+            ],
+            [
+                "exec-create-file"
+            ]
+        ]
+    },
+    {
+        "id": "file-already-exists",
+        "type": "debug",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "File Already Exists",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "exec-create-file",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo mkdir -p /home/admin/ConfigFiles && sudo touch /home/admin/ConfigFiles/netconfig.json && sudo chown admin:admin /home/admin/ConfigFiles/netconfig.json",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Create File",
+        "x": 730,
+        "y": 240,
+        "wires": [
+            [
+                "debug-success",
+                "acf3f0da99b32f5d"
+            ],
+            [
+                "debug-error"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "debug-error",
+        "type": "debug",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "7372b8bca39a5e7f",
+        "type": "ui_button",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Write Settings",
+        "group": "f3a909aaf33ffc6b",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Write Settings",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "save",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 160,
+        "y": 640,
+        "wires": [
+            [
+                "c01262d09747f0a6",
+                "8f528c766aa6908e",
+                "ad09f130521fe327"
+            ]
+        ]
+    },
+    {
+        "id": "3dc5f2066872354f",
+        "type": "ui_button",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Restart Network Interfaces",
+        "group": "f3a909aaf33ffc6b",
+        "order": 3,
+        "width": "6",
+        "height": 1,
+        "passthru": false,
+        "label": "Restart WiFi Interface",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#ff0000",
+        "className": "",
+        "icon": "",
+        "payload": "yes",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 200,
+        "y": 820,
+        "wires": [
+            [
+                "fb4184d87390f079"
+            ]
+        ]
+    },
+    {
+        "id": "6055488448614762",
+        "type": "ui_button",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Reboot Now?",
+        "group": "f3a909aaf33ffc6b",
+        "order": 4,
+        "width": "6",
+        "height": 1,
+        "passthru": false,
+        "label": "Reboot Device",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#ff0000",
+        "className": "",
+        "icon": "",
+        "payload": "yes",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 240,
+        "y": 880,
+        "wires": [
+            [
+                "ae2b2108ffed2c48"
+            ]
+        ]
+    },
+    {
+        "id": "02528f31eac55da5",
+        "type": "ui_button",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Restart Network Interfaces",
+        "group": "f3a909aaf33ffc6b",
+        "order": 2,
+        "width": "6",
+        "height": 1,
+        "passthru": false,
+        "label": "Restart Eth Interface",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#ff0000",
+        "className": "",
+        "icon": "",
+        "payload": "yes",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 200,
+        "y": 760,
+        "wires": [
+            [
+                "2c5eb68777a0ff94"
+            ]
+        ]
+    },
+    {
+        "id": "c6af4fbea7e8a228",
+        "type": "ui_switch",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 DHCP",
+        "label": "DHCP Enabled?",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "eth0_dhcp",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1190,
+        "y": 280,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "5e3863ba9afa2ba4",
+        "type": "ui_switch",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi DHCP",
+        "label": "DHCP Enabled?",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "wifi_dhcp",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1190,
+        "y": 480,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "e80f8afa73387e28",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 IP",
+        "label": "Static IP",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 2,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "eth0_ip",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1180,
+        "y": 320,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "7bd6df7356196650",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 Subnet",
+        "label": "Subnet Mask",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 3,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "eth0_subnet",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1190,
+        "y": 360,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "8ff08b5cdcd90757",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi IP",
+        "label": "Static IP",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 2,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "wifi_ip",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1180,
+        "y": 520,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "cd3c2fa612856ca0",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi Subnet",
+        "label": "Subnet Mask",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 3,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "wifi_subnet",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1190,
+        "y": 560,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "a148314ebd1b09f5",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi Default Gateway",
+        "label": "Default Gateway",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 4,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "wifi_gateway",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1220,
+        "y": 600,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "4be8fc3bfdbd2863",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 DNS Gateway",
+        "label": "DNS Gateway",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 5,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "eth0_dnsgateway",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1210,
+        "y": 400,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "43dd600f1e328815",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi DNS Gateway",
+        "label": "Dns Gateway",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 4,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "wifi_dnsgateway",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1210,
+        "y": 640,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "dba7ce3a898f7209",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 Default Gateway",
+        "label": "Default Gateway",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 4,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "eth0_gateway",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1220,
+        "y": 440,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "bd8f42adc38ce1d9",
+        "type": "ui_toast",
+        "z": "f0fb0bd6b5fcfabc",
+        "position": "center",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Notify ",
+        "x": 870,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "debug-success",
+        "type": "debug",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Success",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "acf3f0da99b32f5d",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Set Default JSON Payload",
+        "func": "// Build default netconfig object\nconst defaultConfig = {\n    eth0: {\n        dhcp: true,\n        ip: \"192.168.1.100\",\n        subnet: \"255.255.255.0\",\n        gateway: \"192.168.1.1\",\n        dnsgateway: \"1.1.1.1\"\n    },\n    wifi: {\n        dhcp: true,\n        ip: \"192.168.1.125\",\n        subnet: \"255.255.255.0\",\n        gateway: \"192.168.1.1\",\n        dnsgateway: \"1.1.1.1\"\n    }\n};\n\n// Convert to pretty-printed JSON with an indent of 2 spaces\nmsg.payload = JSON.stringify(defaultConfig, null, 2);\n\n// Specify the filename\nmsg.filename = \"/home/admin/ConfigFiles/netconfig.json\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 220,
+        "wires": [
+            [
+                "1d2099b93c126c99"
+            ]
+        ]
+    },
+    {
+        "id": "1d2099b93c126c99",
+        "type": "file",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Write Default JSON",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1190,
+        "y": 220,
+        "wires": [
+            [
+                "5474c50fd97f320f",
+                "40885aa9b0f5246b"
+            ]
+        ]
+    },
+    {
+        "id": "40885aa9b0f5246b",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo nmcli con down \"Wired connection 1\" && sudo nmcli con up \"Wired connection 1\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 1620,
+        "y": 180,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5474c50fd97f320f",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo nmcli con down \"preconfigured\" && sudo nmcli con up \"preconfigured\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 1590,
+        "y": 260,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e11e41fad668c460",
+        "type": "comment",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Initialize Network Parameters",
+        "info": "/**\n * This function runs once upon deployment.\n * \n * - Checks for the existence of the file at `/home/administrator/ConfigFiles/netconfig.json`\n * - If the file exists, the flow exits with no action.\n * - If the file does not exist:\n *    - Creates the file.\n *    - Sets the appropriate read/write permissions.\n *    - Writes a set of default parameters in JSON format.\n *    - Resets Wifi and Eth Adapters upon Completion.\n * \n * The next flow will then read this file to set the required context variables.\n */\n",
+        "x": 220,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "48921be4c82ca083",
+        "type": "comment",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Read Network Parameters to set Flow Variables ",
+        "info": "/**\n * This flow triggers once after a 2-second delay.\n * \n * - The delay allows time for the initial setup to create the file and set parameters \n *   if this is the first time the device is being powered on.\n * - Reads the file created in the previous step.\n * - Parses the file content into JSON format.\n * - Sets the flow and UI variables so that:\n *    - Default parameters are available.\n *    - Custom values (if previously set by the user) are correctly displayed on the dashboard.\n */\n",
+        "x": 280,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f8ea42efc5cef323",
+        "type": "comment",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Write Customer Network Settings ",
+        "info": "/**\n * This flow is triggered when a user presses the \"Write Settings\" button on the dashboard (`deviceip:1880/ui`).\n * \n * - Retrieves network configuration values from flow context variables:\n *    - Ethernet (`eth0`) and Wi-Fi (`wifi`) settings including IP, subnet, gateway, and DNS.\n * - Validates IP addresses and subnet masks to ensure proper formatting.\n * - Assembles a network configuration command using `nmcli`:\n *    - If DHCP is enabled, sets `ipv4.method` to 'auto'.\n *    - If DHCP is disabled, applies manual network settings after validation.\n * - Executes the command to apply the new network settings.\n * - After a short 100ms delay, another function fetches the updated network parameters,\n *   assembles them, and writes them back to `netconfig.json` to store the current configuration.\n */\n",
+        "x": 210,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "fe8e7347bfa0206a",
+        "type": "comment",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Reset Net Adapters / Reboot Device",
+        "info": "/**\n * This flow handles three UI buttons on the dashboard for network and system management.\n * \n * 1. **Reset Ethernet Adapter**:\n *    - Executes: `sudo nmcli con down \"Wired connection 1\" && sudo nmcli con up \"Wired connection 1\"`\n *    - Brings down and then reactivates the Ethernet connection to apply changes or troubleshoot connectivity.\n * \n * 2. **Reset Wi-Fi Adapter**:\n *    - Executes: `sudo nmcli con down \"preconfigured\" && sudo nmcli con up \"preconfigured\"`\n *    - Restarts the Wi-Fi connection using the preconfigured network.\n * \n * 3. **Reboot Device**:\n *    - Executes: `sudo reboot now`\n *    - Immediately reboots the device to apply system-wide changes if necessary.\n */\n",
+        "x": 220,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "662294c3fd43faaf",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "Collect Register Information",
+        "func": "// Step 1: Get all the global context keys and iterate over them\nvar allKeys = global.keys();\nvar modbusDataList = [];\n\n// Collect relevant Modbus data from the global context\nfor (var i = 0; i < allKeys.length; i++) {\n    var key = allKeys[i];\n    var dataObject = global.get(key);\n    \n    // Check if this object contains Modbus info (modbusIP as an identifier)\n    if (dataObject && dataObject.hasOwnProperty(\"modbusIP\")) {\n        // Create an entry containing key info for sorting\n        modbusDataList.push({\n            key: key,\n            startAddress: dataObject.startAddress,\n            length: dataObject.dataType === \"int16\" || dataObject.dataType === \"uint16\" ? 1 : 2,\n            data: dataObject\n        });\n    }\n}\n\n// Sort by startAddress for efficient reading\nmodbusDataList.sort((a, b) => a.startAddress - b.startAddress);\n\n// Set the list to message payload for further processing\nmsg.payload = modbusDataList;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "77cc3ebdb6364e3e"
+            ]
+        ]
+    },
+    {
+        "id": "77cc3ebdb6364e3e",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "Group Registers",
+        "func": "// Step 1: Get all global context keys and iterate over them\nvar allKeys = global.keys();\nvar modbusDataList = [];\n\n// Collect relevant Modbus data from the global context\nfor (var i = 0; i < allKeys.length; i++) {\n    var key = allKeys[i];\n    var dataObject = global.get(key);\n    \n    // Check if this object contains Modbus info (modbusIP as an identifier)\n    if (dataObject && dataObject.hasOwnProperty(\"modbusIP\")) {\n        // Create an entry containing key info for sorting\n        modbusDataList.push({\n            key: key,\n            startAddress: dataObject.startAddress,\n            length: dataObject.dataType === \"int16\" || dataObject.dataType === \"uint16\" ? 1 : 2,\n            tcpHost: dataObject.modbusIP,\n            tcpPort: dataObject.modbusPort,\n            unitId: dataObject.slaveID,\n            fc: 3,  // Using function code 3 for reading holding registers, adjust based on your requirement\n            data: dataObject\n        });\n    }\n}\n\n// Sort by startAddress for efficient reading, but also consider grouping by tcpHost and unitId\nmodbusDataList.sort((a, b) => {\n    if (a.tcpHost === b.tcpHost) {\n        if (a.unitId === b.unitId) {\n            return a.startAddress - b.startAddress;\n        }\n        return a.unitId - b.unitId;\n    }\n    return a.tcpHost.localeCompare(b.tcpHost);\n});\n\n// Step 2: Group the registers for efficient reading\nvar readRequests = [];\nif (modbusDataList.length > 0) {\n    // Initialize the first read group\n    var currentGroup = {\n        tcpHost: modbusDataList[0].tcpHost,\n        tcpPort: modbusDataList[0].tcpPort,\n        unitId: modbusDataList[0].unitId,\n        startAddress: modbusDataList[0].startAddress,\n        endAddress: modbusDataList[0].startAddress + modbusDataList[0].length - 1,\n        length: modbusDataList[0].length,\n        fc: modbusDataList[0].fc  // Typically FC 3 or 4, based on requirements\n    };\n\n    // Iterate through the sorted registers\n    for (var i = 1; i < modbusDataList.length; i++) {\n        var currentRegister = modbusDataList[i];\n        \n        // If we are still with the same device (same tcpHost and unitId)\n        if (currentRegister.tcpHost === currentGroup.tcpHost && currentRegister.unitId === currentGroup.unitId) {\n            var nextStart = currentRegister.startAddress;\n            var nextEnd = currentRegister.startAddress + currentRegister.length - 1;\n\n            // Check if the next register can be added to the current group\n            if (nextStart <= currentGroup.endAddress + 1) {\n                // Expand the current group to include this register\n                currentGroup.endAddress = Math.max(currentGroup.endAddress, nextEnd);\n                currentGroup.length = currentGroup.endAddress - currentGroup.startAddress + 1;\n            } else {\n                // Push the completed group to the read requests\n                readRequests.push({ ...currentGroup });\n\n                // Start a new group\n                currentGroup = {\n                    tcpHost: currentRegister.tcpHost,\n                    tcpPort: currentRegister.tcpPort,\n                    unitId: currentRegister.unitId,\n                    startAddress: nextStart,\n                    endAddress: nextEnd,\n                    length: currentRegister.length,\n                    fc: currentRegister.fc\n                };\n            }\n        } else {\n            // Push the completed group to the read requests\n            readRequests.push({ ...currentGroup });\n\n            // Start a new group for the next device\n            currentGroup = {\n                tcpHost: currentRegister.tcpHost,\n                tcpPort: currentRegister.tcpPort,\n                unitId: currentRegister.unitId,\n                startAddress: currentRegister.startAddress,\n                endAddress: currentRegister.startAddress + currentRegister.length - 1,\n                length: currentRegister.length,\n                fc: currentRegister.fc\n            };\n        }\n    }\n\n    // Push the final group to the read requests\n    readRequests.push({ ...currentGroup });\n}\n\n// Set the grouped read requests to the message payload for further processing\nmsg.payload = readRequests;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 120,
+        "wires": [
+            [
+                "a08b4d86aae2472b"
+            ]
+        ]
+    },
+    {
+        "id": "549c3d904bde133c",
+        "type": "debug",
+        "z": "c87e73927481cb24",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "2629dbcfccca2051",
+        "type": "modbus-flex-getter",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "server": "4fad382cc333fc8d",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 670,
+        "y": 200,
+        "wires": [
+            [
+                "fe16fd1e7efca44e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b0455762d39b3671",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 19",
+        "func": "// Get the read group from the incoming message payload\nvar readGroup = msg.payload;\n\n// Prepare the message payload for the Modbus Flex Getter node\nmsg.payload = {\n    value: msg.payload,   // Keeping value same as original msg.payload\n    fc: readGroup.fc,     // Function Code (1..4)\n    unitid: readGroup.unitId,\n    address: readGroup.startAddress,\n    quantity: readGroup.length\n};\n\n// Optional: Add the connection parameters\nmsg.tcpHost = readGroup.tcpHost;\nmsg.tcpPort = readGroup.tcpPort;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 200,
+        "wires": [
+            [
+                "2629dbcfccca2051"
+            ]
+        ]
+    },
+    {
+        "id": "335593303c5990b8",
+        "type": "debug",
+        "z": "c87e73927481cb24",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a08b4d86aae2472b",
+        "type": "split",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 870,
+        "y": 120,
+        "wires": [
+            [
+                "b0455762d39b3671",
+                "549c3d904bde133c"
+            ]
+        ]
+    },
+    {
+        "id": "fe16fd1e7efca44e",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 20",
+        "func": "// Step 1: Retrieve necessary information from the incoming message\nvar readData = msg.payload;  // This is the array of Modbus read values (e.g., [139])\nvar startAddress = msg.startAddress;  // Starting address of the read (e.g., 1051)\nvar unitId = msg.unitId;  // Unit ID of the device being read\n\n// Step 2: Iterate through all global context keys to find the corresponding variable\nvar allKeys = global.keys();\n\nfor (var i = 0; i < allKeys.length; i++) {\n    var key = allKeys[i];\n    var dataObject = global.get(key);\n    \n    // Check if the object has matching startAddress and unitId\n    if (dataObject && dataObject.startAddress === startAddress && dataObject.unitId === unitId) {\n        // Update the value of the corresponding global context variable\n        if (readData.length === 1) {\n            // Assuming length of 1 for single register reads, assign the value\n            dataObject.value = readData[0] * (dataObject.dataMultiplier || 1);\n            \n            // Update the formatted value as well\n            dataObject.formattedValue = `${dataObject.name}: ${dataObject.value} ${dataObject.dimension}`.trim();\n            \n            // Save the updated dataObject back to global context\n            global.set(key, dataObject);\n            \n            node.status({ fill: \"green\", shape: \"dot\", text: `Updated ${dataObject.name} to ${dataObject.value}` });\n        } else {\n            node.warn(`Unexpected read length for ${dataObject.name}. Expected 1 but got ${readData.length}.`);\n        }\n    }\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 200,
+        "wires": [
+            [
+                "335593303c5990b8"
+            ]
+        ]
+    },
+    {
+        "id": "932876dbe4d43f7e",
+        "type": "trigger",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "op1": "true",
+        "op2": "0",
+        "op1type": "bool",
+        "op2type": "str",
+        "duration": "-250",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 600,
+        "y": 40,
+        "wires": [
+            [
+                "662294c3fd43faaf"
+            ]
+        ]
+    },
+    {
+        "id": "6f337ccf2f879e1e",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 21",
+        "func": "// Retrieve the global polling rate\nmsg.delay = global.get('pollingRate') || 1000;  // Default to 1000ms if not set\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 40,
+        "wires": [
+            [
+                "932876dbe4d43f7e"
+            ]
+        ]
+    },
+    {
+        "id": "d5cf64e0d0b07800",
+        "type": "link in",
+        "z": "c87e73927481cb24",
+        "name": "link in 5",
+        "links": [],
+        "x": 195,
+        "y": 80,
+        "wires": [
+            [
+                "6f337ccf2f879e1e"
+            ]
+        ]
+    },
+    {
+        "id": "5fe226c2aa1b1d9b",
+        "type": "inject",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "6f337ccf2f879e1e"
+            ]
+        ]
+    }
+]

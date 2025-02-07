@@ -1,0 +1,362 @@
+[
+    {
+        "id": "7b33ed92c7343f2f",
+        "type": "tab",
+        "label": "Comed API",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3b48811212d61838",
+        "type": "inject",
+        "z": "7b33ed92c7343f2f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "180",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "3fddef54c133f368",
+                "ccc617596b68fc0e"
+            ]
+        ]
+    },
+    {
+        "id": "3fddef54c133f368",
+        "type": "http request",
+        "z": "7b33ed92c7343f2f",
+        "name": "5 minute pricing ",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "https://hourlypricing.comed.com/api?type=5minutefeed",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "270221366966bc23"
+            ]
+        ]
+    },
+    {
+        "id": "ccc617596b68fc0e",
+        "type": "http request",
+        "z": "7b33ed92c7343f2f",
+        "name": "1 hour average",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://hourlypricing.comed.com/api?type=currenthouraverage",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 360,
+        "y": 340,
+        "wires": [
+            [
+                "966dc070668c2992"
+            ]
+        ]
+    },
+    {
+        "id": "270221366966bc23",
+        "type": "json",
+        "z": "7b33ed92c7343f2f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 530,
+        "y": 260,
+        "wires": [
+            [
+                "3144332011540370"
+            ]
+        ]
+    },
+    {
+        "id": "966dc070668c2992",
+        "type": "json",
+        "z": "7b33ed92c7343f2f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 530,
+        "y": 340,
+        "wires": [
+            [
+                "afa7badaceacfbd1",
+                "c98e8178745e4833"
+            ]
+        ]
+    },
+    {
+        "id": "3144332011540370",
+        "type": "function",
+        "z": "7b33ed92c7343f2f",
+        "name": "parse latest price",
+        "func": "msg.payload = msg.payload[0].price;\n\nmsg.topic = (\"5 minute Price\");\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 260,
+        "wires": [
+            [
+                "a69d89b3cf953355",
+                "f705c023b638c4ec"
+            ]
+        ]
+    },
+    {
+        "id": "afa7badaceacfbd1",
+        "type": "function",
+        "z": "7b33ed92c7343f2f",
+        "name": "parse latest price",
+        "func": "msg.payload = msg.payload[0].price;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 693.0000114440918,
+        "y": 341.00001335144043,
+        "wires": [
+            [
+                "e27b0a3ec747bf76"
+            ]
+        ]
+    },
+    {
+        "id": "c98e8178745e4833",
+        "type": "function",
+        "z": "7b33ed92c7343f2f",
+        "name": "",
+        "func": "var newMsg = msg.payload[0].price;\n\nvar currentPrice = (newMsg * 1)\n\nflow.set(\"Price\", currentPrice);\n\nmsg.payload = currentPrice;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 420,
+        "wires": [
+            [
+                "33675898bb4befdc",
+                "0b8f7ce9fda22338"
+            ]
+        ]
+    },
+    {
+        "id": "e27b0a3ec747bf76",
+        "type": "rbe",
+        "z": "7b33ed92c7343f2f",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 910,
+        "y": 340,
+        "wires": [
+            [
+                "eef995180bf8ec5e"
+            ]
+        ]
+    },
+    {
+        "id": "33675898bb4befdc",
+        "type": "smooth",
+        "z": "7b33ed92c7343f2f",
+        "name": "Max 1hr last hour",
+        "property": "payload",
+        "action": "max",
+        "count": "480",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 950,
+        "y": 400,
+        "wires": [
+            [
+                "b477329d8be33c5d"
+            ]
+        ]
+    },
+    {
+        "id": "0b8f7ce9fda22338",
+        "type": "smooth",
+        "z": "7b33ed92c7343f2f",
+        "name": "Min 1hr last hour",
+        "property": "payload",
+        "action": "min",
+        "count": "480",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 950,
+        "y": 440,
+        "wires": [
+            [
+                "5448de369004df2e"
+            ]
+        ]
+    },
+    {
+        "id": "b477329d8be33c5d",
+        "type": "function",
+        "z": "7b33ed92c7343f2f",
+        "name": "set global 1 hr max",
+        "func": "var newMsg = msg.payload\n\nvar hrMax = (newMsg * 1)\n\nglobal.set(\"1hrMax\", hrMax);\n\nmsg.payload = hrMax;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5448de369004df2e",
+        "type": "function",
+        "z": "7b33ed92c7343f2f",
+        "name": "set global 1 hr min",
+        "func": "var newMsg = msg.payload\n\nvar hrMin = (newMsg * 1)\n\nglobal.set(\"1hrMin\", hrMin);\n\nmsg.payload = hrMin;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f705c023b638c4ec",
+        "type": "smooth",
+        "z": "7b33ed92c7343f2f",
+        "name": "Min 5 minute last hour",
+        "property": "payload",
+        "action": "min",
+        "count": "20",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 960,
+        "y": 280,
+        "wires": [
+            [
+                "e2e4c49f82d09f2b"
+            ]
+        ]
+    },
+    {
+        "id": "a69d89b3cf953355",
+        "type": "smooth",
+        "z": "7b33ed92c7343f2f",
+        "name": "Max 5 minute last hour",
+        "property": "payload",
+        "action": "max",
+        "count": "20",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 960,
+        "y": 240,
+        "wires": [
+            [
+                "63930a0f22ef22c8"
+            ]
+        ]
+    },
+    {
+        "id": "e2e4c49f82d09f2b",
+        "type": "function",
+        "z": "7b33ed92c7343f2f",
+        "name": "set global fivemin min",
+        "func": "var newMsg = msg.payload\n\nvar fiveminMin = (newMsg * 1)\n\nglobal.set(\"fiveminMin\", fiveminMin);\n\nmsg.payload = fiveminMin;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "63930a0f22ef22c8",
+        "type": "function",
+        "z": "7b33ed92c7343f2f",
+        "name": "set global fivemin max",
+        "func": "var newMsg = msg.payload\n\nvar fiveminMax = (newMsg * 1)\nglobal.set(\"fiveminMax\", fiveminMax);\n\nmsg.payload = fiveminMax;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eef995180bf8ec5e",
+        "type": "function",
+        "z": "7b33ed92c7343f2f",
+        "name": "set global 1 hr max",
+        "func": "var newMsg = msg.payload\n\nvar currPrice = (newMsg * 1)\n\nglobal.set(\"CurrentPrice\", currPrice);\n\nmsg.payload = currPrice;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    }
+]

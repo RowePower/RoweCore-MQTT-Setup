@@ -1,0 +1,551 @@
+[
+    {
+        "id": "fc9c2f1e7b907c9a",
+        "type": "tab",
+        "label": "Device Info",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "cbcdd1ed9c84e5fa",
+        "type": "inject",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "c43ffaaf56257baf",
+                "6933a8b1ed1b7762",
+                "d437f76b67b0fc1f",
+                "08e3cdc847d57da0",
+                "0d15410e2cd0742c",
+                "5241dc728cf23b7d"
+            ]
+        ]
+    },
+    {
+        "id": "f512e6b1bf6808a0",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 12",
+        "func": "if (msg.payload && typeof msg.payload.hostname === 'string') {\n    // Set the flow context variable with the hostname\n    flow.set('HostName', msg.payload.hostname);\n\n    // Assign the hostname to msg.payload\n    msg.payload = msg.payload.hostname;\n\n    return msg;\n} else {\n    // Handle cases where hostname is missing or not a string\n    node.error(\"msg.payload.hostname is not available or not a string\", msg);\n    return null; // Stops the flow if there's an error\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 120,
+        "wires": [
+            [
+                "c317661f446cbfb3",
+                "b52198a71641f9b5"
+            ]
+        ]
+    },
+    {
+        "id": "5a22cbd8eb91b412",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 14",
+        "func": "// Read hostname from flow context\nvar hostName = flow.get('HostName') || \"UnknownDevice\";\n\n// Access the value at msg.payload.uptime\nlet uptimeInSeconds = msg.payload.uptime;\n\n// Validate the value\nif (typeof uptimeInSeconds !== 'number' || uptimeInSeconds < 0) {\n    node.error(\"Invalid value: uptime should be a positive number.\", msg);\n    return null; // Stops the flow if the value is invalid\n}\n\n// Conversion constants\nconst SECONDS_IN_A_MINUTE = 60;\nconst SECONDS_IN_AN_HOUR = 3600;\nconst SECONDS_IN_A_DAY = 86400;\nconst SECONDS_IN_A_MONTH = 2592000; // Approximate month duration (30 days)\nconst SECONDS_IN_A_YEAR = 31536000; // Approximate year duration (365 days)\n\n// Calculate each component\nlet years = Math.floor(uptimeInSeconds / SECONDS_IN_A_YEAR);\nuptimeInSeconds %= SECONDS_IN_A_YEAR;\n\nlet months = Math.floor(uptimeInSeconds / SECONDS_IN_A_MONTH);\nuptimeInSeconds %= SECONDS_IN_A_MONTH;\n\nlet days = Math.floor(uptimeInSeconds / SECONDS_IN_A_DAY);\nuptimeInSeconds %= SECONDS_IN_A_DAY;\n\nlet hours = Math.floor(uptimeInSeconds / SECONDS_IN_AN_HOUR);\nuptimeInSeconds %= SECONDS_IN_AN_HOUR;\n\nlet minutes = Math.floor(uptimeInSeconds / SECONDS_IN_A_MINUTE);\nuptimeInSeconds %= SECONDS_IN_A_MINUTE;\n\n// Floor the remaining seconds to ensure there is no decimal point\nlet seconds = Math.floor(uptimeInSeconds);\n\n// Format the result to a shortened format\nlet formattedUptime = `${years > 0 ? years + \"Yrs \" : \"\"}${months > 0 ? months + \"Mos \" : \"\"}${days > 0 ? days + \"Days \" : \"\"}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`.trim();\n\n// Assign the formatted uptime to msg.payload\nmsg.payload = formattedUptime;\n\n// Set the flow context variable with the formatted uptime\nflow.set('UpTime', formattedUptime);\n\n// Set the MQTT topic dynamically based on the hostname\nmsg.topic = `${hostName}/Status/Uptime`;\n\n// Return the message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 160,
+        "wires": [
+            [
+                "488b49ae33ec6799",
+                "284ec2ee8daebe90"
+            ]
+        ]
+    },
+    {
+        "id": "650af29c82bb20a2",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 15",
+        "func": "// Access the array at msg.payload.loadavg\nlet loadAvg = msg.payload.loadavg;\n\n// Validate that loadAvg is an array of length 3\nif (!Array.isArray(loadAvg) || loadAvg.length !== 3) {\n    node.error(\"Invalid value: loadavg should be an array of three numbers.\", msg);\n    return null; // Stops the flow if the value is invalid\n}\n\n// Format each load average value as a percentage string with two decimal places\nlet CPUload1 = loadAvg[0].toFixed(2) + '%';\nlet CPUload2 = loadAvg[1].toFixed(2) + '%';\nlet CPUload3 = loadAvg[2].toFixed(2) + '%';\n\n// Set the flow context variables with each load average value\nflow.set('CPULoad1', CPUload1);\nflow.set('CPULoad2', CPUload2);\nflow.set('CPULoad3', CPUload3);\n\n// Assign the formatted values to the message object\nmsg.payload = {\n    CPUload1: CPUload1,\n    CPUload2: CPUload2,\n    CPUload3: CPUload3\n};\n\n// Return the modified message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 200,
+        "wires": [
+            [
+                "9124ea9f268f4147",
+                "1906e57f6f35a3c3",
+                "afa0bd7c6430a732"
+            ]
+        ]
+    },
+    {
+        "id": "e7190733b0136377",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 16",
+        "func": "// Access the value at msg.payload.memusage\nlet memUsage = msg.payload.memusage;\n\n// Validate the value\nif (typeof memUsage !== 'number' || memUsage < 0) {\n    node.error(\"Invalid value: memusage should be a positive number.\", msg);\n    return null; // Stops the flow if the value is invalid\n}\n\n// Format the memory usage value as a percentage string with two decimal places\nlet formattedMemUsage = memUsage.toFixed(2) + '%';\n\n// Set the flow context variable with the formatted memory usage\nflow.set('MemUsage', formattedMemUsage);\n\n// Assign the formatted value to msg.payload\nmsg.payload = formattedMemUsage;\n\n// Return the modified message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 240,
+        "wires": [
+            [
+                "3c85deb12be19e19"
+            ]
+        ]
+    },
+    {
+        "id": "a5873017f35d88dc",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 17",
+        "func": "// Access the wlan0 address\nlet wlan0Address;\n\ntry {\n    wlan0Address = msg.payload.networkInterfaces.wlan0[0].address;\n} catch (error) {\n    node.warn(\"wlan0 address path is invalid or does not exist.\");\n    wlan0Address = \"N/A\";\n}\n\n// Set the flow context variable with the wlan0 address\nflow.set('WifiIpAddress', wlan0Address);\n\n// Create a new message payload with the wlan0 address\nmsg.payload = {\n    wlan0Address: wlan0Address\n};\n\n// Return the modified message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 280,
+        "wires": [
+            [
+                "0c51f821aee44667"
+            ]
+        ]
+    },
+    {
+        "id": "284ec2ee8daebe90",
+        "type": "link out",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "UpTime_Tx",
+        "mode": "link",
+        "links": [
+            "bdf014e52e967049"
+        ],
+        "x": 1025,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "949cabf34e40b4a9",
+        "type": "link in",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "link in 2",
+        "links": [],
+        "x": 595,
+        "y": 460,
+        "wires": [
+            [
+                "abceed5e782e06f1"
+            ]
+        ]
+    },
+    {
+        "id": "abceed5e782e06f1",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 18",
+        "func": "// Read variables from flow context\nvar hostName = flow.get('HostName') || \"N/A\";\nvar wifiIpAddress = flow.get('WifiIpAddress') || \"N/A\";\nvar ethIpAddress = flow.get('EthIpAddress') || \"N/A\";\nvar upTime = flow.get('UpTime') || \"N/A\";\nvar memUsage = flow.get('MemUsage') || \"N/A\";\nvar cpuLoad1 = flow.get('CPULoad1') || \"N/A\";\nvar cpuLoad2 = flow.get('CPULoad2') || \"N/A\";\nvar cpuLoad3 = flow.get('CPULoad3') || \"N/A\";\nvar cpuTempF = flow.get('CPU_Temp_F') || \"N/A\";\nvar cpuTempC = flow.get('CPU_Temp_C') || \"N/A\";\n\n// Construct MQTT topic dynamically based on the hostname\nvar topic = hostName !== \"N/A\" ? `${hostName}/Status/Details` : \"UnknownDevice/Status/Details\";\n\n// Create an array with one object (one row)\nvar dataArray = [\n    {\n        \"HostName\": hostName,\n        \"Wifi IP Address\": wifiIpAddress,\n        \"Eth IP Address\": ethIpAddress,\n        \"Up Time\": upTime,\n        \"Memory Usage\": memUsage,\n        \"CPU Load 1\": cpuLoad1,\n        \"CPU Load 2\": cpuLoad2,\n        \"CPU Load 3\": cpuLoad3,\n        \"CPU Temp F\": cpuTempF,\n        \"CPU Temp C\": cpuTempC\n    }\n];\n\n// Assign the array to msg.payload\nmsg.payload = dataArray;\n\n// Set the MQTT topic dynamically\nmsg.topic = topic;\n\n// Return the message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 460,
+        "wires": [
+            [
+                "be203c06505427bf"
+            ]
+        ]
+    },
+    {
+        "id": "be203c06505427bf",
+        "type": "link out",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "DataSync_Tx",
+        "mode": "link",
+        "links": [],
+        "x": 825,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "5241dc728cf23b7d",
+        "type": "exec",
+        "z": "fc9c2f1e7b907c9a",
+        "command": "vcgencmd measure_temp",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 430,
+        "y": 340,
+        "wires": [
+            [
+                "33c20f9e39f00e07"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "33c20f9e39f00e07",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "Set Flow CPU Temp",
+        "func": "// 1. Extract the temperature text from the payload (e.g. \"temp=60.3'C\")\nlet tempString = msg.payload;\n\n// 2. Use a regex to capture the numeric part\nlet matches = tempString.match(/temp=([\\d\\.]+)'C/);\n\nif (matches && matches[1]) {\n    // 3. Parse as float\n    let celsiusValue = parseFloat(matches[1]);\n\n    // 4. Convert to Fahrenheit\n    let fahrenheitValue = (celsiusValue * 9 / 5) + 32;\n\n    // 5. Limit to 1 decimal place\n    celsiusValue = parseFloat(celsiusValue.toFixed(1));\n    fahrenheitValue = parseFloat(fahrenheitValue.toFixed(1));\n\n    // 6. Store in flow variables with dimensions\n    flow.set(\"CPU_Temp_C\", `${celsiusValue}°C`);\n    flow.set(\"CPU_Temp_F\", `${fahrenheitValue}°F`);\n\n    // 7. Also update the payload to Fahrenheit with dimension\n    msg.payload = `${fahrenheitValue}°F`;\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c43ffaaf56257baf",
+        "type": "OS",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "f512e6b1bf6808a0"
+            ]
+        ]
+    },
+    {
+        "id": "6933a8b1ed1b7762",
+        "type": "Uptime",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "5a22cbd8eb91b412"
+            ]
+        ]
+    },
+    {
+        "id": "d437f76b67b0fc1f",
+        "type": "Loadavg",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "650af29c82bb20a2"
+            ]
+        ]
+    },
+    {
+        "id": "08e3cdc847d57da0",
+        "type": "Memory",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "scale": "Byte",
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "e7190733b0136377"
+            ]
+        ]
+    },
+    {
+        "id": "0d15410e2cd0742c",
+        "type": "NetworkIntf",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "x": 390,
+        "y": 280,
+        "wires": [
+            [
+                "a5873017f35d88dc",
+                "4a4d39fa20eeb88c"
+            ]
+        ]
+    },
+    {
+        "id": "c317661f446cbfb3",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Hostname",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 910,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "488b49ae33ec6799",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Uptime",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 900,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9124ea9f268f4147",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "CPU1 Load AVG",
+        "format": "{{msg.payload.CPUload1}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3c85deb12be19e19",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Memory Usage",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "0c51f821aee44667",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "WiFi Ip Address",
+        "format": "{{msg.payload.wlan0Address}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "1906e57f6f35a3c3",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "CPU2 Load AVG",
+        "format": "{{msg.payload.CPUload2}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "afa0bd7c6430a732",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "CPU3 Load AVG",
+        "format": "{{msg.payload.CPUload3}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "fac7857191b4c6e4",
+        "type": "ui_text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "7a880b53170c6bf7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Eth Ip Address",
+        "format": "{{msg.payload.networkInterfaces.eth0[0].address}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "b52198a71641f9b5",
+        "type": "link out",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "Host Name",
+        "mode": "link",
+        "links": [],
+        "x": 775,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "4a4d39fa20eeb88c",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 2",
+        "func": "// Access the eth0 address\nlet eth0Address;\n\ntry {\n    eth0Address = msg.payload.networkInterfaces.eth0[0].address;\n} catch (error) {\n    node.warn(\"eth0 address path is invalid or does not exist.\");\n    eth0Address = \"N/A\";\n}\n\n// Set the flow context variable with the eth0 address\nflow.set('EthIpAddress', eth0Address);\n\n// Create a new message payload with the eth0 address\nmsg.payload = {\n    eth0Address: eth0Address\n};\n\n// Return the modified message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 320,
+        "wires": [
+            [
+                "fac7857191b4c6e4"
+            ]
+        ]
+    },
+    {
+        "id": "920673c164e6125e",
+        "type": "comment",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "Device Information ",
+        "info": "/**\n * This flow runs once every second, triggered by a timestamp node.\n * \n * - Retrieves system information using various commands and nodes.\n * - Parses and stores the data as flow variables for use in other parts of the flow.\n * - Updates UI elements on the dashboard to display real-time system status.\n * \n * **Collected System Information:**\n *  - **Hostname**: The device's network identifier.\n *  - **Uptime**: Time since the last reboot.\n *  - **CPU Load Averages**: 1-minute, 5-minute, and 15-minute averages of CPU usage.\n *  - **System Memory Usage**: Current memory utilization.\n *  - **Network Information**: \n *    - Wi-Fi IP Address\n *    - Ethernet IP Address\n *  - **CPU Temperature**:\n *    - Retrieved using `vcgencmd measure_temp`.\n *    - Converted from Celsius to Fahrenheit before being stored in flow context.\n * \n * The collected data is continuously refreshed and displayed on the dashboard for real-time monitoring.\n */\n",
+        "x": 170,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b2d978288c429599",
+        "type": "comment",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "MQTT Publish Device Information",
+        "info": "/**\n * This flow is triggered when an incoming MQTT data sync message is received.\n * \n * - Retrieves system status values from flow context variables, including:\n *   - **HostName**, **Wi-Fi IP Address**, **Ethernet IP Address**, **Up Time**\n *   - **Memory Usage**, **CPU Load (1m, 5m, 15m averages)**\n *   - **CPU Temperature (°F and °C)**\n * - Constructs an MQTT topic dynamically based on the device's hostname.\n *   - If no hostname is available, defaults to `\"UnknownDevice/Status/Details\"`.\n * - Formats the data into a structured JSON array containing a single object.\n * - Assigns the formatted data to `msg.payload`.\n * - Publishes the message to the dynamically generated MQTT topic for external monitoring or synchronization.\n */\n",
+        "x": 710,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "7a880b53170c6bf7",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "fe32b5dea012ee3e",
+        "order": 2,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fe32b5dea012ee3e",
+        "type": "ui_tab",
+        "name": "Network Config",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

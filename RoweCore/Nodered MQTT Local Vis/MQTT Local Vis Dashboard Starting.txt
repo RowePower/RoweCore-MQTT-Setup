@@ -1,0 +1,1541 @@
+[
+    {
+        "id": "e489247b9b72305a",
+        "type": "tab",
+        "label": "Dashboard",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "349f5df383f1ae73",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac1/BatteryVolts/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 120,
+        "wires": [
+            [
+                "2c6a7b748f6495fc"
+            ]
+        ]
+    },
+    {
+        "id": "6eed0f7d6f0fb05e",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac1/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 240,
+        "wires": [
+            [
+                "bf443ace28551413"
+            ]
+        ]
+    },
+    {
+        "id": "5c128e258309320e",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "d": true,
+        "name": "",
+        "topic": "TestDac2/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 300,
+        "wires": [
+            [
+                "9cc9f5f9c2487ebf"
+            ]
+        ]
+    },
+    {
+        "id": "986c44c36ad61333",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac3/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 360,
+        "wires": [
+            [
+                "7906ac61ee2531b2"
+            ]
+        ]
+    },
+    {
+        "id": "7906ac61ee2531b2",
+        "type": "function",
+        "z": "e489247b9b72305a",
+        "name": "function 40",
+        "func": "// Step 1: Define the topics to filter out\nconst statusTopics = [\n    \"TestDac3/Status/Uptime\",\n    \"TestDac3/Status/Details\"\n];\n\n// Step 2: Check if we should ignore this topic\nif (statusTopics.includes(msg.topic)) {\n    return null; // do nothing\n}\n\n// Step 3: Create a timestamp in the format MM/DD/YYYY HH:MM:SS.00\nfunction getFormattedTimestamp() {\n    let now = new Date();\n\n    let month = String(now.getMonth() + 1).padStart(2, \"0\");\n    let day = String(now.getDate()).padStart(2, \"0\");\n    let year = now.getFullYear();\n\n    let hours = String(now.getHours()).padStart(2, \"0\");\n    let minutes = String(now.getMinutes()).padStart(2, \"0\");\n    let seconds = String(now.getSeconds()).padStart(2, \"0\");\n    let hundredths = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, \"0\");\n\n    return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}.${hundredths}`;\n}\n\n// Step 4: Grab existing data from the Function node context\n// (this context is local to this Function node)\nlet dataStore = context.get(\"dataStore\") || {};\n\n// Step 5: Store/Update the incoming topic’s data\ndataStore[msg.topic] = {\n    topic: msg.topic,\n    value: msg.payload,\n    timestamp: getFormattedTimestamp()\n};\n\n// Save it back to the Function node context\ncontext.set(\"dataStore\", dataStore);\n\n// Step 6: Convert our dataStore (object) into an array\nlet tableArray = Object.values(dataStore);\n\n// Step 7: Output the entire array to ui-table\n// Be sure to set ui-table “Action” to “replace”.\nmsg.payload = tableArray;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 360,
+        "wires": [
+            [
+                "250de0f198f8c022"
+            ]
+        ]
+    },
+    {
+        "id": "a52cfd46924fa964",
+        "type": "ui-table",
+        "z": "e489247b9b72305a",
+        "group": "a3134833c75bd1f0",
+        "name": "Table",
+        "label": "",
+        "order": 1,
+        "width": "6",
+        "height": "3",
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 730,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "250de0f198f8c022",
+        "type": "delay",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "pauseType": "timed",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 360,
+        "wires": [
+            [
+                "a52cfd46924fa964"
+            ]
+        ]
+    },
+    {
+        "id": "bf443ace28551413",
+        "type": "function",
+        "z": "e489247b9b72305a",
+        "name": "function 41",
+        "func": "// Step 1: Define the topics to filter out\nconst statusTopics = [\n    \"TestDac1/Status/Uptime\",\n    \"TestDac1/Status/Details\"\n];\n\n// Step 2: Check if we should ignore this topic\nif (statusTopics.includes(msg.topic)) {\n    return null; // do nothing\n}\n\n// Step 3: Create a timestamp in the format MM/DD/YYYY HH:MM:SS.00\nfunction getFormattedTimestamp() {\n    let now = new Date();\n\n    let month = String(now.getMonth() + 1).padStart(2, \"0\");\n    let day = String(now.getDate()).padStart(2, \"0\");\n    let year = now.getFullYear();\n\n    let hours = String(now.getHours()).padStart(2, \"0\");\n    let minutes = String(now.getMinutes()).padStart(2, \"0\");\n    let seconds = String(now.getSeconds()).padStart(2, \"0\");\n    let hundredths = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, \"0\");\n\n    return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}.${hundredths}`;\n}\n\n// Step 4: Grab existing data from the Function node context\n// (this context is local to this Function node)\nlet dataStore = context.get(\"dataStore\") || {};\n\n// Step 5: Store/Update the incoming topic’s data\ndataStore[msg.topic] = {\n    topic: msg.topic,\n    value: msg.payload,\n    timestamp: getFormattedTimestamp()\n};\n\n// Save it back to the Function node context\ncontext.set(\"dataStore\", dataStore);\n\n// Step 6: Convert our dataStore (object) into an array\nlet tableArray = Object.values(dataStore);\n\n// Step 7: Output the entire array to ui-table\n// Be sure to set ui-table “Action” to “replace”.\nmsg.payload = tableArray;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 240,
+        "wires": [
+            [
+                "d9967bbb15cde42f"
+            ]
+        ]
+    },
+    {
+        "id": "d9967bbb15cde42f",
+        "type": "delay",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "pauseType": "timed",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 240,
+        "wires": [
+            [
+                "b2ec679bf3f69912"
+            ]
+        ]
+    },
+    {
+        "id": "b2ec679bf3f69912",
+        "type": "ui-table",
+        "z": "e489247b9b72305a",
+        "group": "546df1eb95d081e4",
+        "name": "",
+        "label": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 730,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c6a7b748f6495fc",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "group": "860157831d97f203",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-34",
+        "gstyle": "needle",
+        "title": "Bat Vdc",
+        "units": "Vdc",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ea5353"
+            },
+            {
+                "from": "9.5",
+                "color": "#ffc800"
+            },
+            {
+                "from": "12.5",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "15",
+                "color": "#f20707"
+            }
+        ],
+        "min": 0,
+        "max": "16",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 420,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9cc9f5f9c2487ebf",
+        "type": "function",
+        "z": "e489247b9b72305a",
+        "d": true,
+        "name": "function 42",
+        "func": "// Step 1: Define the topics to filter out\nconst statusTopics = [\n    \"TestDac2/Status/Uptime\",\n    \"TestDac2/Status/Details\"\n];\n\n// Step 2: Check if we should ignore this topic\nif (statusTopics.includes(msg.topic)) {\n    return null; // do nothing\n}\n\n// Step 3: Create a timestamp in the format MM/DD/YYYY HH:MM:SS.00\nfunction getFormattedTimestamp() {\n    let now = new Date();\n\n    let month = String(now.getMonth() + 1).padStart(2, \"0\");\n    let day = String(now.getDate()).padStart(2, \"0\");\n    let year = now.getFullYear();\n\n    let hours = String(now.getHours()).padStart(2, \"0\");\n    let minutes = String(now.getMinutes()).padStart(2, \"0\");\n    let seconds = String(now.getSeconds()).padStart(2, \"0\");\n    let hundredths = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, \"0\");\n\n    return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}.${hundredths}`;\n}\n\n// Step 4: Grab existing data from the Function node context\n// (this context is local to this Function node)\nlet dataStore = context.get(\"dataStore\") || {};\n\n// Step 5: Store/Update the incoming topic’s data\ndataStore[msg.topic] = {\n    topic: msg.topic,\n    value: msg.payload,\n    timestamp: getFormattedTimestamp()\n};\n\n// Save it back to the Function node context\ncontext.set(\"dataStore\", dataStore);\n\n// Step 6: Convert our dataStore (object) into an array\nlet tableArray = Object.values(dataStore);\n\n// Step 7: Output the entire array to ui-table\n// Be sure to set ui-table “Action” to “replace”.\nmsg.payload = tableArray;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "04db0ddeb62203f0"
+            ]
+        ]
+    },
+    {
+        "id": "04db0ddeb62203f0",
+        "type": "delay",
+        "z": "e489247b9b72305a",
+        "d": true,
+        "name": "",
+        "pauseType": "timed",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 300,
+        "wires": [
+            [
+                "e611b18032722c77"
+            ]
+        ]
+    },
+    {
+        "id": "e611b18032722c77",
+        "type": "ui-table",
+        "z": "e489247b9b72305a",
+        "d": true,
+        "group": "546df1eb95d081e4",
+        "name": "",
+        "label": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 730,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7bef3f5feceb017",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "Import Kw",
+        "group": "d18721c54645d6d8",
+        "order": 8,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Import Kw",
+        "units": "Kw",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "10",
+                "color": "#ffc800"
+            },
+            {
+                "from": "15",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "20",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 500,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "29308d2f6c4dce79",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "Import Kw L1",
+        "group": "d18721c54645d6d8",
+        "order": 7,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Import Kw L1",
+        "units": "Kw",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "5",
+                "color": "#ffc800"
+            },
+            {
+                "from": "7.5",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "10",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 510,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "b09a02475a902da7",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "Import Kw L3",
+        "group": "d18721c54645d6d8",
+        "order": 6,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Import Kw L3",
+        "units": "Kw",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "5",
+                "color": "#ffc800"
+            },
+            {
+                "from": "7.5",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "10",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 510,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "93d41838963dc2ec",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "Current L1",
+        "group": "d18721c54645d6d8",
+        "order": 5,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Amps L1",
+        "units": "Amps",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "20",
+                "color": "#ffc800"
+            },
+            {
+                "from": "40",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "50",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 510,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "b9ba60f631c658b9",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "Current L2",
+        "group": "d18721c54645d6d8",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Amps L2",
+        "units": "Amps",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "20",
+                "color": "#ffc800"
+            },
+            {
+                "from": "40",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "50",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 510,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "82bedfe4bd87b62c",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "Volts L3",
+        "group": "d18721c54645d6d8",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Volts L3",
+        "units": "Vac",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ffc800"
+            },
+            {
+                "from": "115",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "125",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "140",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 500,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "9217808026d9b3fe",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "Volts L1 - L3",
+        "group": "d18721c54645d6d8",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Volts L1-L3",
+        "units": "Vac",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ffc800"
+            },
+            {
+                "from": "230",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "250",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "265",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 510,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "94970d3775dc563c",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "Volts L1",
+        "group": "d18721c54645d6d8",
+        "order": 1,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Volts L1",
+        "units": "Vac",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ffc800"
+            },
+            {
+                "from": "115",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "125",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "140",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 500,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "0ce9139d1bf9f809",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestPi3/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 420,
+        "wires": [
+            [
+                "82939e14f4777163"
+            ]
+        ]
+    },
+    {
+        "id": "82939e14f4777163",
+        "type": "function",
+        "z": "e489247b9b72305a",
+        "name": "function 52",
+        "func": "// Step 1: Define the topics to filter out\nconst statusTopics = [\n    \"TestPi3/Status/Uptime\",\n    \"TestPi3/Status/Details\"\n];\n\n// Step 2: Check if we should ignore this topic\nif (statusTopics.includes(msg.topic)) {\n    return null; // do nothing\n}\n\n// Step 3: Create a timestamp in the format MM/DD/YYYY HH:MM:SS.00\nfunction getFormattedTimestamp() {\n    let now = new Date();\n\n    let month = String(now.getMonth() + 1).padStart(2, \"0\");\n    let day = String(now.getDate()).padStart(2, \"0\");\n    let year = now.getFullYear();\n\n    let hours = String(now.getHours()).padStart(2, \"0\");\n    let minutes = String(now.getMinutes()).padStart(2, \"0\");\n    let seconds = String(now.getSeconds()).padStart(2, \"0\");\n    let hundredths = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, \"0\");\n\n    return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}.${hundredths}`;\n}\n\n// Step 4: Grab existing data from the Function node context\n// (this context is local to this Function node)\nlet dataStore = context.get(\"dataStore\") || {};\n\n// Step 5: Store/Update the incoming topic’s data\ndataStore[msg.topic] = {\n    topic: msg.topic,\n    value: msg.payload,\n    timestamp: getFormattedTimestamp()\n};\n\n// Save it back to the Function node context\ncontext.set(\"dataStore\", dataStore);\n\n// Step 6: Convert our dataStore (object) into an array\nlet tableArray = Object.values(dataStore);\n\n// Step 7: Output the entire array to ui-table\n// Be sure to set ui-table “Action” to “replace”.\nmsg.payload = tableArray;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 420,
+        "wires": [
+            [
+                "2bf485d747b6b1bc"
+            ]
+        ]
+    },
+    {
+        "id": "2bf485d747b6b1bc",
+        "type": "delay",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "pauseType": "timed",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 420,
+        "wires": [
+            [
+                "cbef905d86746308"
+            ]
+        ]
+    },
+    {
+        "id": "cbef905d86746308",
+        "type": "ui-table",
+        "z": "e489247b9b72305a",
+        "group": "b41fd4e2449429fc",
+        "name": "Table",
+        "label": "",
+        "order": 1,
+        "width": "6",
+        "height": "3",
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 730,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "86652903a43e3284",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "1Hr Max",
+        "group": "0c36810df98708ee",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "1Hr Max",
+        "units": "Cents p/Kwhr",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "20",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "30",
+        "sizeThickness": "16",
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 500,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "4e01866ca4f35efe",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "1Hr Min",
+        "group": "0c36810df98708ee",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "1Hr Min",
+        "units": "Cents p/Kwhr",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "20",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "30",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 500,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "77ce572d1913c346",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "5Min Max",
+        "group": "0c36810df98708ee",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "5Min Max",
+        "units": "Cents p/Kwhr",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "20",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "30",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 500,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "3fa533a675a86fe6",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "5Min Min",
+        "group": "0c36810df98708ee",
+        "order": 5,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "5Min Min",
+        "units": "Cents p/Kwhr",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "20",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "30",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 500,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "f9bcb6df37c0bf90",
+        "type": "ui-gauge",
+        "z": "e489247b9b72305a",
+        "name": "Current Price",
+        "group": "0c36810df98708ee",
+        "order": 1,
+        "width": "2",
+        "height": "1",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Current Price",
+        "units": "Cents p/Kwhr",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "20",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "30",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 510,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "77cc0cf06c97130a",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac3/ImportKw/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 480,
+        "wires": [
+            [
+                "b7bef3f5feceb017"
+            ]
+        ]
+    },
+    {
+        "id": "44e83816f056de01",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac3/ImportKwL1/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 520,
+        "wires": [
+            [
+                "29308d2f6c4dce79"
+            ]
+        ]
+    },
+    {
+        "id": "de1881185f7beb80",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac3/ImportKwL3/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 560,
+        "wires": [
+            [
+                "b09a02475a902da7"
+            ]
+        ]
+    },
+    {
+        "id": "671d3142ed8557c0",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac3/MainsCurrentL1/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 600,
+        "wires": [
+            [
+                "93d41838963dc2ec"
+            ]
+        ]
+    },
+    {
+        "id": "49ab584c1c8e5219",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac3/MainsCurrentL3/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 640,
+        "wires": [
+            [
+                "b9ba60f631c658b9"
+            ]
+        ]
+    },
+    {
+        "id": "223093f067ae0b05",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac3/MainsVoltageL1/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 680,
+        "wires": [
+            [
+                "94970d3775dc563c"
+            ]
+        ]
+    },
+    {
+        "id": "a7aab182e132ca58",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac3/MainsVoltageL3/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 720,
+        "wires": [
+            [
+                "82bedfe4bd87b62c"
+            ]
+        ]
+    },
+    {
+        "id": "dce007d7ed1d763b",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestDac3/MainsVoltageL1L3/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 760,
+        "wires": [
+            [
+                "9217808026d9b3fe"
+            ]
+        ]
+    },
+    {
+        "id": "cfd92c8c7aabaa4e",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestPi3/1hrMax/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 800,
+        "wires": [
+            [
+                "86652903a43e3284"
+            ]
+        ]
+    },
+    {
+        "id": "8f187b2f9e9267e7",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestPi3/1hrMin/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 840,
+        "wires": [
+            [
+                "4e01866ca4f35efe"
+            ]
+        ]
+    },
+    {
+        "id": "e52ec984fec839d0",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestPi3/fiveminMax/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 880,
+        "wires": [
+            [
+                "77ce572d1913c346"
+            ]
+        ]
+    },
+    {
+        "id": "2c16814c3c7c3d7a",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestPi3/fiveminMin/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 920,
+        "wires": [
+            [
+                "3fa533a675a86fe6"
+            ]
+        ]
+    },
+    {
+        "id": "4a606a30f5dbc3c9",
+        "type": "mqtt in",
+        "z": "e489247b9b72305a",
+        "name": "",
+        "topic": "TestPi3/CurrentPrice/value",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 960,
+        "wires": [
+            [
+                "f9bcb6df37c0bf90"
+            ]
+        ]
+    },
+    {
+        "id": "2256a3902b64b083",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "LocalHost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "a3134833c75bd1f0",
+        "type": "ui-group",
+        "name": "Table",
+        "page": "219c6ef0bd0f4c26",
+        "width": "6",
+        "height": "1",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "546df1eb95d081e4",
+        "type": "ui-group",
+        "name": "Table",
+        "page": "7d72afa7f401a868",
+        "width": "6",
+        "height": "1",
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "860157831d97f203",
+        "type": "ui-group",
+        "name": "Bat Vdc",
+        "page": "7d72afa7f401a868",
+        "width": "6",
+        "height": "1",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "d18721c54645d6d8",
+        "type": "ui-group",
+        "name": "Mains Data",
+        "page": "558d694dddeb57b7",
+        "width": "8",
+        "height": "1",
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "b41fd4e2449429fc",
+        "type": "ui-group",
+        "name": "Table",
+        "page": "b7eb0ff9cc3e4a52",
+        "width": "8",
+        "height": "3",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "0c36810df98708ee",
+        "type": "ui-group",
+        "name": "Comed Data",
+        "page": "558d694dddeb57b7",
+        "width": "10",
+        "height": "1",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "219c6ef0bd0f4c26",
+        "type": "ui-page",
+        "name": "TestDac3",
+        "ui": "4012a07e5e32c0f2",
+        "path": "/TestDac3",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "e9c9516048f29891",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 3,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "7d72afa7f401a868",
+        "type": "ui-page",
+        "name": "TestDac1",
+        "ui": "4012a07e5e32c0f2",
+        "path": "/TestDac1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "e9c9516048f29891",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 2,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "558d694dddeb57b7",
+        "type": "ui-page",
+        "name": "Home",
+        "ui": "4012a07e5e32c0f2",
+        "path": "",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "e9c9516048f29891",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "b7eb0ff9cc3e4a52",
+        "type": "ui-page",
+        "name": "TestPi3",
+        "ui": "4012a07e5e32c0f2",
+        "path": "/TestPi3",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "e9c9516048f29891",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 4,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "4012a07e5e32c0f2",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true
+    },
+    {
+        "id": "e9c9516048f29891",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#870303",
+            "primary": "#030303",
+            "bgPage": "#000000",
+            "groupBg": "#242424",
+            "groupOutline": "#000000"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    }
+]

@@ -1,0 +1,444 @@
+[
+    {
+        "id": "e34f55f2ded7d982",
+        "type": "tab",
+        "label": "Weather ",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "75c8b3155ada3348",
+        "type": "debug",
+        "z": "e34f55f2ded7d982",
+        "name": "forcast",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "bb2e48e4b7f8bb03",
+        "type": "inject",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "1b4799862703605b"
+            ]
+        ]
+    },
+    {
+        "id": "1b4799862703605b",
+        "type": "http request",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.weather.gov/gridpoints/LOT/50,95/forecast",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 390,
+        "y": 120,
+        "wires": [
+            [
+                "75c8b3155ada3348"
+            ]
+        ]
+    },
+    {
+        "id": "b65c6d374f6458b0",
+        "type": "inject",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            [
+                "058cbb1cccdbebd6"
+            ]
+        ]
+    },
+    {
+        "id": "058cbb1cccdbebd6",
+        "type": "http request",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.weather.gov/gridpoints/LOT/50,95/forecast/hourly",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 390,
+        "y": 40,
+        "wires": [
+            [
+                "9ff7bf8cabbe78b4"
+            ]
+        ]
+    },
+    {
+        "id": "9ff7bf8cabbe78b4",
+        "type": "debug",
+        "z": "e34f55f2ded7d982",
+        "name": "Hourly forcast",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "f8b18122fd37ed3e",
+        "type": "http request",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://forecast.weather.gov/MapClick.php?lon=-88.35548400878905&lat=42.38883742264551",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 400,
+        "y": 300,
+        "wires": [
+            [
+                "80f368db42048ccd",
+                "33833b8c5ae85039"
+            ]
+        ]
+    },
+    {
+        "id": "f2642ae2ca19e920",
+        "type": "inject",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "f8b18122fd37ed3e"
+            ]
+        ]
+    },
+    {
+        "id": "80f368db42048ccd",
+        "type": "html",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "#current_conditions-summary > p.myforecast-current-lrg",
+        "ret": "text",
+        "as": "single",
+        "x": 710,
+        "y": 300,
+        "wires": [
+            [
+                "67a62b37ffcde818"
+            ]
+        ]
+    },
+    {
+        "id": "33833b8c5ae85039",
+        "type": "html",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "#current_conditions-summary > p.myforecast-current",
+        "ret": "text",
+        "as": "single",
+        "x": 700,
+        "y": 340,
+        "wires": [
+            [
+                "8759bea38f93bc9a"
+            ]
+        ]
+    },
+    {
+        "id": "c23647f4d1a622db",
+        "type": "inject",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 440,
+        "wires": [
+            [
+                "bcc28f2913526341"
+            ]
+        ]
+    },
+    {
+        "id": "bcc28f2913526341",
+        "type": "http request",
+        "z": "e34f55f2ded7d982",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.weather.gov/gridpoints/LOT/50,95/forecast",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 390,
+        "y": 440,
+        "wires": [
+            [
+                "0e9a063c8c03f4d8",
+                "bae16f716aa12b73",
+                "97320a09c0706311",
+                "d5733d52ab5d6f8e",
+                "97eb50a44c60d973",
+                "62b50cb0091df262",
+                "643b0d1b163c5b32"
+            ]
+        ]
+    },
+    {
+        "id": "0e9a063c8c03f4d8",
+        "type": "function",
+        "z": "e34f55f2ded7d982",
+        "name": "forecast time",
+        "func": "var newmsg = msg.payload.properties.periods[0].name;\n\nflow.set(\"ForecastTime\", newmsg);\n\nmsg.payload = newmsg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "97320a09c0706311",
+        "type": "function",
+        "z": "e34f55f2ded7d982",
+        "name": "Temperature",
+        "func": "var newmsg = msg.payload.properties.periods[0].temperature;\n\nflow.set(\"ForecastTemp\", newmsg);\n\nmsg.payload = newmsg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d5733d52ab5d6f8e",
+        "type": "function",
+        "z": "e34f55f2ded7d982",
+        "name": "Temperature Trend",
+        "func": "var newmsg = msg.payload.properties.periods[0].temperatureTrend;\n\nflow.set(\"ForecastTempTrend\", newmsg);\n\nmsg.payload = newmsg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "97eb50a44c60d973",
+        "type": "function",
+        "z": "e34f55f2ded7d982",
+        "name": "Humidity",
+        "func": "var newmsg = msg.payload.properties.periods[0].relativeHumidity.value;\n\nflow.set(\"ForecastHumidity\", newmsg);\n\nmsg.payload = newmsg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "62b50cb0091df262",
+        "type": "function",
+        "z": "e34f55f2ded7d982",
+        "name": "Chance of Rain ",
+        "func": "var newmsg = msg.payload.properties.periods[0].probabilityOfPrecipitation.value;\n\nflow.set(\"ForecastChanceofRain\", newmsg);\n\nmsg.payload = newmsg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bae16f716aa12b73",
+        "type": "function",
+        "z": "e34f55f2ded7d982",
+        "name": "short forecast",
+        "func": "var newmsg = msg.payload.properties.periods[0].shortForecast;\n\nflow.set(\"ShortForecast\", newmsg);\n\nmsg.payload = newmsg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "643b0d1b163c5b32",
+        "type": "function",
+        "z": "e34f55f2ded7d982",
+        "name": "detailed forecast",
+        "func": "var newmsg = msg.payload.properties.periods[0].detailedForecast;\n\nmsg.payload = newmsg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "67a62b37ffcde818",
+        "type": "function",
+        "z": "e34f55f2ded7d982",
+        "name": "Current Temp",
+        "func": "var newmsg = msg.payload[0];\n\nflow.set(\"CurrentTemp\", newmsg);\n\nmsg.payload = newmsg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8759bea38f93bc9a",
+        "type": "function",
+        "z": "e34f55f2ded7d982",
+        "name": "Current Conditions ",
+        "func": "var newmsg = msg.payload[0];\n\nflow.set(\"CurrentConditions\", newmsg);\n\nmsg.payload = newmsg;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    }
+]

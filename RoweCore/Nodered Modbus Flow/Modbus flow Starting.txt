@@ -1,0 +1,289 @@
+[
+    {
+        "id": "c87e73927481cb24",
+        "type": "tab",
+        "label": "Modbus Reads",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "662294c3fd43faaf",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "Collect Register Information",
+        "func": "// Step 1: Get all the global context keys and iterate over them\nvar allKeys = global.keys();\nvar modbusDataList = [];\n\n// Collect relevant Modbus data from the global context\nfor (var i = 0; i < allKeys.length; i++) {\n    var key = allKeys[i];\n    var dataObject = global.get(key);\n    \n    // Check if this object contains Modbus info (modbusIP as an identifier)\n    if (dataObject && dataObject.hasOwnProperty(\"modbusIP\")) {\n        // Create an entry containing key info for sorting\n        modbusDataList.push({\n            key: key,\n            startAddress: dataObject.startAddress,\n            length: dataObject.dataType === \"int16\" || dataObject.dataType === \"uint16\" ? 1 : 2,\n            data: dataObject\n        });\n    }\n}\n\n// Sort by startAddress for efficient reading\nmodbusDataList.sort((a, b) => a.startAddress - b.startAddress);\n\n// Set the list to message payload for further processing\nmsg.payload = modbusDataList;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "77cc3ebdb6364e3e"
+            ]
+        ]
+    },
+    {
+        "id": "77cc3ebdb6364e3e",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "Group Registers",
+        "func": "// Step 1: Get all global context keys and iterate over them\nvar allKeys = global.keys();\nvar modbusDataList = [];\n\n// Collect relevant Modbus data from the global context\nfor (var i = 0; i < allKeys.length; i++) {\n    var key = allKeys[i];\n    var dataObject = global.get(key);\n    \n    // Check if this object contains Modbus info (modbusIP as an identifier)\n    if (dataObject && dataObject.hasOwnProperty(\"modbusIP\")) {\n        // Create an entry containing key info for sorting\n        modbusDataList.push({\n            key: key,\n            startAddress: dataObject.startAddress,\n            length: dataObject.dataType === \"int16\" || dataObject.dataType === \"uint16\" ? 1 : 2,\n            tcpHost: dataObject.modbusIP,\n            tcpPort: dataObject.modbusPort,\n            unitId: dataObject.slaveID,\n            fc: 3,  // Using function code 3 for reading holding registers, adjust based on your requirement\n            data: dataObject\n        });\n    }\n}\n\n// Sort by startAddress for efficient reading, but also consider grouping by tcpHost and unitId\nmodbusDataList.sort((a, b) => {\n    if (a.tcpHost === b.tcpHost) {\n        if (a.unitId === b.unitId) {\n            return a.startAddress - b.startAddress;\n        }\n        return a.unitId - b.unitId;\n    }\n    return a.tcpHost.localeCompare(b.tcpHost);\n});\n\n// Step 2: Group the registers for efficient reading\nvar readRequests = [];\nif (modbusDataList.length > 0) {\n    // Initialize the first read group\n    var currentGroup = {\n        tcpHost: modbusDataList[0].tcpHost,\n        tcpPort: modbusDataList[0].tcpPort,\n        unitId: modbusDataList[0].unitId,\n        startAddress: modbusDataList[0].startAddress,\n        endAddress: modbusDataList[0].startAddress + modbusDataList[0].length - 1,\n        length: modbusDataList[0].length,\n        fc: modbusDataList[0].fc  // Typically FC 3 or 4, based on requirements\n    };\n\n    // Iterate through the sorted registers\n    for (var i = 1; i < modbusDataList.length; i++) {\n        var currentRegister = modbusDataList[i];\n        \n        // If we are still with the same device (same tcpHost and unitId)\n        if (currentRegister.tcpHost === currentGroup.tcpHost && currentRegister.unitId === currentGroup.unitId) {\n            var nextStart = currentRegister.startAddress;\n            var nextEnd = currentRegister.startAddress + currentRegister.length - 1;\n\n            // Check if the next register can be added to the current group\n            if (nextStart <= currentGroup.endAddress + 1) {\n                // Expand the current group to include this register\n                currentGroup.endAddress = Math.max(currentGroup.endAddress, nextEnd);\n                currentGroup.length = currentGroup.endAddress - currentGroup.startAddress + 1;\n            } else {\n                // Push the completed group to the read requests\n                readRequests.push({ ...currentGroup });\n\n                // Start a new group\n                currentGroup = {\n                    tcpHost: currentRegister.tcpHost,\n                    tcpPort: currentRegister.tcpPort,\n                    unitId: currentRegister.unitId,\n                    startAddress: nextStart,\n                    endAddress: nextEnd,\n                    length: currentRegister.length,\n                    fc: currentRegister.fc\n                };\n            }\n        } else {\n            // Push the completed group to the read requests\n            readRequests.push({ ...currentGroup });\n\n            // Start a new group for the next device\n            currentGroup = {\n                tcpHost: currentRegister.tcpHost,\n                tcpPort: currentRegister.tcpPort,\n                unitId: currentRegister.unitId,\n                startAddress: currentRegister.startAddress,\n                endAddress: currentRegister.startAddress + currentRegister.length - 1,\n                length: currentRegister.length,\n                fc: currentRegister.fc\n            };\n        }\n    }\n\n    // Push the final group to the read requests\n    readRequests.push({ ...currentGroup });\n}\n\n// Set the grouped read requests to the message payload for further processing\nmsg.payload = readRequests;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 120,
+        "wires": [
+            [
+                "a08b4d86aae2472b"
+            ]
+        ]
+    },
+    {
+        "id": "549c3d904bde133c",
+        "type": "debug",
+        "z": "c87e73927481cb24",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "2629dbcfccca2051",
+        "type": "modbus-flex-getter",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "server": "4fad382cc333fc8d",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 670,
+        "y": 200,
+        "wires": [
+            [
+                "fe16fd1e7efca44e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b0455762d39b3671",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 19",
+        "func": "// Get the read group from the incoming message payload\nvar readGroup = msg.payload;\n\n// Prepare the message payload for the Modbus Flex Getter node\nmsg.payload = {\n    value: msg.payload,   // Keeping value same as original msg.payload\n    fc: readGroup.fc,     // Function Code (1..4)\n    unitid: readGroup.unitId,\n    address: readGroup.startAddress,\n    quantity: readGroup.length\n};\n\n// Optional: Add the connection parameters\nmsg.tcpHost = readGroup.tcpHost;\nmsg.tcpPort = readGroup.tcpPort;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 200,
+        "wires": [
+            [
+                "2629dbcfccca2051"
+            ]
+        ]
+    },
+    {
+        "id": "335593303c5990b8",
+        "type": "debug",
+        "z": "c87e73927481cb24",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a08b4d86aae2472b",
+        "type": "split",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 870,
+        "y": 120,
+        "wires": [
+            [
+                "b0455762d39b3671",
+                "549c3d904bde133c"
+            ]
+        ]
+    },
+    {
+        "id": "fe16fd1e7efca44e",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 20",
+        "func": "// Step 1: Retrieve necessary information from the incoming message\nvar readData = msg.payload;  // This is the array of Modbus read values (e.g., [139])\nvar startAddress = msg.startAddress;  // Starting address of the read (e.g., 1051)\nvar unitId = msg.unitId;  // Unit ID of the device being read\n\n// Step 2: Iterate through all global context keys to find the corresponding variable\nvar allKeys = global.keys();\n\nfor (var i = 0; i < allKeys.length; i++) {\n    var key = allKeys[i];\n    var dataObject = global.get(key);\n    \n    // Check if the object has matching startAddress and unitId\n    if (dataObject && dataObject.startAddress === startAddress && dataObject.unitId === unitId) {\n        // Update the value of the corresponding global context variable\n        if (readData.length === 1) {\n            // Assuming length of 1 for single register reads, assign the value\n            dataObject.value = readData[0] * (dataObject.dataMultiplier || 1);\n            \n            // Update the formatted value as well\n            dataObject.formattedValue = `${dataObject.name}: ${dataObject.value} ${dataObject.dimension}`.trim();\n            \n            // Save the updated dataObject back to global context\n            global.set(key, dataObject);\n            \n            node.status({ fill: \"green\", shape: \"dot\", text: `Updated ${dataObject.name} to ${dataObject.value}` });\n        } else {\n            node.warn(`Unexpected read length for ${dataObject.name}. Expected 1 but got ${readData.length}.`);\n        }\n    }\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 200,
+        "wires": [
+            [
+                "335593303c5990b8"
+            ]
+        ]
+    },
+    {
+        "id": "932876dbe4d43f7e",
+        "type": "trigger",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "op1": "true",
+        "op2": "0",
+        "op1type": "bool",
+        "op2type": "str",
+        "duration": "-250",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 600,
+        "y": 40,
+        "wires": [
+            [
+                "662294c3fd43faaf"
+            ]
+        ]
+    },
+    {
+        "id": "6f337ccf2f879e1e",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 21",
+        "func": "// Retrieve the global polling rate\nmsg.delay = global.get('pollingRate') || 1000;  // Default to 1000ms if not set\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 40,
+        "wires": [
+            [
+                "932876dbe4d43f7e"
+            ]
+        ]
+    },
+    {
+        "id": "d5cf64e0d0b07800",
+        "type": "link in",
+        "z": "c87e73927481cb24",
+        "name": "link in 5",
+        "links": [
+            "0945fdf4af69dc5a"
+        ],
+        "x": 195,
+        "y": 80,
+        "wires": [
+            [
+                "6f337ccf2f879e1e"
+            ]
+        ]
+    },
+    {
+        "id": "5fe226c2aa1b1d9b",
+        "type": "inject",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "6f337ccf2f879e1e"
+            ]
+        ]
+    },
+    {
+        "id": "4fad382cc333fc8d",
+        "type": "modbus-client",
+        "name": "SweetNothings",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.1.203",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    }
+]

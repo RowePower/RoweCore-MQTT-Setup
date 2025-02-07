@@ -1,0 +1,269 @@
+[
+    {
+        "id": "39d2c7aea4f81417",
+        "type": "tab",
+        "label": "MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "60fa39c9762b987c",
+        "type": "mqtt out",
+        "z": "39d2c7aea4f81417",
+        "name": "\"HostName\"/Status/Uptime",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3763e3b111ee67d0",
+        "x": 220,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "bdf014e52e967049",
+        "type": "link in",
+        "z": "39d2c7aea4f81417",
+        "name": "Uptime in",
+        "links": [
+            "284ec2ee8daebe90"
+        ],
+        "x": 55,
+        "y": 200,
+        "wires": [
+            [
+                "60fa39c9762b987c"
+            ]
+        ]
+    },
+    {
+        "id": "a55ac412545eff0f",
+        "type": "mqtt in",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "topic": "Data/Sync",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3763e3b111ee67d0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 140,
+        "wires": [
+            [
+                "d2a8676816303ca6",
+                "7b5c4e1e8ee07970",
+                "0760f5884e6aeda5"
+            ]
+        ]
+    },
+    {
+        "id": "cdac7990e49193ed",
+        "type": "mqtt out",
+        "z": "39d2c7aea4f81417",
+        "name": "\"HostName\"/Status/Details ",
+        "topic": "",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3763e3b111ee67d0",
+        "x": 220,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d2a8676816303ca6",
+        "type": "link out",
+        "z": "39d2c7aea4f81417",
+        "name": "DataSync_Rx",
+        "mode": "link",
+        "links": [
+            "949cabf34e40b4a9"
+        ],
+        "x": 235,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b8c1466b688d5d2f",
+        "type": "link in",
+        "z": "39d2c7aea4f81417",
+        "name": "Details In",
+        "links": [
+            "be203c06505427bf"
+        ],
+        "x": 55,
+        "y": 260,
+        "wires": [
+            [
+                "cdac7990e49193ed"
+            ]
+        ]
+    },
+    {
+        "id": "f59ce24627f93725",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "function 22",
+        "func": "if (msg.payload && typeof msg.payload.hostname === 'string') {\n    // Set the flow context variable with the hostname\n    flow.set('hostName', msg.payload.hostname);\n\n    // Assign the hostname to msg.payload\n    msg.payload = msg.payload.hostname;\n\n    return msg;\n} else {\n    // Handle cases where hostname is missing or not a string\n    node.error(\"msg.payload.hostname is not available or not a string\", msg);\n    return null; // Stops the flow if there's an error\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa26bc7ad5694521",
+        "type": "inject",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "fa25cba3f4280d30"
+            ]
+        ]
+    },
+    {
+        "id": "9387d5c9b3333244",
+        "type": "mqtt out",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3763e3b111ee67d0",
+        "x": 490,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "0760f5884e6aeda5",
+        "type": "debug",
+        "z": "39d2c7aea4f81417",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "7b5c4e1e8ee07970",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "Publish global values",
+        "func": "// Step 1: Get all global context keys\nvar globalKeys = global.keys();\n\nif (!globalKeys || globalKeys.length === 0) {\n    return null; // Exit if no global context variables are found\n}\n\n// Step 2: Get the hostname from flow context\nvar hostName = flow.get('hostName') || 'defaultHost'; // Use 'defaultHost' if the hostName is not set\n\n// Step 3: Iterate over each global context key\nvar mqttMessages = [];\nglobalKeys.forEach(function(key) {\n    var globalValue = global.get(key);\n\n    // Step 4: Check if the global value has a 'value' property\n    if (globalValue && typeof globalValue === 'object' && globalValue.hasOwnProperty('value')) {\n        // Construct the topic using hostName and the key\n        var individualTopic = `${hostName}/${key}/value`;\n\n        // Add the message to the mqttMessages array\n        mqttMessages.push({\n            topic: individualTopic,\n            payload: globalValue.value // The actual measured value\n        });\n    }\n});\n\n// Step 5: Output the messages\n// If there are multiple messages, use node.send to send them as individual messages\nmqttMessages.forEach(function(message) {\n    node.send({ topic: message.topic, payload: message.payload });\n});\n\nreturn null; // Since we're using node.send, we return null to avoid sending an additional message\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "9387d5c9b3333244"
+            ]
+        ]
+    },
+    {
+        "id": "fa25cba3f4280d30",
+        "type": "OS",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "f59ce24627f93725"
+            ]
+        ]
+    },
+    {
+        "id": "fb9ad6cf62660818",
+        "type": "comment",
+        "z": "39d2c7aea4f81417",
+        "name": "Publish global variables",
+        "info": "/**\n * This flow manages MQTT communication for system status updates and data synchronization.\n * \n * **Key Functions:**\n * \n * 1. **Publishing Uptime Status:**\n *    - Listens for incoming uptime updates via a link node.\n *    - Publishes uptime data to the MQTT topic: `\"HostName\"/Status/Uptime`.\n * \n * 2. **Receiving MQTT Data Sync Message:**\n *    - Subscribes to `Data/Sync` MQTT topic.\n *    - When a sync message is received, it triggers:\n *      - Parsing of the received data.\n *      - Processing system-wide global values for MQTT publishing.\n *      - Debugging/logging of incoming messages.\n * \n * 3. **Publishing System Status Details:**\n *    - Listens for detailed system data via a link node.\n *    - Publishes system details (e.g., hostname, uptime, CPU load, memory usage) to the MQTT topic: `\"HostName\"/Status/Details`.\n * \n * 4. **Handling Global Context Variables for MQTT:**\n *    - Retrieves all global context variables.\n *    - Constructs MQTT topics dynamically using the `hostName` value.\n *    - Sends each global variable’s value to a corresponding MQTT topic formatted as:  \n *      `\"HostName\"/<Variable>/value`.\n * \n * 5. **Hostname Handling:**\n *    - Retrieves the hostname using an OS command node.\n *    - Stores the hostname in the flow context for consistent MQTT topic formatting.\n * \n * 6. **MQTT Broker Configuration:**\n *    - Uses an MQTT broker at `192.168.1.43` with topic-based connection status messages.\n *    - Publishes `\"TestDac3 has Connected\"` on connection and `\"TestDac3 has Disconnected\"` when the connection drops.\n * \n * **Overall Purpose:**\n * - This flow ensures that system information is synchronized across the network via MQTT.\n * - It dynamically updates and publishes critical system status parameters for real-time monitoring.\n */\n",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "3763e3b111ee67d0",
+        "type": "mqtt-broker",
+        "name": "TestDacServer",
+        "broker": "192.168.1.43",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "TestDac3/Status",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "TestDac3 has Connected",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "TestDac3/Status",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "TestDac3 has Disconnected ",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

@@ -1,0 +1,1318 @@
+[
+    {
+        "id": "bd846703122c51ba",
+        "type": "tab",
+        "label": "MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6589f33e3749d533",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "TestDac1/Status/Uptime",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "b5131c4992863ebb"
+            ]
+        ]
+    },
+    {
+        "id": "532bae21be6a1c21",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "e1647831475461cb"
+            ]
+        ]
+    },
+    {
+        "id": "d759acc29e828df2",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "TestDac2/Status/Uptime",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 240,
+        "wires": [
+            [
+                "670b170671fd2592"
+            ]
+        ]
+    },
+    {
+        "id": "83a43c28e0c728de",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "TestDac3/Status/Uptime",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "1a5da8da6fa71412"
+            ]
+        ]
+    },
+    {
+        "id": "b5131c4992863ebb",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 18",
+        "func": "// Node-RED Function to set incoming message as a global context variable\n// Extract the payload and assign it to a global variable\n\n// Access the uptime string from msg.payload\nlet uptime = msg.payload;\n\n// Assign the uptime value to the global context variable named 'TestDac1_Uptime'\nglobal.set(\"TestDac1_Uptime\", uptime);\n\n// Optionally, you can output this message to verify or use it in another node\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 180,
+        "wires": [
+            [
+                "b855cba315e56035"
+            ]
+        ]
+    },
+    {
+        "id": "670b170671fd2592",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 19",
+        "func": "// Node-RED Function to set incoming message as a global context variable\n// Extract the payload and assign it to a global variable\n\n// Access the uptime string from msg.payload\nlet uptime = msg.payload;\n\n// Assign the uptime value to the global context variable named 'TestDac1_Uptime'\nglobal.set(\"TestDac2_Uptime\", uptime);\n\n// Optionally, you can output this message to verify or use it in another node\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 240,
+        "wires": [
+            [
+                "31018a09ae0d65cf"
+            ]
+        ]
+    },
+    {
+        "id": "1a5da8da6fa71412",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 20",
+        "func": "// Node-RED Function to set incoming message as a global context variable\n// Extract the payload and assign it to a global variable\n\n// Access the uptime string from msg.payload\nlet uptime = msg.payload;\n\n// Assign the uptime value to the global context variable named 'TestDac1_Uptime'\nglobal.set(\"TestDac3_Uptime\", uptime);\n\n// Optionally, you can output this message to verify or use it in another node\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "72664cbbfa6567f5"
+            ]
+        ]
+    },
+    {
+        "id": "b855cba315e56035",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "TDac1_Uptime",
+        "mode": "link",
+        "links": [
+            "46f5955140cc788a"
+        ],
+        "x": 475,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "31018a09ae0d65cf",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "TDac2_Uptime",
+        "mode": "link",
+        "links": [
+            "35172591a6ecec4b"
+        ],
+        "x": 475,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "72664cbbfa6567f5",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "TDac3_Uptime",
+        "mode": "link",
+        "links": [
+            "ed40fe52a987e8a8"
+        ],
+        "x": 475,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e1647831475461cb",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 21",
+        "func": "// Function to count incoming MQTT messages and increment a global context variable\n\n// Define a name for the counter variable in global context\nlet counterName = \"MQTT_Message_Count\";\n\n// Get the current value of the counter from the global context\nlet currentCount = global.get(counterName) || 0; // Default to 0 if not already set\n\n// Increment the count by 1\ncurrentCount++;\n\n// Update the global context variable with the new count value\nglobal.set(counterName, currentCount);\n\n// Optionally, add the count to the message to view/debug\nmsg.messageCount = currentCount;\n\n// Return the updated message object (optional)\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 120,
+        "wires": [
+            [
+                "d993b3c6def866b7"
+            ]
+        ]
+    },
+    {
+        "id": "d993b3c6def866b7",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "Global message count",
+        "mode": "link",
+        "links": [
+            "e0952032b54e8732"
+        ],
+        "x": 475,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c279b065b58b524d",
+        "type": "mqtt out",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "Data/Sync",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2256a3902b64b083",
+        "x": 530,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "78f7fff8bf1c85f9",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "TestDac1/Status/Details",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 480,
+        "wires": [
+            [
+                "81d353dfa6c5a5eb",
+                "e556e0d1b062fe55",
+                "1c43c2c4b684cf0b",
+                "c5ac5e56dde183ec"
+            ]
+        ]
+    },
+    {
+        "id": "b069caeb26d52c32",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "d": true,
+        "name": "",
+        "topic": "TestDac2/Status/Details",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 520,
+        "wires": [
+            [
+                "e1a1984201d53aff",
+                "160f97e5bc83f535",
+                "1aa6414abbb60fd4",
+                "ee9906c4a29fa96f"
+            ]
+        ]
+    },
+    {
+        "id": "1f4983d2aff2a3da",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "Link1/Status/Details",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 560,
+        "wires": [
+            [
+                "046364b07aaadd1e",
+                "56677ccf7b873abf",
+                "ab07a6ee3b693653"
+            ]
+        ]
+    },
+    {
+        "id": "f06060f49a123772",
+        "type": "link in",
+        "z": "bd846703122c51ba",
+        "name": "link in 1",
+        "links": [
+            "da2032170fcb09b8"
+        ],
+        "x": 245,
+        "y": 420,
+        "wires": [
+            [
+                "98b9288adeee2025",
+                "6091ce13f46adc11"
+            ]
+        ]
+    },
+    {
+        "id": "98b9288adeee2025",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 22",
+        "func": "let MsgCount = global.get('MQTT_Message_Count');\n\nmsg.payload = MsgCount;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c1827dd57e0cd3ea",
+        "type": "inject",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "f6bf112a735b646c"
+            ]
+        ]
+    },
+    {
+        "id": "f6bf112a735b646c",
+        "type": "trigger",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "date",
+        "op2type": "str",
+        "duration": "-999",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 340,
+        "y": 40,
+        "wires": [
+            [
+                "c279b065b58b524d",
+                "36d7b93d23095ff9"
+            ]
+        ]
+    },
+    {
+        "id": "e5eabe9641db7fdd",
+        "type": "mqtt out",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "TestDac1/Publish/",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2256a3902b64b083",
+        "x": 1050,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d571978de3654432",
+        "type": "inject",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "BatteryVolts/value",
+        "payloadType": "str",
+        "x": 810,
+        "y": 40,
+        "wires": [
+            [
+                "e5eabe9641db7fdd"
+            ]
+        ]
+    },
+    {
+        "id": "c19b95703d5638e6",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "TestDac1/Publish/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 810,
+        "y": 100,
+        "wires": [
+            [
+                "5a9f048a6cd00b11"
+            ]
+        ]
+    },
+    {
+        "id": "5a9f048a6cd00b11",
+        "type": "debug",
+        "z": "bd846703122c51ba",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "e98bc9b749664ac3",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "TestPi1/Status/Details",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 600,
+        "wires": [
+            [
+                "10c7ce4e6b557055",
+                "009e286733004e8d",
+                "d85007241bbe0fca",
+                "420fd8a1047dd04d",
+                "5f989ec62bf5506c"
+            ]
+        ]
+    },
+    {
+        "id": "e699471779aef304",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "TestPi2/Status/Details",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 640,
+        "wires": [
+            [
+                "61a36c212019731b",
+                "a4eba5d7e23539ff",
+                "5556fa842ec5f230",
+                "7c57ac34ad1533ca"
+            ]
+        ]
+    },
+    {
+        "id": "81d353dfa6c5a5eb",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 25",
+        "func": "// Ensure the payload is in the expected format\nif (!Array.isArray(msg.payload)) {\n    node.error(\"Payload is not an array\");\n    return null;\n}\n\nlet data = msg.payload[0]; // Access the first object in the array\nlet hostname = data.HostName || \"UnknownHost\"; // Get the HostName or default to UnknownHost\n\n// Prepare the individual messages with unique topics, excluding IP Address and Up Time\nlet topics = {\n    \"Memory Usage\": data[\"Memory Usage\"],\n    \"CPU Load 1\": data[\"CPU Load 1\"],\n    \"CPU Load 2\": data[\"CPU Load 2\"],\n    \"CPU Load 3\": data[\"CPU Load 3\"],\n    \"CPU Temp\": data[\"CPU Temp\"]\n};\n\n// Create an array of messages\nlet messages = [];\n\nfor (let key in topics) {\n    if (topics.hasOwnProperty(key)) {\n        let value = topics[key];\n        // Check if the value is \"N/A\"\n        if (value && value !== \"N/A\") {\n            let message = {\n                payload: value,\n                topic: `${hostname}/${key.replace(/\\s+/g, \"_\")}`\n            };\n            messages.push(message);\n        }\n    }\n}\n\n// Return the array of messages\nreturn [messages];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e1a1984201d53aff",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "d": true,
+        "name": "function 26",
+        "func": "// Ensure the payload is in the expected format\nif (!Array.isArray(msg.payload)) {\n    node.error(\"Payload is not an array\");\n    return null;\n}\n\nlet data = msg.payload[0]; // Access the first object in the array\nlet hostname = data.HostName || \"UnknownHost\"; // Get the HostName or default to UnknownHost\n\n// Prepare the individual messages with unique topics, excluding IP Address and Up Time\nlet topics = {\n    \"Memory Usage\": data[\"Memory Usage\"],\n    \"CPU Load 1\": data[\"CPU Load 1\"],\n    \"CPU Load 2\": data[\"CPU Load 2\"],\n    \"CPU Load 3\": data[\"CPU Load 3\"],\n    \"CPU Temp\": data[\"CPU Temp\"]\n};\n\n// Create an array of messages\nlet messages = [];\n\nfor (let key in topics) {\n    if (topics.hasOwnProperty(key)) {\n        let value = topics[key];\n        // Check if the value is \"N/A\"\n        if (value && value !== \"N/A\") {\n            let message = {\n                payload: value,\n                topic: `${hostname}/${key.replace(/\\s+/g, \"_\")}`\n            };\n            messages.push(message);\n        }\n    }\n}\n\n// Return the array of messages\nreturn [messages];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "046364b07aaadd1e",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 27",
+        "func": "// Ensure the payload is in the expected format\nif (!Array.isArray(msg.payload)) {\n    node.error(\"Payload is not an array\");\n    return null;\n}\n\nlet data = msg.payload[0]; // Access the first object in the array\nlet hostname = data.HostName || \"UnknownHost\"; // Get the HostName or default to UnknownHost\n\n// Prepare the individual messages with unique topics, excluding IP Address and Up Time\nlet topics = {\n    \"Memory Usage\": data[\"Memory Usage\"],\n    \"CPU Load 1\": data[\"CPU Load 1\"],\n    \"CPU Load 2\": data[\"CPU Load 2\"],\n    \"CPU Load 3\": data[\"CPU Load 3\"],\n    \"CPU Temp\": data[\"CPU Temp\"]\n};\n\n// Create an array of messages\nlet messages = [];\n\nfor (let key in topics) {\n    if (topics.hasOwnProperty(key)) {\n        let value = topics[key];\n        // Check if the value is \"N/A\"\n        if (value && value !== \"N/A\") {\n            let message = {\n                payload: value,\n                topic: `${hostname}/${key.replace(/\\s+/g, \"_\")}`\n            };\n            messages.push(message);\n        }\n    }\n}\n\n// Return the array of messages\nreturn [messages];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10c7ce4e6b557055",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 28",
+        "func": "// Ensure the payload is in the expected format\nif (!Array.isArray(msg.payload)) {\n    node.error(\"Payload is not an array\");\n    return null;\n}\n\nlet data = msg.payload[0]; // Access the first object in the array\nlet hostname = data.HostName || \"UnknownHost\"; // Get the HostName or default to UnknownHost\n\n// Prepare the individual messages with unique topics, excluding IP Address and Up Time\nlet topics = {\n    \"Memory Usage\": data[\"Memory Usage\"],\n    \"CPU Load 1\": data[\"CPU Load 1\"],\n    \"CPU Load 2\": data[\"CPU Load 2\"],\n    \"CPU Load 3\": data[\"CPU Load 3\"],\n    \"CPU Temp\": data[\"CPU Temp\"]\n};\n\n// Create an array of messages\nlet messages = [];\n\nfor (let key in topics) {\n    if (topics.hasOwnProperty(key)) {\n        let value = topics[key];\n        // Check if the value is \"N/A\"\n        if (value && value !== \"N/A\") {\n            let message = {\n                payload: value,\n                topic: `${hostname}/${key.replace(/\\s+/g, \"_\")}`\n            };\n            messages.push(message);\n        }\n    }\n}\n\n// Return the array of messages\nreturn [messages];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "61a36c212019731b",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 29",
+        "func": "// Ensure the payload is in the expected format\nif (!Array.isArray(msg.payload)) {\n    node.error(\"Payload is not an array\");\n    return null;\n}\n\nlet data = msg.payload[0]; // Access the first object in the array\nlet hostname = data.HostName || \"UnknownHost\"; // Get the HostName or default to UnknownHost\n\n// Prepare the individual messages with unique topics, excluding IP Address and Up Time\nlet topics = {\n    \"Memory Usage\": data[\"Memory Usage\"],\n    \"CPU Load 1\": data[\"CPU Load 1\"],\n    \"CPU Load 2\": data[\"CPU Load 2\"],\n    \"CPU Load 3\": data[\"CPU Load 3\"],\n    \"CPU Temp\": data[\"CPU Temp\"]\n};\n\n// Create an array of messages\nlet messages = [];\n\nfor (let key in topics) {\n    if (topics.hasOwnProperty(key)) {\n        let value = topics[key];\n        // Check if the value is \"N/A\"\n        if (value && value !== \"N/A\") {\n            let message = {\n                payload: value,\n                topic: `${hostname}/${key.replace(/\\s+/g, \"_\")}`\n            };\n            messages.push(message);\n        }\n    }\n}\n\n// Return the array of messages\nreturn [messages];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e556e0d1b062fe55",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "7b6a9eb27efc9c5b"
+        ],
+        "x": 925,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "160f97e5bc83f535",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "bc073933444f233a"
+        ],
+        "x": 925,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "56677ccf7b873abf",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "e54295fbfef4f2d4"
+        ],
+        "x": 925,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "009e286733004e8d",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "6ea2bc24d371bbdb"
+        ],
+        "x": 925,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "a4eba5d7e23539ff",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "link out 5",
+        "mode": "link",
+        "links": [
+            "93ba9f797b704bb4"
+        ],
+        "x": 925,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "e6aecd7559dac9c7",
+        "type": "mqtt in",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "topic": "TestPi3/Status/Details",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2256a3902b64b083",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 680,
+        "wires": [
+            [
+                "58cb7f9fd43c3042",
+                "1bdcc8fec17e8386",
+                "d02b4062a8bd8a6d"
+            ]
+        ]
+    },
+    {
+        "id": "e547519a7c8343e0",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 31",
+        "func": "// Ensure the payload is in the expected format\nif (!Array.isArray(msg.payload)) {\n    node.error(\"Payload is not an array\");\n    return null;\n}\n\nlet data = msg.payload[0]; // Access the first object in the array\nlet hostname = data.HostName || \"UnknownHost\"; // Get the HostName or default to UnknownHost\n\n// Prepare the individual messages with unique topics, excluding IP Address and Up Time\nlet topics = {\n    \"Memory Usage\": data[\"Memory Usage\"],\n    \"CPU Load 1\": data[\"CPU Load 1\"],\n    \"CPU Load 2\": data[\"CPU Load 2\"],\n    \"CPU Load 3\": data[\"CPU Load 3\"],\n    \"CPU Temp\": data[\"CPU Temp\"]\n};\n\n// Create an array of messages\nlet messages = [];\n\nfor (let key in topics) {\n    if (topics.hasOwnProperty(key)) {\n        let value = topics[key];\n        // Check if the value is \"N/A\"\n        if (value && value !== \"N/A\") {\n            let message = {\n                payload: value,\n                topic: `${hostname}/${key.replace(/\\s+/g, \"_\")}`\n            };\n            messages.push(message);\n        }\n    }\n}\n\n// Return the array of messages\nreturn [messages];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "58cb7f9fd43c3042",
+        "type": "link out",
+        "z": "bd846703122c51ba",
+        "name": "link out 6",
+        "mode": "link",
+        "links": [
+            "ff605f360965fba7"
+        ],
+        "x": 925,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "1c43c2c4b684cf0b",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 32",
+        "func": "// Extract the CPU Temp from the payload array\nif (msg.payload && Array.isArray(msg.payload) && msg.payload[0]) {\n    const cpuTemp = msg.payload[0][\"CPU Temp\"];\n    \n    if (cpuTemp !== undefined) {\n        // Create a new message with the desired topic and payload\n        return {\n            topic: \"TestDac1_CPU_Temp\",\n            payload: cpuTemp\n        };\n    } else {\n        // If CPU Temp is not found, return null to avoid errors\n        return null;\n    }\n} else {\n    // If payload structure is incorrect, return null\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 860,
+        "wires": [
+            [
+                "f84c4a5d2e83e5d3"
+            ]
+        ]
+    },
+    {
+        "id": "1aa6414abbb60fd4",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 33",
+        "func": "// Extract the CPU Temp from the payload array\nif (msg.payload && Array.isArray(msg.payload) && msg.payload[0]) {\n    const cpuTemp = msg.payload[0][\"CPU Temp\"];\n    \n    if (cpuTemp !== undefined) {\n        // Create a new message with the desired topic and payload\n        return {\n            topic: \"TestDac2_CPU_Temp\",\n            payload: cpuTemp\n        };\n    } else {\n        // If CPU Temp is not found, return null to avoid errors\n        return null;\n    }\n} else {\n    // If payload structure is incorrect, return null\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 900,
+        "wires": [
+            [
+                "f84c4a5d2e83e5d3"
+            ]
+        ]
+    },
+    {
+        "id": "c52eb8d1e5ae8bde",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 34",
+        "func": "// Extract the CPU Temp from the payload array\nif (msg.payload && Array.isArray(msg.payload) && msg.payload[0]) {\n    const cpuTemp = msg.payload[0][\"CPU Temp\"];\n    \n    if (cpuTemp !== undefined) {\n        // Create a new message with the desired topic and payload\n        return {\n            topic: \"TestDac3_CPU_Temp\",\n            payload: cpuTemp\n        };\n    } else {\n        // If CPU Temp is not found, return null to avoid errors\n        return null;\n    }\n} else {\n    // If payload structure is incorrect, return null\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 940,
+        "wires": [
+            [
+                "f84c4a5d2e83e5d3"
+            ]
+        ]
+    },
+    {
+        "id": "d85007241bbe0fca",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 35",
+        "func": "// Extract the CPU Temp from the payload array\nif (msg.payload && Array.isArray(msg.payload) && msg.payload[0]) {\n    const cpuTemp = msg.payload[0][\"CPU Temp\"];\n    \n    if (cpuTemp !== undefined) {\n        // Create a new message with the desired topic and payload\n        return {\n            topic: \"TestPi1_CPU_Temp\",\n            payload: cpuTemp\n        };\n    } else {\n        // If CPU Temp is not found, return null to avoid errors\n        return null;\n    }\n} else {\n    // If payload structure is incorrect, return null\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 980,
+        "wires": [
+            [
+                "f84c4a5d2e83e5d3"
+            ]
+        ]
+    },
+    {
+        "id": "5556fa842ec5f230",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 36",
+        "func": "// Extract the CPU Temp from the payload array\nif (msg.payload && Array.isArray(msg.payload) && msg.payload[0]) {\n    const cpuTemp = msg.payload[0][\"CPU Temp\"];\n    \n    if (cpuTemp !== undefined) {\n        // Create a new message with the desired topic and payload\n        return {\n            topic: \"TestPi2_CPU_Temp\",\n            payload: cpuTemp\n        };\n    } else {\n        // If CPU Temp is not found, return null to avoid errors\n        return null;\n    }\n} else {\n    // If payload structure is incorrect, return null\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 1020,
+        "wires": [
+            [
+                "f84c4a5d2e83e5d3"
+            ]
+        ]
+    },
+    {
+        "id": "1bdcc8fec17e8386",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 37",
+        "func": "// Extract the CPU Temp from the payload array\nif (msg.payload && Array.isArray(msg.payload) && msg.payload[0]) {\n    const cpuTemp = msg.payload[0][\"CPU Temp\"];\n    \n    if (cpuTemp !== undefined) {\n        // Create a new message with the desired topic and payload\n        return {\n            topic: \"TestPi3_CPU_Temp\",\n            payload: cpuTemp\n        };\n    } else {\n        // If CPU Temp is not found, return null to avoid errors\n        return null;\n    }\n} else {\n    // If payload structure is incorrect, return null\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 1060,
+        "wires": [
+            [
+                "f84c4a5d2e83e5d3"
+            ]
+        ]
+    },
+    {
+        "id": "6091ce13f46adc11",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 38",
+        "func": "// Extract the CPU Temp from the payload array\nif (msg.payload && Array.isArray(msg.payload) && msg.payload[0]) {\n    const cpuTemp = msg.payload[0][\"CPU Temp\"];\n    \n    if (cpuTemp !== undefined) {\n        // Create a new message with the desired topic and payload\n        return {\n            topic: \"RoweCore_CPU_Temp\",\n            payload: cpuTemp\n        };\n    } else {\n        // If CPU Temp is not found, return null to avoid errors\n        return null;\n    }\n} else {\n    // If payload structure is incorrect, return null\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 1100,
+        "wires": [
+            [
+                "f84c4a5d2e83e5d3"
+            ]
+        ]
+    },
+    {
+        "id": "ab07a6ee3b693653",
+        "type": "ui-table",
+        "z": "bd846703122c51ba",
+        "group": "c4a9534639163df1",
+        "name": "",
+        "label": "",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": false,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 450,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c5ac5e56dde183ec",
+        "type": "ui-table",
+        "z": "bd846703122c51ba",
+        "group": "c4a9534639163df1",
+        "name": "",
+        "label": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": false,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 450,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ee9906c4a29fa96f",
+        "type": "ui-table",
+        "z": "bd846703122c51ba",
+        "d": true,
+        "group": "c4a9534639163df1",
+        "name": "",
+        "label": "",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": false,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 450,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "420fd8a1047dd04d",
+        "type": "ui-table",
+        "z": "bd846703122c51ba",
+        "group": "c4a9534639163df1",
+        "name": "",
+        "label": "",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": false,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 450,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c57ac34ad1533ca",
+        "type": "ui-table",
+        "z": "bd846703122c51ba",
+        "group": "c4a9534639163df1",
+        "name": "",
+        "label": "",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": false,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 450,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d02b4062a8bd8a6d",
+        "type": "ui-table",
+        "z": "bd846703122c51ba",
+        "group": "c4a9534639163df1",
+        "name": "",
+        "label": "",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": false,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 450,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "36d7b93d23095ff9",
+        "type": "function",
+        "z": "bd846703122c51ba",
+        "name": "function 46",
+        "func": "// Retrieve the MQTT_Message_Count from global context\nlet mqttCount = global.get(\"MQTT_Message_Count\");\n\n// If it doesn't exist (undefined), stop or handle it\nif (mqttCount === undefined) {\n    return null; // or you can set a default value here if you like\n}\n\n// Put that count into msg.payload\nmsg.payload = mqttCount;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 160,
+        "wires": [
+            [
+                "e3566ccc8d591ef2"
+            ]
+        ]
+    },
+    {
+        "id": "e3566ccc8d591ef2",
+        "type": "ui-text",
+        "z": "bd846703122c51ba",
+        "group": "c4a9534639163df1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "MQTT Msg Count",
+        "format": "{{msg.payload}}",
+        "layout": "row-right",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1050,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f84c4a5d2e83e5d3",
+        "type": "delay",
+        "z": "bd846703122c51ba",
+        "name": "",
+        "pauseType": "timed",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 570,
+        "y": 980,
+        "wires": [
+            [
+                "fa70399e934cab8f"
+            ]
+        ]
+    },
+    {
+        "id": "fa70399e934cab8f",
+        "type": "ui-chart",
+        "z": "bd846703122c51ba",
+        "group": "7729410e8c205329",
+        "name": "",
+        "label": "chart",
+        "order": 1,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "false",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "2500",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 790,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f989ec62bf5506c",
+        "type": "debug",
+        "z": "bd846703122c51ba",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "2256a3902b64b083",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "LocalHost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "c4a9534639163df1",
+        "type": "ui-group",
+        "name": "Link Data",
+        "page": "49421763c0917dd1",
+        "width": "6",
+        "height": "1",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "7729410e8c205329",
+        "type": "ui-group",
+        "name": "Link Temps",
+        "page": "49421763c0917dd1",
+        "width": "6",
+        "height": "1",
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "49421763c0917dd1",
+        "type": "ui-page",
+        "name": "Mqtt Devices",
+        "ui": "4012a07e5e32c0f2",
+        "path": "/MQTT",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "e9c9516048f29891",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 5,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "4012a07e5e32c0f2",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true
+    },
+    {
+        "id": "e9c9516048f29891",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#870303",
+            "primary": "#030303",
+            "bgPage": "#000000",
+            "groupBg": "#242424",
+            "groupOutline": "#000000"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    }
+]

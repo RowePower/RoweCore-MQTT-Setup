@@ -1,0 +1,1136 @@
+[
+    {
+        "id": "f0fb0bd6b5fcfabc",
+        "type": "tab",
+        "label": "Network Config",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6d2c4b5e549990f3",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Assemble Config & Write",
+        "func": "// Helper function to validate IP address format\nfunction isValidIP(ip) {\n    const octets = ip.split('.');\n    if (octets.length !== 4) return false;\n    return octets.every(octet => {\n        const n = parseInt(octet, 10);\n        return n >= 0 && n <= 255 && octet === n.toString();\n    });\n}\n\n// Helper function to validate subnet mask format\nfunction isValidSubnet(subnet) {\n    const validMasks = [\n        \"255.255.255.255\", \"255.255.255.254\", \"255.255.255.252\",\n        \"255.255.255.248\", \"255.255.255.240\", \"255.255.255.224\",\n        \"255.255.255.192\", \"255.255.255.128\", \"255.255.255.0\",\n        \"255.255.254.0\", \"255.255.252.0\", \"255.255.248.0\",\n        \"255.255.240.0\", \"255.255.224.0\", \"255.255.192.0\",\n        \"255.255.128.0\", \"255.255.0.0\", \"255.254.0.0\",\n        \"255.252.0.0\", \"255.248.0.0\", \"255.240.0.0\",\n        \"255.224.0.0\", \"255.192.0.0\", \"255.128.0.0\",\n        \"255.0.0.0\", \"254.0.0.0\", \"252.0.0.0\",\n        \"248.0.0.0\", \"240.0.0.0\", \"224.0.0.0\",\n        \"192.0.0.0\", \"128.0.0.0\", \"0.0.0.0\"\n    ];\n    return validMasks.includes(subnet);\n}\n\n// Gather stored variables for eth0\nvar eth0_dhcp = flow.get('eth0_dhcp') || false;\nvar eth0_ip = flow.get('eth0_ip') || '';\nvar eth0_subnet = flow.get('eth0_subnet') || '';\nvar eth0_gateway = flow.get('eth0_gateway') || '';\nvar eth0_dnsgateway = flow.get('eth0_dnsgateway') || '';\n\n// Gather stored variables for wifi\nvar wifi_dhcp = flow.get('wifi_dhcp') || false;\nvar wifi_ip = flow.get('wifi_ip') || '';\nvar wifi_subnet = flow.get('wifi_subnet') || '';\nvar wifi_gateway = flow.get('wifi_gateway') || '';\nvar wifi_dnsgateway = flow.get('wifi_dnsgateway') || '';\n\n// Validate inputs and collect errors\nlet errors = [];\n\n// Validate eth0\nif (!isValidIP(eth0_ip)) errors.push(`eth0: Invalid IP address: ${eth0_ip}`);\nif (!isValidSubnet(eth0_subnet)) errors.push(`eth0: Invalid Subnet Mask: ${eth0_subnet}`);\nif (!isValidIP(eth0_gateway)) errors.push(`eth0: Invalid Default Gateway: ${eth0_gateway}`);\nif (!isValidIP(eth0_dnsgateway)) errors.push(`eth0: Invalid DNS Gateway: ${eth0_dnsgateway}`);\n\n// Validate wifi\nif (!isValidIP(wifi_ip)) errors.push(`wifi: Invalid IP address: ${wifi_ip}`);\nif (!isValidSubnet(wifi_subnet)) errors.push(`wifi: Invalid Subnet Mask: ${wifi_subnet}`);\nif (!isValidIP(wifi_gateway)) errors.push(`wifi: Invalid Default Gateway: ${wifi_gateway}`);\nif (!isValidIP(wifi_dnsgateway)) errors.push(`wifi: Invalid DNS Gateway: ${wifi_dnsgateway}`);\n\n// Check for errors\nif (errors.length > 0) {\n    // Output errors to the second output\n    return [null, { payload: errors.join(', ') }];\n}\n\n// Assemble configuration object\nvar config = {\n    \"eth0\": {\n        \"dhcp\": eth0_dhcp,\n        \"ip\": eth0_ip,\n        \"subnet\": eth0_subnet,\n        \"gateway\": eth0_gateway,\n        \"dnsgateway\": eth0_dnsgateway\n    },\n    \"wifi\": {\n        \"dhcp\": wifi_dhcp,\n        \"ip\": wifi_ip,\n        \"subnet\": wifi_subnet,\n        \"gateway\": wifi_gateway,\n        \"dnsgateway\": wifi_dnsgateway\n    }\n};\n\n// Convert configuration object to JSON for output\nmsg.payload = JSON.stringify(config, null, 2);\nreturn [msg, null];\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 640,
+        "wires": [
+            [
+                "f0957c64c9283049",
+                "fdec4cd3b794d842"
+            ]
+        ]
+    },
+    {
+        "id": "abeab9f2fec9e5bb",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Store to flow vars",
+        "func": "flow.set(msg.topic, msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f0957c64c9283049",
+        "type": "file",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Write Config",
+        "filename": "/home/administrator/ConfigFiles/netconfig.json",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 730,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae2b2108ffed2c48",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo reboot now",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Reboot",
+        "x": 420,
+        "y": 880,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "52590aa7fe971e9c",
+        "type": "inject",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "On Startup",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 460,
+        "wires": [
+            [
+                "7d5ba20a500ef851"
+            ]
+        ]
+    },
+    {
+        "id": "7d5ba20a500ef851",
+        "type": "file in",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Read Config",
+        "filename": "/home/administrator/ConfigFiles/netconfig.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "041afcbfaad7e32a"
+            ]
+        ]
+    },
+    {
+        "id": "041afcbfaad7e32a",
+        "type": "json",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Parse JSON",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 460,
+        "wires": [
+            [
+                "ed19589e3ba5b307"
+            ]
+        ]
+    },
+    {
+        "id": "ed19589e3ba5b307",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Set Flow Vars from Config",
+        "func": "if (msg.payload) {\n    // Set flow variables for eth0\n    flow.set('eth0_dhcp', msg.payload.eth0.dhcp);\n    flow.set('eth0_ip', msg.payload.eth0.ip);\n    flow.set('eth0_subnet', msg.payload.eth0.subnet);\n    flow.set('eth0_gateway', msg.payload.eth0.gateway);\n    flow.set('eth0_dnsgateway', msg.payload.eth0.dnsgateway);\n\n    // Set flow variables for wifi\n    flow.set('wifi_dhcp', msg.payload.wifi.dhcp);\n    flow.set('wifi_ip', msg.payload.wifi.ip);\n    flow.set('wifi_subnet', msg.payload.wifi.subnet);\n    flow.set('wifi_gateway', msg.payload.wifi.gateway);\n    flow.set('wifi_dnsgateway', msg.payload.wifi.dnsgateway);\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 460,
+        "wires": [
+            [
+                "b392ed6791fb8094"
+            ]
+        ]
+    },
+    {
+        "id": "b392ed6791fb8094",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Update UI with Loaded Vars",
+        "func": "// After loading from file, update UI elements\nreturn [\n {topic:'eth0_dhcp', payload:flow.get('eth0_dhcp')},\n {topic:'eth0_ip', payload:flow.get('eth0_ip')},\n {topic:'eth0_subnet', payload:flow.get('eth0_subnet')},\n {topic:'eth0_dnsgateway', payload:flow.get('eth0_dnsgateway')},\n {topic:'eth0_gateway', payload:flow.get('eth0_gateway')},\n {topic:'wifi_dhcp', payload:flow.get('wifi_dhcp')},\n {topic:'wifi_ip', payload:flow.get('wifi_ip')},\n {topic:'wifi_subnet', payload:flow.get('wifi_subnet')},\n {topic:'wifi_gateway', payload:flow.get('wifi_gateway')},\n {topic:'wifi_dnsgateway', payload:flow.get('wifi_dnsgateway')}\n];",
+        "outputs": 10,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 460,
+        "wires": [
+            [
+                "c6af4fbea7e8a228"
+            ],
+            [
+                "e80f8afa73387e28"
+            ],
+            [
+                "7bd6df7356196650"
+            ],
+            [
+                "4be8fc3bfdbd2863"
+            ],
+            [
+                "dba7ce3a898f7209"
+            ],
+            [
+                "5e3863ba9afa2ba4"
+            ],
+            [
+                "8ff08b5cdcd90757"
+            ],
+            [
+                "cd3c2fa612856ca0"
+            ],
+            [
+                "a148314ebd1b09f5"
+            ],
+            [
+                "43dd600f1e328815"
+            ]
+        ]
+    },
+    {
+        "id": "8f528c766aa6908e",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "function 18",
+        "func": "// Fixed connection name\nconst connectionName = 'preconfigured'; // Ensure this matches the exact profile name\n\n// Read flow variables with nullish coalescing for wifi_dhcp\nconst wifi_dhcp = flow.get('wifi_dhcp') ?? true;\n\n// Read other flow variables\nconst wifi_gateway = flow.get('wifi_gateway') || '192.168.1.1'; // Default gateway\nconst wifi_dnsgateway = flow.get('wifi_dnsgateway') || '4.4.4.4'; // Default DNS\nconst wifi_ip = flow.get('wifi_ip') || '192.168.1.135'; // Default IP\nconst wifi_subnet = flow.get('wifi_subnet') || '255.255.255.0'; // Default Subnet Mask\n\n// Debugging outputs\n//node.warn(`wifi_dhcp: ${wifi_dhcp}`);\n//node.warn(`wifi_gateway: ${wifi_gateway}`);\n//node.warn(`wifi_dnsgateway: ${wifi_dnsgateway}`);\n//node.warn(`wifi_ip: ${wifi_ip}`);\n//node.warn(`wifi_subnet: ${wifi_subnet}`);\n\n// Function to convert subnet mask to CIDR\nfunction subnetToCIDR(subnet) {\n    return subnet.split('.').reduce((acc, octet) => {\n        const binary = parseInt(octet, 10).toString(2).padStart(8, '0');\n        return acc + (binary.match(/1/g) || []).length;\n    }, 0);\n}\n\nconst cidr = subnetToCIDR(wifi_subnet);\n//node.warn(`cidr: ${cidr}`);\n\n// Initialize command\nlet cmd = `sudo /usr/bin/nmcli con modify '${connectionName}' ipv4.method `;\n\nif (wifi_dhcp) {\n    // Enable DHCP: Set ipv4.method to auto and reset other IPv4 settings\n    cmd += `'auto' ipv4.addresses \"\" ipv4.gateway \"\" ipv4.dns \"\" connection.autoconnect-priority '0'`;\n} else {\n    // Set Manual Configuration: Set ipv4.method to manual and configure IP settings\n    cmd += `'manual' ipv4.addresses '${wifi_ip}/${cidr}' ipv4.gateway '${wifi_gateway}' ipv4.dns '${wifi_dnsgateway}' connection.autoconnect-priority '0'`;\n}\n\n// Log the command for debugging\n//node.warn(`Executing Command: ${cmd}`);\n\n// Pass the command to the Exec node\nmsg.payload = cmd;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 680,
+        "wires": [
+            [
+                "e82b1f2a137589bb"
+            ]
+        ]
+    },
+    {
+        "id": "fca5dc268c77e96c",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 850,
+        "y": 580,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "fb4184d87390f079",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo nmcli con down \"preconfigured\" && sudo nmcli con up \"preconfigured\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 630,
+        "y": 820,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c01262d09747f0a6",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "function 19",
+        "func": "// Fixed connection name\nconst connectionName = 'Wired connection 1'; // Ensure this matches the exact profile name\n\n// Read flow variables with nullish coalescing for eth0_dhcp\nconst eth0_dhcp = flow.get('eth0_dhcp') ?? true;\n\n// Read other flow variables\nconst eth0_gateway = flow.get('eth0_gateway') || '192.168.1.1'; // Default gateway\nconst eth0_dnsgateway = flow.get('eth0_dnsgateway') || '4.4.4.4'; // Default DNS\nconst eth0_ip = flow.get('eth0_ip') || '192.168.1.135'; // Default IP\nconst eth0_subnet = flow.get('eth0_subnet') || '255.255.255.0'; // Default Subnet Mask\n\n// Debugging outputs\n//node.warn(`eth0_dhcp: ${eth0_dhcp}`);\n//node.warn(`eth0_gateway: ${eth0_gateway}`);\n//node.warn(`eth0_dnsgateway: ${eth0_dnsgateway}`);\n//node.warn(`eth0_ip: ${eth0_ip}`);\n//node.warn(`eth0_subnet: ${eth0_subnet}`);\n\n// Function to convert subnet mask to CIDR\nfunction subnetToCIDR(subnet) {\n    return subnet.split('.').reduce((acc, octet) => {\n        const binary = parseInt(octet, 10).toString(2).padStart(8, '0');\n        return acc + (binary.match(/1/g) || []).length;\n    }, 0);\n}\n\nconst cidr = subnetToCIDR(eth0_subnet);\n//node.warn(`cidr: ${cidr}`);\n\n// Initialize command\nlet cmd = `sudo /usr/bin/nmcli con modify '${connectionName}' ipv4.method `;\n\nif (eth0_dhcp) {\n    // Enable DHCP: Set ipv4.method to auto and reset other IPv4 settings\n    cmd += `'auto' ipv4.addresses \"\" ipv4.gateway \"\" ipv4.dns \"\" connection.autoconnect-priority '0'`;\n} else {\n    // Set Manual Configuration: Set ipv4.method to manual and configure IP settings\n    cmd += `'manual' ipv4.addresses '${eth0_ip}/${cidr}' ipv4.gateway '${eth0_gateway}' ipv4.dns '${eth0_dnsgateway}' connection.autoconnect-priority '0'`;\n}\n\n// Log the command for debugging\n//node.warn(`Executing Command: ${cmd}`);\n\n// Pass the command to the Exec node\nmsg.payload = cmd;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 600,
+        "wires": [
+            [
+                "83e04b1182d38237"
+            ]
+        ]
+    },
+    {
+        "id": "2c5eb68777a0ff94",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo nmcli con down \"Wired connection 1\" && sudo nmcli con up \"Wired connection 1\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 660,
+        "y": 760,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "296336376cd27b93",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 850,
+        "y": 700,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ad09f130521fe327",
+        "type": "delay",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 640,
+        "wires": [
+            [
+                "6d2c4b5e549990f3",
+                "fdec4cd3b794d842"
+            ]
+        ]
+    },
+    {
+        "id": "83e04b1182d38237",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "function 20",
+        "func": "// Helper function to validate IP address format\nfunction isValidIP(ip) {\n    const octets = ip.split('.');\n    if (octets.length !== 4) return false;\n    return octets.every(octet => {\n        const n = parseInt(octet, 10);\n        return n >= 0 && n <= 255 && octet === n.toString();\n    });\n}\n\n// Helper function to validate subnet mask format\nfunction isValidSubnet(subnet) {\n    const validMasks = [\n        \"255.255.255.255\", \"255.255.255.254\", \"255.255.255.252\",\n        \"255.255.255.248\", \"255.255.255.240\", \"255.255.255.224\",\n        \"255.255.255.192\", \"255.255.255.128\", \"255.255.255.0\",\n        \"255.255.254.0\", \"255.255.252.0\", \"255.255.248.0\",\n        \"255.255.240.0\", \"255.255.224.0\", \"255.255.192.0\",\n        \"255.255.128.0\", \"255.255.0.0\", \"255.254.0.0\",\n        \"255.252.0.0\", \"255.248.0.0\", \"255.240.0.0\",\n        \"255.224.0.0\", \"255.192.0.0\", \"255.128.0.0\",\n        \"255.0.0.0\", \"254.0.0.0\", \"252.0.0.0\",\n        \"248.0.0.0\", \"240.0.0.0\", \"224.0.0.0\",\n        \"192.0.0.0\", \"128.0.0.0\", \"0.0.0.0\"\n    ];\n    return validMasks.includes(subnet);\n}\n\n// Gather flow variables\nconst eth0_dhcp = flow.get('eth0_dhcp') ?? true;\nconst eth0_ip = flow.get('eth0_ip') || '';\nconst eth0_subnet = flow.get('eth0_subnet') || '';\nconst eth0_gateway = flow.get('eth0_gateway') || '';\nconst eth0_dnsgateway = flow.get('eth0_dnsgateway') || '';\n\n// Prepare the command\nlet cmd = `sudo /usr/bin/nmcli con modify 'Wired connection 1' ipv4.method `;\n\nif (eth0_dhcp) {\n    // Enable DHCP: Set ipv4.method to auto\n    cmd += `'auto' ipv4.addresses \"\" ipv4.gateway \"\" ipv4.dns \"\" connection.autoconnect-priority '0'`;\n    return [{ payload: cmd }, null];\n} else {\n    // Validate inputs for manual configuration\n    let errors = [];\n    if (!isValidIP(eth0_ip)) errors.push(`Invalid IP address: ${eth0_ip}`);\n    if (!isValidSubnet(eth0_subnet)) errors.push(`Invalid Subnet Mask: ${eth0_subnet}`);\n    if (!isValidIP(eth0_gateway)) errors.push(`Invalid Default Gateway: ${eth0_gateway}`);\n    if (!isValidIP(eth0_dnsgateway)) errors.push(`Invalid DNS Gateway: ${eth0_dnsgateway}`);\n\n    if (errors.length > 0) {\n        // Send errors to the second output as a single string\n        return [null, { payload: errors.join(', ') }];\n    }\n\n    // Calculate CIDR from subnet mask\n    const cidr = eth0_subnet.split('.').reduce((acc, octet) => {\n        const binary = parseInt(octet, 10).toString(2).padStart(8, '0');\n        return acc + (binary.match(/1/g) || []).length;\n    }, 0);\n\n    // Construct the manual configuration command\n    cmd += `'manual' ipv4.addresses '${eth0_ip}/${cidr}' ipv4.gateway '${eth0_gateway}' ipv4.dns '${eth0_dnsgateway}' connection.autoconnect-priority '0'`;\n    return [{ payload: cmd }, null];\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 600,
+        "wires": [
+            [
+                "fca5dc268c77e96c"
+            ],
+            [
+                "bd8f42adc38ce1d9"
+            ]
+        ]
+    },
+    {
+        "id": "e82b1f2a137589bb",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "function 21",
+        "func": "// Helper function to validate IP address format\nfunction isValidIP(ip) {\n    const octets = ip.split('.');\n    if (octets.length !== 4) return false;\n    return octets.every(octet => {\n        const n = parseInt(octet, 10);\n        return n >= 0 && n <= 255 && octet === n.toString();\n    });\n}\n\n// Helper function to validate subnet mask format\nfunction isValidSubnet(subnet) {\n    const validMasks = [\n        \"255.255.255.255\", \"255.255.255.254\", \"255.255.255.252\",\n        \"255.255.255.248\", \"255.255.255.240\", \"255.255.255.224\",\n        \"255.255.255.192\", \"255.255.255.128\", \"255.255.255.0\",\n        \"255.255.254.0\", \"255.255.252.0\", \"255.255.248.0\",\n        \"255.255.240.0\", \"255.255.224.0\", \"255.255.192.0\",\n        \"255.255.128.0\", \"255.255.0.0\", \"255.254.0.0\",\n        \"255.252.0.0\", \"255.248.0.0\", \"255.240.0.0\",\n        \"255.224.0.0\", \"255.192.0.0\", \"255.128.0.0\",\n        \"255.0.0.0\", \"254.0.0.0\", \"252.0.0.0\",\n        \"248.0.0.0\", \"240.0.0.0\", \"224.0.0.0\",\n        \"192.0.0.0\", \"128.0.0.0\", \"0.0.0.0\"\n    ];\n    return validMasks.includes(subnet);\n}\n\n// Gather flow variables\nconst wifi_dhcp = flow.get('wifi_dhcp') ?? true;\nconst wifi_ip = flow.get('wifi_ip') || '';\nconst wifi_subnet = flow.get('wifi_subnet') || '';\nconst wifi_gateway = flow.get('wifi_gateway') || '';\nconst wifi_dnsgateway = flow.get('wifi_dnsgateway') || '';\n\n// Prepare the command\nlet cmd = `sudo /usr/bin/nmcli con modify 'preconfigured' ipv4.method `;\n\nif (wifi_dhcp) {\n    // Enable DHCP: Set ipv4.method to auto\n    cmd += `'auto' ipv4.addresses \"\" ipv4.gateway \"\" ipv4.dns \"\" connection.autoconnect-priority '0'`;\n    return [{ payload: cmd }, null];\n} else {\n    // Validate inputs for manual configuration\n    let errors = [];\n    if (!isValidIP(wifi_ip)) errors.push(`Invalid IP address: ${wifi_ip}`);\n    if (!isValidSubnet(wifi_subnet)) errors.push(`Invalid Subnet Mask: ${wifi_subnet}`);\n    if (!isValidIP(wifi_gateway)) errors.push(`Invalid Default Gateway: ${wifi_gateway}`);\n    if (!isValidIP(wifi_dnsgateway)) errors.push(`Invalid DNS Gateway: ${wifi_dnsgateway}`);\n\n    if (errors.length > 0) {\n        // Send errors to the second output as a single string\n        return [null, { payload: errors.join(', ') }];\n    }\n\n    // Calculate CIDR from subnet mask\n    const cidr = wifi_subnet.split('.').reduce((acc, octet) => {\n        const binary = parseInt(octet, 10).toString(2).padStart(8, '0');\n        return acc + (binary.match(/1/g) || []).length;\n    }, 0);\n\n    // Construct the manual configuration command\n    cmd += `'manual' ipv4.addresses '${wifi_ip}/${cidr}' ipv4.gateway '${wifi_gateway}' ipv4.dns '${wifi_dnsgateway}' connection.autoconnect-priority '0'`;\n    return [{ payload: cmd }, null];\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 680,
+        "wires": [
+            [
+                "296336376cd27b93"
+            ],
+            [
+                "bd8f42adc38ce1d9"
+            ]
+        ]
+    },
+    {
+        "id": "fdec4cd3b794d842",
+        "type": "debug",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "inject-startup",
+        "type": "inject",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Initialize on Startup",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Check File",
+        "payloadType": "str",
+        "x": 190,
+        "y": 220,
+        "wires": [
+            [
+                "file-check"
+            ]
+        ]
+    },
+    {
+        "id": "file-check",
+        "type": "file in",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Check if File Exists",
+        "filename": "/home/administrator/ConfigFiles/netconfig.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "allProps": false,
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "switch-file"
+            ]
+        ]
+    },
+    {
+        "id": "switch-file",
+        "type": "switch",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "File Exists?",
+        "property": "error",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 220,
+        "wires": [
+            [
+                "file-already-exists"
+            ],
+            [
+                "exec-create-file"
+            ]
+        ]
+    },
+    {
+        "id": "file-already-exists",
+        "type": "debug",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "File Already Exists",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "exec-create-file",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo mkdir -p /home/administrator/ConfigFiles && sudo touch /home/administrator/ConfigFiles/netconfig.json && sudo chown admin:admin /home/administrator/ConfigFiles/netconfig.json",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Create File",
+        "x": 730,
+        "y": 240,
+        "wires": [
+            [
+                "debug-success",
+                "acf3f0da99b32f5d"
+            ],
+            [
+                "debug-error"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "debug-error",
+        "type": "debug",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Error",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "7372b8bca39a5e7f",
+        "type": "ui_button",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Write Settings",
+        "group": "f3a909aaf33ffc6b",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Write Settings",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "save",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 160,
+        "y": 640,
+        "wires": [
+            [
+                "c01262d09747f0a6",
+                "8f528c766aa6908e",
+                "ad09f130521fe327"
+            ]
+        ]
+    },
+    {
+        "id": "3dc5f2066872354f",
+        "type": "ui_button",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Restart Network Interfaces",
+        "group": "f3a909aaf33ffc6b",
+        "order": 3,
+        "width": "6",
+        "height": 1,
+        "passthru": false,
+        "label": "Restart WiFi Interface",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#ff0000",
+        "className": "",
+        "icon": "",
+        "payload": "yes",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 200,
+        "y": 820,
+        "wires": [
+            [
+                "fb4184d87390f079"
+            ]
+        ]
+    },
+    {
+        "id": "6055488448614762",
+        "type": "ui_button",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Reboot Now?",
+        "group": "f3a909aaf33ffc6b",
+        "order": 4,
+        "width": "6",
+        "height": 1,
+        "passthru": false,
+        "label": "Reboot Device",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#ff0000",
+        "className": "",
+        "icon": "",
+        "payload": "yes",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 240,
+        "y": 880,
+        "wires": [
+            [
+                "ae2b2108ffed2c48"
+            ]
+        ]
+    },
+    {
+        "id": "02528f31eac55da5",
+        "type": "ui_button",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Restart Network Interfaces",
+        "group": "f3a909aaf33ffc6b",
+        "order": 2,
+        "width": "6",
+        "height": 1,
+        "passthru": false,
+        "label": "Restart Eth Interface",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#ff0000",
+        "className": "",
+        "icon": "",
+        "payload": "yes",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 200,
+        "y": 760,
+        "wires": [
+            [
+                "2c5eb68777a0ff94"
+            ]
+        ]
+    },
+    {
+        "id": "c6af4fbea7e8a228",
+        "type": "ui_switch",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 DHCP",
+        "label": "DHCP Enabled?",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "eth0_dhcp",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1190,
+        "y": 280,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "5e3863ba9afa2ba4",
+        "type": "ui_switch",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi DHCP",
+        "label": "DHCP Enabled?",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "wifi_dhcp",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1190,
+        "y": 480,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "e80f8afa73387e28",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 IP",
+        "label": "Static IP",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 2,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "eth0_ip",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1180,
+        "y": 320,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "7bd6df7356196650",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 Subnet",
+        "label": "Subnet Mask",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 3,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "eth0_subnet",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1190,
+        "y": 360,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "8ff08b5cdcd90757",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi IP",
+        "label": "Static IP",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 2,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "wifi_ip",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1180,
+        "y": 520,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "cd3c2fa612856ca0",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi Subnet",
+        "label": "Subnet Mask",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 3,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "wifi_subnet",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1190,
+        "y": 560,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "a148314ebd1b09f5",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi Default Gateway",
+        "label": "Default Gateway",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 4,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "wifi_gateway",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1220,
+        "y": 600,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "4be8fc3bfdbd2863",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 DNS Gateway",
+        "label": "DNS Gateway",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 5,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "eth0_dnsgateway",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1210,
+        "y": 400,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "43dd600f1e328815",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi DNS Gateway",
+        "label": "Dns Gateway",
+        "tooltip": "",
+        "group": "36560999b7d86f0c",
+        "order": 4,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "wifi_dnsgateway",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1210,
+        "y": 640,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "dba7ce3a898f7209",
+        "type": "ui_text_input",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 Default Gateway",
+        "label": "Default Gateway",
+        "tooltip": "",
+        "group": "92253b61eb08b0dc",
+        "order": 4,
+        "width": "6",
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "eth0_gateway",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1220,
+        "y": 440,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "bd8f42adc38ce1d9",
+        "type": "ui_toast",
+        "z": "f0fb0bd6b5fcfabc",
+        "position": "center",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Notify ",
+        "x": 870,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "debug-success",
+        "type": "debug",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Success",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "acf3f0da99b32f5d",
+        "type": "function",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Set Default JSON Payload",
+        "func": "// Build default netconfig object\nconst defaultConfig = {\n    eth0: {\n        dhcp: true,\n        ip: \"192.168.1.100\",\n        subnet: \"255.255.255.0\",\n        gateway: \"192.168.1.1\",\n        dnsgateway: \"1.1.1.1\"\n    },\n    wifi: {\n        dhcp: true,\n        ip: \"192.168.1.125\",\n        subnet: \"255.255.255.0\",\n        gateway: \"192.168.1.1\",\n        dnsgateway: \"1.1.1.1\"\n    }\n};\n\n// Convert to pretty-printed JSON with an indent of 2 spaces\nmsg.payload = JSON.stringify(defaultConfig, null, 2);\n\n// Specify the filename\nmsg.filename = \"/home/administrator/ConfigFiles/netconfig.json\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 220,
+        "wires": [
+            [
+                "1d2099b93c126c99"
+            ]
+        ]
+    },
+    {
+        "id": "1d2099b93c126c99",
+        "type": "file",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Write Default JSON",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1190,
+        "y": 220,
+        "wires": [
+            [
+                "5474c50fd97f320f",
+                "40885aa9b0f5246b"
+            ]
+        ]
+    },
+    {
+        "id": "40885aa9b0f5246b",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo nmcli con down \"Wired connection 1\" && sudo nmcli con up \"Wired connection 1\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 1620,
+        "y": 180,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5474c50fd97f320f",
+        "type": "exec",
+        "z": "f0fb0bd6b5fcfabc",
+        "command": "sudo nmcli con down \"preconfigured\" && sudo nmcli con up \"preconfigured\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 1590,
+        "y": 260,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e11e41fad668c460",
+        "type": "comment",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Initialize Network Parameters",
+        "info": "/**\n * This function runs once upon deployment.\n * \n * - Checks for the existence of the file at `/home/administrator/ConfigFiles/netconfig.json`\n * - If the file exists, the flow exits with no action.\n * - If the file does not exist:\n *    - Creates the file.\n *    - Sets the appropriate read/write permissions.\n *    - Writes a set of default parameters in JSON format.\n *    - Resets Wifi and Eth Adapters upon Completion.\n * \n * The next flow will then read this file to set the required context variables.\n */\n",
+        "x": 220,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "48921be4c82ca083",
+        "type": "comment",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Read Network Parameters to set Flow Variables ",
+        "info": "/**\n * This flow triggers once after a 2-second delay.\n * \n * - The delay allows time for the initial setup to create the file and set parameters \n *   if this is the first time the device is being powered on.\n * - Reads the file created in the previous step.\n * - Parses the file content into JSON format.\n * - Sets the flow and UI variables so that:\n *    - Default parameters are available.\n *    - Custom values (if previously set by the user) are correctly displayed on the dashboard.\n */\n",
+        "x": 280,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f8ea42efc5cef323",
+        "type": "comment",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Write Customer Network Settings ",
+        "info": "/**\n * This flow is triggered when a user presses the \"Write Settings\" button on the dashboard (`deviceip:1880/ui`).\n * \n * - Retrieves network configuration values from flow context variables:\n *    - Ethernet (`eth0`) and Wi-Fi (`wifi`) settings including IP, subnet, gateway, and DNS.\n * - Validates IP addresses and subnet masks to ensure proper formatting.\n * - Assembles a network configuration command using `nmcli`:\n *    - If DHCP is enabled, sets `ipv4.method` to 'auto'.\n *    - If DHCP is disabled, applies manual network settings after validation.\n * - Executes the command to apply the new network settings.\n * - After a short 100ms delay, another function fetches the updated network parameters,\n *   assembles them, and writes them back to `netconfig.json` to store the current configuration.\n */\n",
+        "x": 210,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "fe8e7347bfa0206a",
+        "type": "comment",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Reset Net Adapters / Reboot Device",
+        "info": "/**\n * This flow handles three UI buttons on the dashboard for network and system management.\n * \n * 1. **Reset Ethernet Adapter**:\n *    - Executes: `sudo nmcli con down \"Wired connection 1\" && sudo nmcli con up \"Wired connection 1\"`\n *    - Brings down and then reactivates the Ethernet connection to apply changes or troubleshoot connectivity.\n * \n * 2. **Reset Wi-Fi Adapter**:\n *    - Executes: `sudo nmcli con down \"preconfigured\" && sudo nmcli con up \"preconfigured\"`\n *    - Restarts the Wi-Fi connection using the preconfigured network.\n * \n * 3. **Reboot Device**:\n *    - Executes: `sudo reboot now`\n *    - Immediately reboots the device to apply system-wide changes if necessary.\n */\n",
+        "x": 220,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "f3a909aaf33ffc6b",
+        "type": "ui_group",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Actions",
+        "tab": "fe32b5dea012ee3e",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "92253b61eb08b0dc",
+        "type": "ui_group",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Eth Port ",
+        "tab": "fe32b5dea012ee3e",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "36560999b7d86f0c",
+        "type": "ui_group",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "Wifi ",
+        "tab": "fe32b5dea012ee3e",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fe32b5dea012ee3e",
+        "type": "ui_tab",
+        "name": "Network Config",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
