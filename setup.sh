@@ -46,7 +46,17 @@ sudo systemctl start grafana-server
 
 # Install Node-RED (ensuring it completes)
 echo "Installing Node-RED..."
-bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
+bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)<<EOF
+y
+y
+n
+n
+flows.json
+
+default
+monaco
+y
+EOF
 
 # Ensure Node-RED directory exists
 NODE_RED_DIR="$(eval echo ~$SUDO_USER)/.node-red"
@@ -75,7 +85,7 @@ npm install @omrid01/node-red-dashboard-2-table-tabulator@0.6.3
 
 # Overwrite Node-RED flows.json from repository
 echo "Updating Node-RED flows..."
-REPO_FLOWS_FILE="/home/admin/RoweCore-MQTT-Setup/flows.json"  # Keeping original path
+REPO_FLOWS_FILE="/home/$USER/RoweCore-MQTT-Setup/flows.json"  # Keeping original path
 
 if [ -f "$REPO_FLOWS_FILE" ]; then
     if [ -f "$NODE_RED_DIR/flows.json" ]; then
@@ -86,7 +96,7 @@ if [ -f "$REPO_FLOWS_FILE" ]; then
     echo "Copying new flows.json from repository..."
     cp "$REPO_FLOWS_FILE" "$NODE_RED_DIR/flows.json"
 else
-    echo "Error: flows.json not found at /home/admin/RoweCore-MQTT-Setup/"
+    echo "Error: flows.json not found at /home/$USER/RoweCore-MQTT-Setup/"
 fi
 
 # Restart Node-RED to apply changes
