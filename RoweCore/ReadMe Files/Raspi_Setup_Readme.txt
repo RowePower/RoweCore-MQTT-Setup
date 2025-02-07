@@ -30,12 +30,12 @@
 
 **open a terminal or from the terminal if no desktop run this command. **Putty can be used if SSH is enabled
 
-**Login as 	
+**Login as 	default
 	admin
 	pass = Test1234
 
 **then run the following command to update and install the os and git
-	sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y git
+	sudo apt-get install -y git
 
 **then run the following git Command to pull the latest repository.
  

@@ -59,10 +59,6 @@ monaco
 y
 EOF
 
-# Ensure Node-RED directory exists
-NODE_RED_DIR="$(eval echo ~$SUDO_USER)/.node-red"
-mkdir -p "$NODE_RED_DIR"
-
 # Wait for Node-RED installation to complete before proceeding
 echo "Waiting for Node-RED installation to finalize..."
 sleep 3  # Allow some time for setup completion
