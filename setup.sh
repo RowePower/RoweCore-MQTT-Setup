@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Ensure the script is executable
-chmod +x "$0"
-
 # Function to set a new hostname
 set_hostname() {
     read -p "Change Device Name y/n? " CHANGE_HOSTNAME
@@ -46,7 +43,7 @@ sudo systemctl start grafana-server
 
 # Install Node-RED (ensuring it completes)
 echo "Installing Node-RED..."
-bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)<<EOF
+bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered) <<EOF
 y
 y
 /home/$USER/.node-red/settings.js
@@ -61,12 +58,16 @@ EOF
 
 # Wait for Node-RED installation to complete before proceeding
 echo "Waiting for Node-RED installation to finalize..."
-sleep 3  # Allow some time for setup completion
+sleep 3  # short pause
 
 # Enable Node-RED service
 echo "Enabling Node-RED service..."
 sudo systemctl enable nodered.service
 sudo systemctl start nodered.service
+
+# Define the Node-RED user directory
+# Adjust "pi" below if you use a different username
+NODE_RED_DIR="/home/pi/.node-red"
 
 # Install required Node-RED modules
 echo "Installing Node-RED modules..."
@@ -82,7 +83,7 @@ npm install @omrid01/node-red-dashboard-2-table-tabulator@0.6.3
 
 # Overwrite Node-RED flows.json from repository
 echo "Updating Node-RED flows..."
-REPO_FLOWS_FILE="/home/$USER/RoweCore-MQTT-Setup/flows.json"  # Keeping original path
+REPO_FLOWS_FILE="/home/$USER/RoweCore-MQTT-Setup/flows.json"
 
 if [ -f "$REPO_FLOWS_FILE" ]; then
     if [ -f "$NODE_RED_DIR/flows.json" ]; then
@@ -113,4 +114,3 @@ echo -e "\nRebooting now..."
 
 # Reboot the system
 sudo reboot
-
