@@ -25,6 +25,22 @@ set_hostname() {
 echo "Updating and upgrading the system..."
 sudo apt-get update && sudo apt-get upgrade -y
 
+# Install Mosquitto MQTT Broker
+echo "Installing Mosquitto MQTT Broker..."
+sudo apt-get install -y mosquitto mosquitto-clients
+sudo systemctl enable mosquitto
+sudo systemctl start mosquitto
+
+# Install Grafana
+echo "Installing Grafana..."
+sudo apt-get install -y apt-transport-https software-properties-common wget
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee /etc/apt/sources.list.d/grafana.list
+sudo apt-get update
+sudo apt-get install -y grafana
+sudo systemctl enable grafana-server
+sudo systemctl start grafana-server
+
 # Install Node-RED using the official script
 echo "Installing Node-RED..."
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
@@ -42,7 +58,7 @@ npm install node-red-contrib-os@0.2.1
 npm install node-red-dashboard@3.6.5
 npm install node-red-contrib-modbus@5.43.0
 
-# Additional modules you requested
+# Additional modules
 npm install @flowfuse/node-red-dashboard@1.22.0
 npm install @flowfuse/node-red-dashboard-2-ui-iframe@1.1.0
 npm install @flowfuse/node-red-dashboard-2-ui-led@1.1.0
