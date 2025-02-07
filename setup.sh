@@ -66,8 +66,8 @@ sudo systemctl enable nodered.service
 sudo systemctl start nodered.service
 
 # Define the Node-RED user directory
-# Adjust "pi" below if you use a different username
-NODE_RED_DIR="/home/pi/.node-red"
+
+NODE_RED_DIR="/home/$USER/.node-red"
 
 # Install required Node-RED modules
 echo "Installing Node-RED modules..."
