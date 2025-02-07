@@ -33,7 +33,7 @@
     {
         "id": "3763e3b111ee67d0",
         "type": "mqtt-broker",
-        "name": "TestDacServer",
+        "name": "Default MQTT Server",
         "broker": "192.168.1.43",
         "port": "1883",
         "clientid": "",
