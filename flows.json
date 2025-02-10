@@ -25,7 +25,7 @@
     {
         "id": "c87e73927481cb24",
         "type": "tab",
-        "label": "Modbus Reads",
+        "label": "Modbus ",
         "disabled": false,
         "info": "",
         "env": []
@@ -159,68 +159,6 @@
         }
     },
     {
-        "id": "cc23215c49fa7f71",
-        "type": "ui_tab",
-        "name": "Device Info",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "fe32b5dea012ee3e",
-        "type": "ui_tab",
-        "name": "Network Config",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "92253b61eb08b0dc",
-        "type": "ui_group",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Eth Port ",
-        "tab": "fe32b5dea012ee3e",
-        "order": 2,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "36560999b7d86f0c",
-        "type": "ui_group",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Wifi ",
-        "tab": "fe32b5dea012ee3e",
-        "order": 3,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "f3a909aaf33ffc6b",
-        "type": "ui_group",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Actions",
-        "tab": "fe32b5dea012ee3e",
-        "order": 4,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
-        "id": "7a880b53170c6bf7",
-        "type": "ui_group",
-        "name": "Default",
-        "tab": "fe32b5dea012ee3e",
-        "order": 2,
-        "disp": false,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "4fad382cc333fc8d",
         "type": "modbus-client",
         "name": "",
@@ -249,6 +187,200 @@
         "showErrors": false,
         "showWarnings": true,
         "showLogs": true
+    },
+    {
+        "id": "bf3cd3c67043e273",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true
+    },
+    {
+        "id": "50aeaa60a6e5e109",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "b3811d93a7c59c76",
+        "type": "ui-page",
+        "name": "Network Config",
+        "ui": "bf3cd3c67043e273",
+        "path": "/NetworkConfig",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "50aeaa60a6e5e109",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 2,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "eb9a2d95042c14f2",
+        "type": "ui-group",
+        "name": "Ethernet Settings",
+        "page": "b3811d93a7c59c76",
+        "width": "3",
+        "height": 1,
+        "order": 3,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "d8185ba94eef9b03",
+        "type": "ui-group",
+        "name": "WiFi Settings",
+        "page": "b3811d93a7c59c76",
+        "width": "3",
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "c2b94ff3001bfe62",
+        "type": "ui-group",
+        "name": "Actions",
+        "page": "b3811d93a7c59c76",
+        "width": "3",
+        "height": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "afe7ee9a1ce53e2a",
+        "type": "ui-group",
+        "name": "Device Info ",
+        "page": "b3811d93a7c59c76",
+        "width": "3",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "7c588f590618a40d",
+        "type": "ui-page",
+        "name": "Modbus Setup",
+        "ui": "bf3cd3c67043e273",
+        "path": "/ModbusSetup",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "50aeaa60a6e5e109",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "7acaf11819fd20d0",
+        "type": "ui-group",
+        "name": "TCP Parameters",
+        "page": "7c588f590618a40d",
+        "width": "3",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "68855f1a6662bddb",
+        "type": "ui-group",
+        "name": "Register Setup",
+        "page": "7c588f590618a40d",
+        "width": "3",
+        "height": 1,
+        "order": -1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
     },
     {
         "id": "cbcdd1ed9c84e5fa",
@@ -285,27 +417,6 @@
         ]
     },
     {
-        "id": "f512e6b1bf6808a0",
-        "type": "function",
-        "z": "fc9c2f1e7b907c9a",
-        "name": "function 12",
-        "func": "if (msg.payload && typeof msg.payload.hostname === 'string') {\n    // Set the flow context variable with the hostname\n    flow.set('HostName', msg.payload.hostname);\n\n    // Assign the hostname to msg.payload\n    msg.payload = msg.payload.hostname;\n\n    return msg;\n} else {\n    // Handle cases where hostname is missing or not a string\n    node.error(\"msg.payload.hostname is not available or not a string\", msg);\n    return null; // Stops the flow if there's an error\n}\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 650,
-        "y": 120,
-        "wires": [
-            [
-                "c317661f446cbfb3",
-                "b52198a71641f9b5"
-            ]
-        ]
-    },
-    {
         "id": "5a22cbd8eb91b412",
         "type": "function",
         "z": "fc9c2f1e7b907c9a",
@@ -321,7 +432,6 @@
         "y": 160,
         "wires": [
             [
-                "488b49ae33ec6799",
                 "284ec2ee8daebe90"
             ]
         ]
@@ -341,11 +451,7 @@
         "x": 650,
         "y": 200,
         "wires": [
-            [
-                "9124ea9f268f4147",
-                "1906e57f6f35a3c3",
-                "afa0bd7c6430a732"
-            ]
+            []
         ]
     },
     {
@@ -363,9 +469,7 @@
         "x": 650,
         "y": 240,
         "wires": [
-            [
-                "3c85deb12be19e19"
-            ]
+            []
         ]
     },
     {
@@ -383,9 +487,7 @@
         "x": 650,
         "y": 280,
         "wires": [
-            [
-                "0c51f821aee44667"
-            ]
+            []
         ]
     },
     {
@@ -397,8 +499,8 @@
         "links": [
             "bdf014e52e967049"
         ],
-        "x": 1025,
-        "y": 120,
+        "x": 765,
+        "y": 160,
         "wires": []
     },
     {
@@ -407,8 +509,8 @@
         "z": "fc9c2f1e7b907c9a",
         "name": "link in 2",
         "links": [],
-        "x": 595,
-        "y": 460,
+        "x": 315,
+        "y": 420,
         "wires": [
             [
                 "abceed5e782e06f1"
@@ -427,11 +529,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
-        "y": 460,
+        "x": 430,
+        "y": 420,
         "wires": [
             [
-                "be203c06505427bf"
+                "be203c06505427bf",
+                "a18d619c362e5767"
             ]
         ]
     },
@@ -441,9 +544,12 @@
         "z": "fc9c2f1e7b907c9a",
         "name": "DataSync_Tx",
         "mode": "link",
-        "links": [],
-        "x": 825,
-        "y": 460,
+        "links": [
+            "b8c1466b688d5d2f",
+            "84623afefc35a02f"
+        ],
+        "x": 545,
+        "y": 420,
         "wires": []
     },
     {
@@ -481,7 +587,7 @@
         "finalize": "",
         "libs": [],
         "x": 680,
-        "y": 380,
+        "y": 360,
         "wires": [
             []
         ]
@@ -554,164 +660,6 @@
         ]
     },
     {
-        "id": "c317661f446cbfb3",
-        "type": "ui_text",
-        "z": "fc9c2f1e7b907c9a",
-        "group": "7a880b53170c6bf7",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Hostname",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 910,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "488b49ae33ec6799",
-        "type": "ui_text",
-        "z": "fc9c2f1e7b907c9a",
-        "group": "7a880b53170c6bf7",
-        "order": 8,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Uptime",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 900,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "9124ea9f268f4147",
-        "type": "ui_text",
-        "z": "fc9c2f1e7b907c9a",
-        "group": "7a880b53170c6bf7",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "CPU1 Load AVG",
-        "format": "{{msg.payload.CPUload1}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 930,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "3c85deb12be19e19",
-        "type": "ui_text",
-        "z": "fc9c2f1e7b907c9a",
-        "group": "7a880b53170c6bf7",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Memory Usage",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 920,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "0c51f821aee44667",
-        "type": "ui_text",
-        "z": "fc9c2f1e7b907c9a",
-        "group": "7a880b53170c6bf7",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "WiFi Ip Address",
-        "format": "{{msg.payload.wlan0Address}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 920,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "1906e57f6f35a3c3",
-        "type": "ui_text",
-        "z": "fc9c2f1e7b907c9a",
-        "group": "7a880b53170c6bf7",
-        "order": 6,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "CPU2 Load AVG",
-        "format": "{{msg.payload.CPUload2}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 930,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "afa0bd7c6430a732",
-        "type": "ui_text",
-        "z": "fc9c2f1e7b907c9a",
-        "group": "7a880b53170c6bf7",
-        "order": 7,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "CPU3 Load AVG",
-        "format": "{{msg.payload.CPUload3}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 930,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "b52198a71641f9b5",
-        "type": "link out",
-        "z": "fc9c2f1e7b907c9a",
-        "name": "Host Name",
-        "mode": "link",
-        "links": [],
-        "x": 775,
-        "y": 60,
-        "wires": []
-    },
-    {
         "id": "4a4d39fa20eeb88c",
         "type": "function",
         "z": "fc9c2f1e7b907c9a",
@@ -726,10 +674,7 @@
         "x": 640,
         "y": 320,
         "wires": [
-            [
-                "a18d619c362e5767",
-                "2fa6264eced664d1"
-            ]
+            []
         ]
     },
     {
@@ -748,7 +693,7 @@
         "z": "fc9c2f1e7b907c9a",
         "name": "MQTT Publish Device Information",
         "info": "/**\n * This flow is triggered when an incoming MQTT data sync message is received.\n * \n * - Retrieves system status values from flow context variables, including:\n *   - **HostName**, **Wi-Fi IP Address**, **Ethernet IP Address**, **Up Time**\n *   - **Memory Usage**, **CPU Load (1m, 5m, 15m averages)**\n *   - **CPU Temperature (°F and °C)**\n * - Constructs an MQTT topic dynamically based on the device's hostname.\n *   - If no hostname is available, defaults to `\"UnknownDevice/Status/Details\"`.\n * - Formats the data into a structured JSON array containing a single object.\n * - Assigns the formatted data to `msg.payload`.\n * - Publishes the message to the dynamically generated MQTT topic for external monitoring or synchronization.\n */\n",
-        "x": 710,
+        "x": 750,
         "y": 420,
         "wires": []
     },
@@ -764,30 +709,559 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 920,
+        "x": 600,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f512e6b1bf6808a0",
+        "type": "function",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "function 12",
+        "func": "if (msg.payload && typeof msg.payload.hostname === 'string') {\n    // Set the flow context variable with the hostname\n    flow.set('HostName', msg.payload.hostname);\n\n    // Assign the hostname to msg.payload\n    msg.payload = msg.payload.hostname;\n\n    return msg;\n} else {\n    // Handle cases where hostname is missing or not a string\n    node.error(\"msg.payload.hostname is not available or not a string\", msg);\n    return null; // Stops the flow if there's an error\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "84623afefc35a02f",
+        "type": "link in",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "link in 3",
+        "links": [
+            "be203c06505427bf"
+        ],
+        "x": 975,
+        "y": 160,
+        "wires": [
+            [
+                "ad23750289176525",
+                "b64906252b16d1e4",
+                "74a7ecdc46d0613c",
+                "ae0be614b2d03407",
+                "774165e01403d440",
+                "62c316e9d1e5be6c",
+                "58b91a4f423ad4cb",
+                "10b22ec9f3314961",
+                "337c78a007114f23",
+                "91f60cce498d9400",
+                "5395fc78c42a0484"
+            ]
+        ]
+    },
+    {
+        "id": "f5bd3c4ad747fcea",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Host Name",
+        "label": "Host Name",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1350,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ad23750289176525",
+        "type": "change",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0].HostName",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 120,
+        "wires": [
+            [
+                "f5bd3c4ad747fcea"
+            ]
+        ]
+    },
+    {
+        "id": "b64906252b16d1e4",
+        "type": "debug",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "7ef66230e4421b92",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "WiFi Ip Address",
+        "label": "WiFi Ip Address",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1360,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "74a7ecdc46d0613c",
+        "type": "change",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0][\"Wifi IP Address\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 160,
+        "wires": [
+            [
+                "7ef66230e4421b92"
+            ]
+        ]
+    },
+    {
+        "id": "fca7b0cf81a9b2b9",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Eth Ip Address",
+        "label": "Eth Ip Address",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1360,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ae0be614b2d03407",
+        "type": "change",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0][\"Eth IP Address\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 200,
+        "wires": [
+            [
+                "fca7b0cf81a9b2b9"
+            ]
+        ]
+    },
+    {
+        "id": "2b62adfa263d63bd",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "UpTime",
+        "label": "UpTime",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1340,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "774165e01403d440",
+        "type": "change",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0][\"Up Time\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 240,
+        "wires": [
+            [
+                "2b62adfa263d63bd"
+            ]
+        ]
+    },
+    {
+        "id": "087b3f05871955f3",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "Memory Usage",
+        "label": "Memory Usage",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1360,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "62c316e9d1e5be6c",
+        "type": "change",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0][\"Memory Usage\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 280,
+        "wires": [
+            [
+                "087b3f05871955f3"
+            ]
+        ]
+    },
+    {
+        "id": "c2e07f8480827c0f",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "CPU 1 Min Load AVG",
+        "label": "CPU 1 Min Load AVG",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1380,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "58b91a4f423ad4cb",
+        "type": "change",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0][\"CPU Load 1\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 320,
+        "wires": [
+            [
+                "c2e07f8480827c0f"
+            ]
+        ]
+    },
+    {
+        "id": "9b3fe1debf396ea4",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "CPU 5 Min Load AVG",
+        "label": "CPU 5 Min Load AVG",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1380,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "10b22ec9f3314961",
+        "type": "change",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0][\"CPU Load 2\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 360,
+        "wires": [
+            [
+                "9b3fe1debf396ea4"
+            ]
+        ]
+    },
+    {
+        "id": "741f4d970de635da",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "CPU 15 Min Load AVG",
+        "label": "CPU 15 Min Load AVG",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1380,
         "y": 400,
         "wires": []
     },
     {
-        "id": "2fa6264eced664d1",
-        "type": "ui_text",
+        "id": "337c78a007114f23",
+        "type": "change",
         "z": "fc9c2f1e7b907c9a",
-        "group": "7a880b53170c6bf7",
-        "order": 2,
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0][\"CPU Load 3\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 400,
+        "wires": [
+            [
+                "741f4d970de635da"
+            ]
+        ]
+    },
+    {
+        "id": "49a904d7c8a88c70",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 9,
         "width": 0,
         "height": 0,
-        "name": "",
-        "label": "Eth Ip Address ",
-        "format": "{{msg.payload.eth0Address}}",
+        "name": "CPU Temp F",
+        "label": "CPU Temp F",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
-        "color": "#000000",
-        "x": 920,
-        "y": 360,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1350,
+        "y": 440,
         "wires": []
+    },
+    {
+        "id": "91f60cce498d9400",
+        "type": "change",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0][\"CPU Temp F\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 440,
+        "wires": [
+            [
+                "49a904d7c8a88c70"
+            ]
+        ]
+    },
+    {
+        "id": "7111456cf748bc6f",
+        "type": "ui-text",
+        "z": "fc9c2f1e7b907c9a",
+        "group": "afe7ee9a1ce53e2a",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "name": "CPU Temp C",
+        "label": "CPU Temp C",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 1350,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "5395fc78c42a0484",
+        "type": "change",
+        "z": "fc9c2f1e7b907c9a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0][\"CPU Temp C\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 480,
+        "wires": [
+            [
+                "7111456cf748bc6f"
+            ]
+        ]
     },
     {
         "id": "60fa39c9762b987c",
@@ -803,7 +1277,7 @@
         "correl": "",
         "expiry": "",
         "broker": "3763e3b111ee67d0",
-        "x": 220,
+        "x": 340,
         "y": 200,
         "wires": []
     },
@@ -815,7 +1289,7 @@
         "links": [
             "284ec2ee8daebe90"
         ],
-        "x": 55,
+        "x": 175,
         "y": 200,
         "wires": [
             [
@@ -836,7 +1310,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 100,
+        "x": 220,
         "y": 140,
         "wires": [
             [
@@ -860,7 +1334,7 @@
         "correl": "",
         "expiry": "",
         "broker": "3763e3b111ee67d0",
-        "x": 220,
+        "x": 340,
         "y": 260,
         "wires": []
     },
@@ -873,7 +1347,7 @@
         "links": [
             "949cabf34e40b4a9"
         ],
-        "x": 235,
+        "x": 355,
         "y": 120,
         "wires": []
     },
@@ -885,7 +1359,7 @@
         "links": [
             "be203c06505427bf"
         ],
-        "x": 55,
+        "x": 175,
         "y": 260,
         "wires": [
             [
@@ -905,7 +1379,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
+        "x": 570,
         "y": 80,
         "wires": [
             []
@@ -932,7 +1406,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 110,
+        "x": 230,
         "y": 80,
         "wires": [
             [
@@ -954,7 +1428,7 @@
         "correl": "",
         "expiry": "",
         "broker": "3763e3b111ee67d0",
-        "x": 490,
+        "x": 610,
         "y": 160,
         "wires": []
     },
@@ -970,7 +1444,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 320,
+        "x": 440,
         "y": 120,
         "wires": []
     },
@@ -986,7 +1460,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
+        "x": 440,
         "y": 160,
         "wires": [
             [
@@ -999,7 +1473,7 @@
         "type": "OS",
         "z": "39d2c7aea4f81417",
         "name": "",
-        "x": 290,
+        "x": 410,
         "y": 80,
         "wires": [
             [
@@ -1013,7 +1487,7 @@
         "z": "39d2c7aea4f81417",
         "name": "Publish global variables",
         "info": "/**\n * This flow manages MQTT communication for system status updates and data synchronization.\n * \n * **Key Functions:**\n * \n * 1. **Publishing Uptime Status:**\n *    - Listens for incoming uptime updates via a link node.\n *    - Publishes uptime data to the MQTT topic: `\"HostName\"/Status/Uptime`.\n * \n * 2. **Receiving MQTT Data Sync Message:**\n *    - Subscribes to `Data/Sync` MQTT topic.\n *    - When a sync message is received, it triggers:\n *      - Parsing of the received data.\n *      - Processing system-wide global values for MQTT publishing.\n *      - Debugging/logging of incoming messages.\n * \n * 3. **Publishing System Status Details:**\n *    - Listens for detailed system data via a link node.\n *    - Publishes system details (e.g., hostname, uptime, CPU load, memory usage) to the MQTT topic: `\"HostName\"/Status/Details`.\n * \n * 4. **Handling Global Context Variables for MQTT:**\n *    - Retrieves all global context variables.\n *    - Constructs MQTT topics dynamically using the `hostName` value.\n *    - Sends each global variable’s value to a corresponding MQTT topic formatted as:  \n *      `\"HostName\"/<Variable>/value`.\n * \n * 5. **Hostname Handling:**\n *    - Retrieves the hostname using an OS command node.\n *    - Stores the hostname in the flow context for consistent MQTT topic formatting.\n * \n * 6. **MQTT Broker Configuration:**\n *    - Uses an MQTT broker at `192.168.1.43` with topic-based connection status messages.\n *    - Publishes `\"TestDac3 has Connected\"` on connection and `\"TestDac3 has Disconnected\"` when the connection drops.\n * \n * **Overall Purpose:**\n * - This flow ensures that system information is synchronized across the network via MQTT.\n * - It dynamically updates and publishes critical system status parameters for real-time monitoring.\n */\n",
-        "x": 140,
+        "x": 260,
         "y": 40,
         "wires": []
     },
@@ -1033,8 +1507,7 @@
         "y": 640,
         "wires": [
             [
-                "f0957c64c9283049",
-                "fdec4cd3b794d842"
+                "f0957c64c9283049"
             ]
         ]
     },
@@ -1045,11 +1518,12 @@
         "name": "Store to flow vars",
         "func": "flow.set(msg.topic, msg.payload);\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1470,
+        "x": 1630,
         "y": 440,
         "wires": [
             []
@@ -1060,7 +1534,7 @@
         "type": "file",
         "z": "f0fb0bd6b5fcfabc",
         "name": "Write Config",
-        "filename": "/home/orangepi/ConfigFiles/netconfig.json",
+        "filename": "/home/admin/ConfigFiles/netconfig.json",
         "filenameType": "str",
         "appendNewline": false,
         "createDir": true,
@@ -1069,7 +1543,9 @@
         "x": 730,
         "y": 640,
         "wires": [
-            []
+            [
+                "cbc5748a516bc2d8"
+            ]
         ]
     },
     {
@@ -1189,34 +1665,34 @@
         "y": 460,
         "wires": [
             [
-                "c6af4fbea7e8a228"
+                "d445d230faf005bd"
             ],
             [
-                "e80f8afa73387e28"
+                "b3be2026aa558a9a"
             ],
             [
-                "7bd6df7356196650"
+                "3070abc592ae0cf0"
             ],
             [
-                "4be8fc3bfdbd2863"
+                "c9e0f426da274b6f"
             ],
             [
-                "dba7ce3a898f7209"
+                "1a69c4b317be490d"
             ],
             [
-                "5e3863ba9afa2ba4"
+                "910586cded085975"
             ],
             [
-                "8ff08b5cdcd90757"
+                "840b2bf27ee6b1e0"
             ],
             [
-                "cd3c2fa612856ca0"
+                "c05f3f8e0955aa81"
             ],
             [
-                "a148314ebd1b09f5"
+                "aa1319e97e19f3dd"
             ],
             [
-                "43dd600f1e328815"
+                "72094f40b49ef854"
             ]
         ]
     },
@@ -1361,8 +1837,7 @@
         "y": 640,
         "wires": [
             [
-                "6d2c4b5e549990f3",
-                "fdec4cd3b794d842"
+                "6d2c4b5e549990f3"
             ]
         ]
     },
@@ -1384,9 +1859,7 @@
             [
                 "fca5dc268c77e96c"
             ],
-            [
-                "bd8f42adc38ce1d9"
-            ]
+            []
         ]
     },
     {
@@ -1407,26 +1880,8 @@
             [
                 "296336376cd27b93"
             ],
-            [
-                "bd8f42adc38ce1d9"
-            ]
+            []
         ]
-    },
-    {
-        "id": "fdec4cd3b794d842",
-        "type": "debug",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1000,
-        "y": 640,
-        "wires": []
     },
     {
         "id": "inject-startup",
@@ -1507,7 +1962,7 @@
         "type": "debug",
         "z": "f0fb0bd6b5fcfabc",
         "name": "File Already Exists",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "complete": "true",
@@ -1547,7 +2002,7 @@
         "type": "debug",
         "z": "f0fb0bd6b5fcfabc",
         "name": "Error",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "complete": "true",
@@ -1558,420 +2013,11 @@
         "wires": []
     },
     {
-        "id": "7372b8bca39a5e7f",
-        "type": "ui_button",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Write Settings",
-        "group": "f3a909aaf33ffc6b",
-        "order": 1,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "Write Settings",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "save",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 160,
-        "y": 640,
-        "wires": [
-            [
-                "c01262d09747f0a6",
-                "8f528c766aa6908e",
-                "ad09f130521fe327"
-            ]
-        ]
-    },
-    {
-        "id": "3dc5f2066872354f",
-        "type": "ui_button",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Restart Network Interfaces",
-        "group": "f3a909aaf33ffc6b",
-        "order": 3,
-        "width": "6",
-        "height": 1,
-        "passthru": false,
-        "label": "Restart WiFi Interface",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "#ff0000",
-        "className": "",
-        "icon": "",
-        "payload": "yes",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 200,
-        "y": 820,
-        "wires": [
-            [
-                "fb4184d87390f079"
-            ]
-        ]
-    },
-    {
-        "id": "6055488448614762",
-        "type": "ui_button",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Reboot Now?",
-        "group": "f3a909aaf33ffc6b",
-        "order": 4,
-        "width": "6",
-        "height": 1,
-        "passthru": false,
-        "label": "Reboot Device",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "#ff0000",
-        "className": "",
-        "icon": "",
-        "payload": "yes",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 240,
-        "y": 880,
-        "wires": [
-            [
-                "ae2b2108ffed2c48"
-            ]
-        ]
-    },
-    {
-        "id": "02528f31eac55da5",
-        "type": "ui_button",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Restart Network Interfaces",
-        "group": "f3a909aaf33ffc6b",
-        "order": 2,
-        "width": "6",
-        "height": 1,
-        "passthru": false,
-        "label": "Restart Eth Interface",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "#ff0000",
-        "className": "",
-        "icon": "",
-        "payload": "yes",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 200,
-        "y": 760,
-        "wires": [
-            [
-                "2c5eb68777a0ff94"
-            ]
-        ]
-    },
-    {
-        "id": "c6af4fbea7e8a228",
-        "type": "ui_switch",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "eth0 DHCP",
-        "label": "DHCP Enabled?",
-        "tooltip": "",
-        "group": "92253b61eb08b0dc",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "eth0_dhcp",
-        "topicType": "str",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "animate": true,
-        "className": "",
-        "x": 1190,
-        "y": 280,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "5e3863ba9afa2ba4",
-        "type": "ui_switch",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "WiFi DHCP",
-        "label": "DHCP Enabled?",
-        "tooltip": "",
-        "group": "36560999b7d86f0c",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "wifi_dhcp",
-        "topicType": "str",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "animate": true,
-        "className": "",
-        "x": 1190,
-        "y": 480,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "e80f8afa73387e28",
-        "type": "ui_text_input",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "eth0 IP",
-        "label": "Static IP",
-        "tooltip": "",
-        "group": "92253b61eb08b0dc",
-        "order": 2,
-        "width": "6",
-        "height": 1,
-        "passthru": true,
-        "mode": "text",
-        "delay": 300,
-        "topic": "eth0_ip",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 1180,
-        "y": 320,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "7bd6df7356196650",
-        "type": "ui_text_input",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "eth0 Subnet",
-        "label": "Subnet Mask",
-        "tooltip": "",
-        "group": "92253b61eb08b0dc",
-        "order": 3,
-        "width": "6",
-        "height": 1,
-        "passthru": true,
-        "mode": "text",
-        "delay": 300,
-        "topic": "eth0_subnet",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 1190,
-        "y": 360,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "8ff08b5cdcd90757",
-        "type": "ui_text_input",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "WiFi IP",
-        "label": "Static IP",
-        "tooltip": "",
-        "group": "36560999b7d86f0c",
-        "order": 2,
-        "width": "6",
-        "height": 1,
-        "passthru": true,
-        "mode": "text",
-        "delay": 300,
-        "topic": "wifi_ip",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 1180,
-        "y": 520,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "cd3c2fa612856ca0",
-        "type": "ui_text_input",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "WiFi Subnet",
-        "label": "Subnet Mask",
-        "tooltip": "",
-        "group": "36560999b7d86f0c",
-        "order": 3,
-        "width": "6",
-        "height": 1,
-        "passthru": true,
-        "mode": "text",
-        "delay": 300,
-        "topic": "wifi_subnet",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 1190,
-        "y": 560,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "a148314ebd1b09f5",
-        "type": "ui_text_input",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "WiFi Default Gateway",
-        "label": "Default Gateway",
-        "tooltip": "",
-        "group": "36560999b7d86f0c",
-        "order": 4,
-        "width": "6",
-        "height": 1,
-        "passthru": true,
-        "mode": "text",
-        "delay": 300,
-        "topic": "wifi_gateway",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 1220,
-        "y": 600,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "4be8fc3bfdbd2863",
-        "type": "ui_text_input",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "eth0 DNS Gateway",
-        "label": "DNS Gateway",
-        "tooltip": "",
-        "group": "92253b61eb08b0dc",
-        "order": 5,
-        "width": "6",
-        "height": 1,
-        "passthru": true,
-        "mode": "text",
-        "delay": 300,
-        "topic": "eth0_dnsgateway",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 1210,
-        "y": 400,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "43dd600f1e328815",
-        "type": "ui_text_input",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "WiFi DNS Gateway",
-        "label": "Dns Gateway",
-        "tooltip": "",
-        "group": "36560999b7d86f0c",
-        "order": 4,
-        "width": "6",
-        "height": 1,
-        "passthru": true,
-        "mode": "text",
-        "delay": 300,
-        "topic": "wifi_dnsgateway",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 1210,
-        "y": 640,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "dba7ce3a898f7209",
-        "type": "ui_text_input",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "eth0 Default Gateway",
-        "label": "Default Gateway",
-        "tooltip": "",
-        "group": "92253b61eb08b0dc",
-        "order": 4,
-        "width": "6",
-        "height": 1,
-        "passthru": true,
-        "mode": "text",
-        "delay": 300,
-        "topic": "eth0_gateway",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 1220,
-        "y": 440,
-        "wires": [
-            [
-                "abeab9f2fec9e5bb"
-            ]
-        ]
-    },
-    {
-        "id": "bd8f42adc38ce1d9",
-        "type": "ui_toast",
-        "z": "f0fb0bd6b5fcfabc",
-        "position": "center",
-        "displayTime": "3",
-        "highlight": "",
-        "sendall": true,
-        "outputs": 0,
-        "ok": "OK",
-        "cancel": "",
-        "raw": false,
-        "className": "",
-        "topic": "",
-        "name": "Notify ",
-        "x": 870,
-        "y": 640,
-        "wires": []
-    },
-    {
         "id": "debug-success",
         "type": "debug",
         "z": "f0fb0bd6b5fcfabc",
         "name": "Success",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "complete": "true",
@@ -2102,6 +2148,561 @@
         "wires": []
     },
     {
+        "id": "d445d230faf005bd",
+        "type": "ui-switch",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "eth0 DHCP",
+        "label": "DHCP Enabled?",
+        "group": "eb9a2d95042c14f2",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "eth0_dhcp",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 1290,
+        "y": 320,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "b3be2026aa558a9a",
+        "type": "ui-text-input",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "eb9a2d95042c14f2",
+        "name": "eth0 IP",
+        "label": "Static IP",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "topic": "eth0_ip",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 1280,
+        "y": 360,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "3070abc592ae0cf0",
+        "type": "ui-text-input",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "eb9a2d95042c14f2",
+        "name": "eth0 Subnet",
+        "label": "Static IP",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "topic": "eth0_subnet",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 1290,
+        "y": 400,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "c9e0f426da274b6f",
+        "type": "ui-text-input",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "eb9a2d95042c14f2",
+        "name": "eth0 DNS Gateway",
+        "label": "DNS Gateway",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "topic": "eth0_dnsgateway",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 1310,
+        "y": 440,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "1a69c4b317be490d",
+        "type": "ui-text-input",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "eb9a2d95042c14f2",
+        "name": "eth0 Default Gateway ",
+        "label": "Default Gateway ",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "topic": "eth0_gateway",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 1320,
+        "y": 480,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "910586cded085975",
+        "type": "ui-switch",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "WiFi DHCP",
+        "label": "DHCP Enabled?",
+        "group": "d8185ba94eef9b03",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "wifi_dhcp",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 1290,
+        "y": 520,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "840b2bf27ee6b1e0",
+        "type": "ui-text-input",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "d8185ba94eef9b03",
+        "name": "WiFi IP",
+        "label": "Static IP",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "topic": "wifi_ip",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 1280,
+        "y": 560,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "c05f3f8e0955aa81",
+        "type": "ui-text-input",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "d8185ba94eef9b03",
+        "name": "WiFi Subnet",
+        "label": "Static IP",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "topic": "wifi_subnet",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 1290,
+        "y": 600,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "aa1319e97e19f3dd",
+        "type": "ui-text-input",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "d8185ba94eef9b03",
+        "name": "WiFi DNS Gateway",
+        "label": "DNS Gateway",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "topic": "wifi_gateway",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 1310,
+        "y": 640,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "72094f40b49ef854",
+        "type": "ui-text-input",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "d8185ba94eef9b03",
+        "name": "WiFi Default Gateway ",
+        "label": "Default Gateway ",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "topic": "wifi_dnsgateway",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 1320,
+        "y": 680,
+        "wires": [
+            [
+                "abeab9f2fec9e5bb"
+            ]
+        ]
+    },
+    {
+        "id": "5d746908630f29d7",
+        "type": "ui-button",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "c2b94ff3001bfe62",
+        "name": "Write Settings",
+        "label": "Write Settings",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "save",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 160,
+        "y": 640,
+        "wires": [
+            [
+                "ad09f130521fe327"
+            ]
+        ]
+    },
+    {
+        "id": "e5d4634faa4497a0",
+        "type": "ui-button",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "c2b94ff3001bfe62",
+        "name": "Restart Ethernet Interface",
+        "label": "Restart Eth Interface",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "yes",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 190,
+        "y": 760,
+        "wires": [
+            [
+                "2c5eb68777a0ff94"
+            ]
+        ]
+    },
+    {
+        "id": "6e70be4269f7f86d",
+        "type": "ui-button",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "c2b94ff3001bfe62",
+        "name": "Restart WiFi Interface",
+        "label": "Restart WiFi Interface",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "yes",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 200,
+        "y": 820,
+        "wires": [
+            [
+                "fb4184d87390f079"
+            ]
+        ]
+    },
+    {
+        "id": "21080ec445a90d8a",
+        "type": "ui-button",
+        "z": "f0fb0bd6b5fcfabc",
+        "group": "c2b94ff3001bfe62",
+        "name": "Reboot Device?",
+        "label": "Reboot Device",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "yes",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 200,
+        "y": 880,
+        "wires": [
+            [
+                "ae2b2108ffed2c48"
+            ]
+        ]
+    },
+    {
+        "id": "3a8cffdb58abbdf6",
+        "type": "ui-notification",
+        "z": "f0fb0bd6b5fcfabc",
+        "ui": "bf3cd3c67043e273",
+        "position": "bottom right",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "3",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "Notify ",
+        "x": 1070,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cbc5748a516bc2d8",
+        "type": "change",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Settings Saved           ",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 640,
+        "wires": [
+            [
+                "3a8cffdb58abbdf6"
+            ]
+        ]
+    },
+    {
+        "id": "272dce3859966c6d",
+        "type": "debug",
+        "z": "f0fb0bd6b5fcfabc",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1740,
+        "y": 540,
+        "wires": []
+    },
+    {
         "id": "662294c3fd43faaf",
         "type": "function",
         "z": "c87e73927481cb24",
@@ -2113,8 +2714,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 420,
-        "y": 120,
+        "x": 880,
+        "y": 40,
         "wires": [
             [
                 "77cc3ebdb6364e3e"
@@ -2133,29 +2734,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 660,
-        "y": 120,
+        "x": 1120,
+        "y": 40,
         "wires": [
             [
                 "a08b4d86aae2472b"
             ]
         ]
-    },
-    {
-        "id": "549c3d904bde133c",
-        "type": "debug",
-        "z": "c87e73927481cb24",
-        "name": "debug 1",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1080,
-        "y": 120,
-        "wires": []
     },
     {
         "id": "2629dbcfccca2051",
@@ -2174,50 +2759,14 @@
         "keepMsgProperties": false,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 670,
-        "y": 200,
+        "x": 1190,
+        "y": 100,
         "wires": [
             [
                 "fe16fd1e7efca44e"
             ],
             []
         ]
-    },
-    {
-        "id": "b0455762d39b3671",
-        "type": "function",
-        "z": "c87e73927481cb24",
-        "name": "function 19",
-        "func": "// Get the read group from the incoming message payload\nvar readGroup = msg.payload;\n\n// Prepare the message payload for the Modbus Flex Getter node\nmsg.payload = {\n    value: msg.payload,   // Keeping value same as original msg.payload\n    fc: readGroup.fc,     // Function Code (1..4)\n    unitid: readGroup.unitId,\n    address: readGroup.startAddress,\n    quantity: readGroup.length\n};\n\n// Optional: Add the connection parameters\nmsg.tcpHost = readGroup.tcpHost;\nmsg.tcpPort = readGroup.tcpPort;\n\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 390,
-        "y": 200,
-        "wires": [
-            [
-                "2629dbcfccca2051"
-            ]
-        ]
-    },
-    {
-        "id": "335593303c5990b8",
-        "type": "debug",
-        "z": "c87e73927481cb24",
-        "name": "debug 2",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1060,
-        "y": 200,
-        "wires": []
     },
     {
         "id": "a08b4d86aae2472b",
@@ -2231,12 +2780,11 @@
         "stream": false,
         "addname": "",
         "property": "payload",
-        "x": 870,
-        "y": 120,
+        "x": 1330,
+        "y": 40,
         "wires": [
             [
-                "b0455762d39b3671",
-                "549c3d904bde133c"
+                "3a751acbcd28ac13"
             ]
         ]
     },
@@ -2252,12 +2800,10 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 890,
-        "y": 200,
+        "x": 1410,
+        "y": 100,
         "wires": [
-            [
-                "335593303c5990b8"
-            ]
+            []
         ]
     },
     {
@@ -2344,8 +2890,708 @@
         "y": 40,
         "wires": [
             [
-                "6f337ccf2f879e1e"
+                "6f337ccf2f879e1e",
+                "c2f70c8f7315941a"
             ]
         ]
+    },
+    {
+        "id": "481df5a245dd3309",
+        "type": "ui-text-input",
+        "z": "c87e73927481cb24",
+        "group": "7acaf11819fd20d0",
+        "name": "TCP Server IP",
+        "label": "TCP Server IP",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "topic": "tcpHost",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "5226818925e3d8a2"
+            ]
+        ]
+    },
+    {
+        "id": "01d8a938e5a7c1ac",
+        "type": "ui-text-input",
+        "z": "c87e73927481cb24",
+        "group": "7acaf11819fd20d0",
+        "name": "TCP Port",
+        "label": "TCP Port",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "topic": "tcpPort",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "5226818925e3d8a2"
+            ]
+        ]
+    },
+    {
+        "id": "e54cdb6f3f47e2c7",
+        "type": "ui-text-input",
+        "z": "c87e73927481cb24",
+        "group": "7acaf11819fd20d0",
+        "name": "Unit ID",
+        "label": "Unit ID",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "topic": "unit_id",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "5226818925e3d8a2"
+            ]
+        ]
+    },
+    {
+        "id": "5226818925e3d8a2",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 1",
+        "func": "flow.set(msg.topic, msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 220,
+        "wires": [
+            [
+                "c2f70c8f7315941a"
+            ]
+        ]
+    },
+    {
+        "id": "c2f70c8f7315941a",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "Set TCP Parameters",
+        "func": "// Get TCP options from msg.payload (if provided) or fall back to flow context variables\nlet tcpHost         = msg.payload.tcpHost         || flow.get(\"tcpHost\");\nlet tcpPort         = msg.payload.tcpPort         || flow.get(\"tcpPort\");\nlet tcpType         = msg.payload.tcpType         || flow.get(\"tcpType\");  // optional, if needed\nlet unitId          = msg.payload.unitId          || flow.get(\"unit_id\");\nlet commandDelay    = msg.payload.commandDelay    || flow.get(\"commandDelay\");\nlet clientTimeout   = msg.payload.clientTimeout   || flow.get(\"clientTimeout\");\nlet reconnectTimeout= msg.payload.reconnectTimeout|| flow.get(\"reconnectTimeout\");\n\n// Assemble the payload according to the TCP options for the modbus flex connector\nmsg.payload = {\n    connectorType: \"TCP\",\n    tcpHost: tcpHost,\n    tcpPort: tcpPort,\n    unitId: unitId,\n    \n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 100,
+        "wires": [
+            [
+                "8f47e761f1e16429"
+            ]
+        ]
+    },
+    {
+        "id": "1bfdaec671bb59bd",
+        "type": "ui-text-input",
+        "z": "c87e73927481cb24",
+        "group": "7acaf11819fd20d0",
+        "name": "Starting Address",
+        "label": "Starting Address",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "topic": "startingAddress",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 160,
+        "y": 280,
+        "wires": [
+            [
+                "5226818925e3d8a2"
+            ]
+        ]
+    },
+    {
+        "id": "736fe1cb8c17a06f",
+        "type": "ui-text-input",
+        "z": "c87e73927481cb24",
+        "group": "7acaf11819fd20d0",
+        "name": "Quantity",
+        "label": "Quantity",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "topic": "Quantity",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "5226818925e3d8a2"
+            ]
+        ]
+    },
+    {
+        "id": "f4626352dfdf2e9b",
+        "type": "ui-text-input",
+        "z": "c87e73927481cb24",
+        "group": "7acaf11819fd20d0",
+        "name": "Function Code",
+        "label": "Function Code",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "topic": "FC",
+        "topicType": "str",
+        "mode": "number",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "5226818925e3d8a2"
+            ]
+        ]
+    },
+    {
+        "id": "8f47e761f1e16429",
+        "type": "modbus-flex-connector",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "maxReconnectsPerMinute": 4,
+        "emptyQueue": false,
+        "showStatusActivities": true,
+        "showErrors": true,
+        "server": "4fad382cc333fc8d",
+        "emptyMsgOnFail": false,
+        "configMsgOnChange": true,
+        "x": 610,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3e75424d4855360f",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "Set Modbus Parameters",
+        "func": "// Save the original trigger value\nlet triggerValue = msg.payload;\n\n// Retrieve settings from flow context\nlet fc = parseInt(flow.get(\"FC\"), 10) || 3;             // Default FC 3 if not set\nlet quantity = parseInt(flow.get(\"Quantity\"), 10) || 1;         // Default quantity 1\nlet address = parseInt(flow.get(\"startingAddress\"), 10) || 0;  // Default address 0\nlet tcpHost = flow.get(\"tcpHost\") || \"127.0.0.1\";\nlet tcpPort = flow.get(\"tcpPort\") || \"502\";\nlet unitid = parseInt(flow.get(\"unit_id\"), 10) || 1;          // Default unit ID 1\n\n// Assemble the payload according to Modbus-Flex-Getter specifications\nmsg.payload = {\n    value: triggerValue,     // Retain the original trigger as the 'value'\n    connectorType: \"TCP\",    // This setup uses TCP always\n    tcpHost: tcpHost,\n    tcpPort: tcpPort,\n    fc: fc,                  // Function Code (1-4)\n    unitid: unitid,          // Modbus unit id\n    address: address,        // Starting address\n    quantity: quantity       // Number of registers/coils to read\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 520,
+        "wires": [
+            [
+                "6f949d4d67e55eb4"
+            ]
+        ]
+    },
+    {
+        "id": "3a751acbcd28ac13",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 19",
+        "func": "// Get the read group from the incoming message payload\nvar readGroup = msg.payload;\n\n// Prepare the message payload for the Modbus Flex Getter node\nmsg.payload = {\n    value: msg.payload,   // Keeping value same as original msg.payload\n    fc: readGroup.fc,     // Function Code (1..4)\n    unitid: readGroup.unitId,\n    address: readGroup.startAddress,\n    quantity: readGroup.length\n};\n\n// Optional: Add the connection parameters\nmsg.tcpHost = readGroup.tcpHost;\nmsg.tcpPort = readGroup.tcpPort;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 100,
+        "wires": [
+            [
+                "2629dbcfccca2051"
+            ]
+        ]
+    },
+    {
+        "id": "22ef9fc34f2c1722",
+        "type": "ui-button",
+        "z": "c87e73927481cb24",
+        "group": "7acaf11819fd20d0",
+        "name": "Read Registers?",
+        "label": "Read Registers?",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "Yes",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 190,
+        "y": 520,
+        "wires": [
+            [
+                "3e75424d4855360f"
+            ]
+        ]
+    },
+    {
+        "id": "6f949d4d67e55eb4",
+        "type": "modbus-flex-getter",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "server": "4fad382cc333fc8d",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 650,
+        "y": 520,
+        "wires": [
+            [
+                "848d27e11bd8c8bd"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "07fe9ca32bb1d8b8",
+        "type": "catch",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "scope": [
+            "6f949d4d67e55eb4"
+        ],
+        "uncaught": false,
+        "x": 150,
+        "y": 580,
+        "wires": [
+            [
+                "b0b4649483e4117e"
+            ]
+        ]
+    },
+    {
+        "id": "b0b4649483e4117e",
+        "type": "change",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Modbus Read Error ",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 580,
+        "wires": [
+            [
+                "fc9625096214932c"
+            ]
+        ]
+    },
+    {
+        "id": "fc9625096214932c",
+        "type": "ui-notification",
+        "z": "c87e73927481cb24",
+        "ui": "bf3cd3c67043e273",
+        "position": "center center",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "5",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "Modbus Read Failed",
+        "x": 520,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "848d27e11bd8c8bd",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 2",
+        "func": "// Get the starting address (ensure it's a number)\nlet startingAddress = Number(flow.get(\"startingAddress\")) || 0;\n\n// Assume msg.payload is an array of register values from the Modbus read\nlet registers = msg.payload;\nif (!Array.isArray(registers)) {\n    node.error(\"Expected an array of registers in msg.payload\", msg);\n    return null;\n}\n\n// Set the total number of registers read as a flow variable\nlet regCount = registers.length;\nflow.set(\"registerCount\", regCount);\n\n// Prepare an array for dropdown options (if needed by the dashboard)\nlet dropdownOptions = [];\n\n// Loop through each register value\nfor (let i = 0; i < regCount; i++) {\n    // Calculate the current register's address\n    let address = startingAddress + i;\n\n    // Store the value as a flow variable with a unique name (e.g., reg_999)\n    flow.set(\"reg_\" + address, registers[i]);\n\n    // Optionally, add the register info to a dropdown array\n    dropdownOptions.push({\n        label: \"Address \" + address + \" - \" + registers[i],\n        value: address\n    });\n}\n\n// Save the dropdown options as a flow variable for later use\nflow.set(\"dropdownOptions\", dropdownOptions);\n\n// Optionally, you can output the dropdownOptions array as msg.payload for the next node\nmsg.payload = {\n    count: regCount,\n    options: dropdownOptions\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 520,
+        "wires": [
+            [
+                "bc30e464d0913f15",
+                "c09b7299f3f14248"
+            ]
+        ]
+    },
+    {
+        "id": "b68b266bb21d29e3",
+        "type": "ui-text",
+        "z": "c87e73927481cb24",
+        "group": "68855f1a6662bddb",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Registers Found",
+        "label": "Registers Found",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "payload.count",
+        "x": 1360,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "bc30e464d0913f15",
+        "type": "switch",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "property": "payload.count",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1030,
+        "y": 480,
+        "wires": [
+            [
+                "905434a481c8bfbc"
+            ]
+        ]
+    },
+    {
+        "id": "905434a481c8bfbc",
+        "type": "change",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.count",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 480,
+        "wires": [
+            [
+                "b68b266bb21d29e3"
+            ]
+        ]
+    },
+    {
+        "id": "c09b7299f3f14248",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 3",
+        "func": "// Get the dropdownOptions array from flow context\nlet options = flow.get(\"dropdownOptions\");\n\n// Ensure it's an array; if not, use an empty array\nif (!Array.isArray(options)) {\n    options = [];\n}\n\n// Attach the options array to msg.ui_update using the key \"optionsarray\"\nmsg.ui_update = {\n    optionsarray: options\n};\n\n// Optionally, you can also pass a label string if needed\n// msg.ui_update.labelstring = \"Select a register\";\n\n// Return the updated message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 540,
+        "wires": [
+            [
+                "271798983ed1a9b8"
+            ]
+        ]
+    },
+    {
+        "id": "c43a6f8737b10513",
+        "type": "ui-dropdown",
+        "z": "c87e73927481cb24",
+        "group": "68855f1a6662bddb",
+        "name": "",
+        "label": "Select Option:",
+        "tooltip": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 2180,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33ee3fed566069f8",
+        "type": "change",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.options.label",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1370,
+        "y": 540,
+        "wires": [
+            [
+                "0b09045486888f80"
+            ]
+        ]
+    },
+    {
+        "id": "0b09045486888f80",
+        "type": "join",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1570,
+        "y": 540,
+        "wires": [
+            [
+                "58f9f3b2750c6c40"
+            ]
+        ]
+    },
+    {
+        "id": "58f9f3b2750c6c40",
+        "type": "change",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "ui_update.options",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1820,
+        "y": 540,
+        "wires": [
+            [
+                "c43a6f8737b10513",
+                "e9087ac3a15968d9"
+            ]
+        ]
+    },
+    {
+        "id": "271798983ed1a9b8",
+        "type": "split",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload.options",
+        "x": 1170,
+        "y": 540,
+        "wires": [
+            [
+                "33ee3fed566069f8"
+            ]
+        ]
+    },
+    {
+        "id": "e9087ac3a15968d9",
+        "type": "debug",
+        "z": "c87e73927481cb24",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2100,
+        "y": 460,
+        "wires": []
     }
 ]
