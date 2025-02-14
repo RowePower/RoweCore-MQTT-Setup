@@ -375,7 +375,90 @@
         "page": "7c588f590618a40d",
         "width": "3",
         "height": 1,
-        "order": -1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "e9c9516048f29891",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#870303",
+            "primary": "#030303",
+            "bgPage": "#000000",
+            "groupBg": "#242424",
+            "groupOutline": "#000000"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "49421763c0917dd1",
+        "type": "ui-page",
+        "name": "Mqtt Devices",
+        "ui": "bf3cd3c67043e273",
+        "path": "/MQTT",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "e9c9516048f29891",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 3,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "c4a9534639163df1",
+        "type": "ui-group",
+        "name": "Link Data",
+        "page": "49421763c0917dd1",
+        "width": "7",
+        "height": "1",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "7729410e8c205329",
+        "type": "ui-group",
+        "name": "Link Temps",
+        "page": "49421763c0917dd1",
+        "width": "5",
+        "height": "1",
+        "order": 2,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -1315,8 +1398,7 @@
         "wires": [
             [
                 "d2a8676816303ca6",
-                "7b5c4e1e8ee07970",
-                "0760f5884e6aeda5"
+                "7b5c4e1e8ee07970"
             ]
         ]
     },
@@ -1415,56 +1497,22 @@
         ]
     },
     {
-        "id": "9387d5c9b3333244",
-        "type": "mqtt out",
-        "z": "39d2c7aea4f81417",
-        "name": "",
-        "topic": "",
-        "qos": "0",
-        "retain": "false",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "3763e3b111ee67d0",
-        "x": 610,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "0760f5884e6aeda5",
-        "type": "debug",
-        "z": "39d2c7aea4f81417",
-        "name": "debug 3",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 440,
-        "y": 120,
-        "wires": []
-    },
-    {
         "id": "7b5c4e1e8ee07970",
         "type": "function",
         "z": "39d2c7aea4f81417",
-        "name": "Publish global values",
-        "func": "// Step 1: Get all global context keys\nvar globalKeys = global.keys();\n\nif (!globalKeys || globalKeys.length === 0) {\n    return null; // Exit if no global context variables are found\n}\n\n// Step 2: Get the hostname from flow context\nvar hostName = flow.get('hostName') || 'defaultHost'; // Use 'defaultHost' if the hostName is not set\n\n// Step 3: Iterate over each global context key\nvar mqttMessages = [];\nglobalKeys.forEach(function(key) {\n    var globalValue = global.get(key);\n\n    // Step 4: Check if the global value has a 'value' property\n    if (globalValue && typeof globalValue === 'object' && globalValue.hasOwnProperty('value')) {\n        // Construct the topic using hostName and the key\n        var individualTopic = `${hostName}/${key}/value`;\n\n        // Add the message to the mqttMessages array\n        mqttMessages.push({\n            topic: individualTopic,\n            payload: globalValue.value // The actual measured value\n        });\n    }\n});\n\n// Step 5: Output the messages\n// If there are multiple messages, use node.send to send them as individual messages\nmqttMessages.forEach(function(message) {\n    node.send({ topic: message.topic, payload: message.payload });\n});\n\nreturn null; // Since we're using node.send, we return null to avoid sending an additional message\n",
+        "name": "Publish Modbus Variables to MQTT",
+        "func": "// Node-RED Function node\nlet hostName = flow.get(\"hostName\") || \"unknown\";\nlet allKeys = flow.keys();\nlet msgs = [];\n\n// Loop through each key in flow context\nfor (let i = 0; i < allKeys.length; i++) {\n    let key = allKeys[i];\n\n    // Skip the hostName itself\n    if (key === \"hostName\") {\n        continue;\n    }\n\n    // Retrieve the variable data\n    let variableData = flow.get(key);\n    if (variableData && variableData.formatted) {\n        msgs.push({\n            topic: `${hostName}/${key}/value`,\n            payload: variableData.formatted\n        });\n    }\n}\n\n// Return an array of messages as the single output\nreturn [msgs];\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
+        "x": 480,
         "y": 160,
         "wires": [
             [
-                "9387d5c9b3333244"
+                "266c3a9e04f5c9d0"
             ]
         ]
     },
@@ -1490,6 +1538,501 @@
         "x": 260,
         "y": 40,
         "wires": []
+    },
+    {
+        "id": "300e130053082558",
+        "type": "link in",
+        "z": "39d2c7aea4f81417",
+        "name": "link in 1",
+        "links": [
+            "7932536b4acf969a"
+        ],
+        "x": 175,
+        "y": 320,
+        "wires": [
+            [
+                "e078ed432edb99c6"
+            ]
+        ]
+    },
+    {
+        "id": "e078ed432edb99c6",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "Modbus Variables To flow",
+        "func": "/*****************************************************************\n * Parse Modbus Response & Format Values (Round to 3 Decimals)\n *\n * Using Option 1 to get address & quantity from:\n *   msg.modbusRequest.address\n *   msg.modbusRequest.quantity\n *****************************************************************/\n\n// 1) Extract the read array & Modbus request info\nconst readData = msg.payload;                // e.g. [28, 12] or [9]\nconst startAddress = msg.modbusRequest.address;  // e.g. 1003\nconst quantity = msg.modbusRequest.quantity; // e.g. 1\n\n// 2) Verify we have the needed properties\nif (!Array.isArray(readData)) {\n    node.warn(\"msg.payload is not an array. Cannot parse.\");\n    return msg;\n}\nif (startAddress === undefined || quantity === undefined) {\n    node.warn(\"No startAddress/quantity in msg.modbusRequest!\");\n    return msg;\n}\n\n// 3) Retrieve all global keys (these hold your data-format objects)\nconst allKeys = global.keys();\n\n// We'll iterate over each register in readData\nlet i = 0;\nwhile (i < quantity) {\n    const currentAddress = startAddress + i;\n\n    // For each address, find a global object whose SelectedRegister matches\n    for (let k = 0; k < allKeys.length; k++) {\n        const key = allKeys[k];\n        const dataObject = global.get(key);\n\n        if (!dataObject) continue;\n\n        if (dataObject.SelectedRegister === currentAddress) {\n            // We found the matching data descriptor\n            const dataType = (dataObject.DataType || \"\").toLowerCase();\n            const byteOrder = (dataObject.ByteOrder || \"BE\").toUpperCase();\n\n            // 4) Parse the raw data\n            let rawValue;\n            if (dataType === \"int32\" || dataType === \"uint32\" || dataType === \"float32\") {\n                if (i + 1 >= quantity) {\n                    node.warn(`Not enough registers to parse 32-bit at address ${currentAddress}`);\n                    continue;\n                }\n                rawValue = parse32Bit([readData[i], readData[i + 1]], dataType, byteOrder);\n                i += 1;  // Skip an extra register for 32-bit\n            }\n            else if (dataType === \"int16\") {\n                rawValue = toSigned16(readData[i]);\n            }\n            else if (dataType === \"uint16\") {\n                rawValue = readData[i] >>> 0;\n            }\n            else if (dataType === \"bool\") {\n                rawValue = readData[i] ? 1 : 0;\n            }\n            else {\n                rawValue = readData[i];\n                node.warn(`Unknown or unhandled dataType \"${dataObject.DataType}\" at address ${currentAddress}`);\n            }\n\n            // 5) Apply DataMultiplier (defaults to 1 if missing)\n            const multiplier = parseFloat(dataObject.DataMultiplier) || 1;\n            let finalValue = rawValue * multiplier;\n\n            // 6) Round to 3 decimals\n            const decimals = 3;\n            const roundedValue = parseFloat(finalValue.toFixed(decimals));\n\n            // 7) Format with dimension\n            const dimension = dataObject.DataDimension || \"\";\n            const formattedValue = `${roundedValue} ${dimension}`.trim();\n\n            // 8) Save to flow variable named after ValueName (spaces removed)\n            const safeVarName = (dataObject.ValueName || `Register_${currentAddress}`).replace(/\\s/g, \"\");\n            flow.set(safeVarName, {\n                value: roundedValue,\n                dimension: dimension,\n                formatted: formattedValue\n            });\n\n            // Node-RED status\n            node.status({\n                fill: \"green\",\n                shape: \"dot\",\n                text: `${dataObject.ValueName}: ${formattedValue}`\n            });\n\n            // We found our match; stop looking through global keys\n            break;\n        }\n    }\n\n    // Move to the next register\n    i += 1;\n}\n\n// Return the message to continue down the flow\nreturn msg;\n\n\n/***********************************************************\n * Helper Functions\n ***********************************************************/\n\n/** Convert a single 16-bit unsigned register to a signed int16. */\nfunction toSigned16(val) {\n    if (val & 0x8000) {\n        return val - 0x10000;\n    }\n    return val;\n}\n\n/**\n * parse32Bit - interpret two 16-bit registers as a 32-bit integer or float\n * @param {Array}  regs - e.g. [28, 12]\n * @param {String} dataType  - \"int32\", \"uint32\", or \"float32\"\n * @param {String} byteOrder - \"LE\" or \"BE\"\n */\nfunction parse32Bit(regs, dataType, byteOrder) {\n    if (regs.length < 2) {\n        node.warn(\"parse32Bit expected 2 registers\");\n        return 0;\n    }\n\n    dataType = dataType.toLowerCase();\n    byteOrder = byteOrder.toUpperCase();\n\n    if (dataType === \"int32\" || dataType === \"uint32\") {\n        let low, high;\n        if (byteOrder === \"LE\") {\n            low = regs[0];\n            high = regs[1];\n        } else {\n            high = regs[0];\n            low = regs[1];\n        }\n        let raw = (high << 16) | low;\n\n        if (dataType === \"int32\") {\n            // Signed\n            if (raw & 0x80000000) {\n                return raw - 0x100000000;\n            }\n            return raw;\n        } else {\n            // Unsigned\n            return raw >>> 0;\n        }\n    }\n    else if (dataType === \"float32\") {\n        // Interpret as IEEE 754 float\n        let buffer = new ArrayBuffer(4);\n        let view = new DataView(buffer);\n\n        if (byteOrder === \"LE\") {\n            view.setUint16(0, regs[0], true);\n            view.setUint16(2, regs[1], true);\n            return view.getFloat32(0, true);\n        } else {\n            view.setUint16(0, regs[0], false);\n            view.setUint16(2, regs[1], false);\n            return view.getFloat32(0, false);\n        }\n    }\n\n    // Fallback if unrecognized\n    node.warn(\"parse32Bit - unhandled type: \" + dataType);\n    return regs[0] || 0;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "266c3a9e04f5c9d0",
+        "type": "mqtt out",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3763e3b111ee67d0",
+        "x": 690,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e25026116dc1d3c3",
+        "type": "mqtt in",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "topic": "+/Status/Details",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3763e3b111ee67d0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 380,
+        "wires": [
+            [
+                "59ba6a8e0c380fb4",
+                "52c99034016fb7c5",
+                "60215c3f0d209abe"
+            ]
+        ]
+    },
+    {
+        "id": "59ba6a8e0c380fb4",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "function 53",
+        "func": "// Expecting msg.topic in the form \"hostname/Status/Details\"\n// and msg.payload as an array with a single object (the device details)\n\n// Split the topic to extract the hostname\nvar topicParts = msg.topic.split('/');\nif (topicParts.length < 3) {\n    node.warn(\"Unexpected topic format: \" + msg.topic);\n    return null;\n}\n\nvar hostname = topicParts[0];\n\n// Process payload assuming it's an array with one object\nvar details = msg.payload;\nif (Array.isArray(details) && details.length > 0) {\n    details = details[0];\n} else {\n    node.warn(\"Payload is not as expected: \" + JSON.stringify(msg.payload));\n    return null;\n}\n\n// Retrieve current devices from flow context or initialize an empty object\nvar devices = flow.get(\"devices\") || {};\n\n// Update or add the device info using hostname as the key\ndevices[hostname] = details;\n\n// Save the updated object back to flow context\nflow.set(\"devices\", devices);\n\n// Optionally, output the entire devices object for debugging or further processing\nmsg.payload = devices;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 380,
+        "wires": [
+            [
+                "dd71ead3c618033f"
+            ]
+        ]
+    },
+    {
+        "id": "dd71ead3c618033f",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "function 54",
+        "func": "var devices = flow.get(\"devices\") || {};\nvar deviceArray = [];\n\n// Convert the devices object into an array for the dashboard table\nfor (var key in devices) {\n    if (devices.hasOwnProperty(key)) {\n        // Ensure the hostname is included in each object (if not already)\n        devices[key].HostName = key;\n        deviceArray.push(devices[key]);\n    }\n}\nmsg.payload = deviceArray;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 380,
+        "wires": [
+            [
+                "43e66a2f41b55636"
+            ]
+        ]
+    },
+    {
+        "id": "43e66a2f41b55636",
+        "type": "ui-table",
+        "z": "39d2c7aea4f81417",
+        "group": "c4a9534639163df1",
+        "name": "",
+        "label": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": false,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 970,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "52c99034016fb7c5",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "function 55",
+        "func": "// Parse the topic to extract the hostname (expected format: \"hostname/Status/Details\")\nvar topicParts = msg.topic.split(\"/\");\nif (topicParts.length < 3) {\n    node.warn(\"Unexpected topic format: \" + msg.topic);\n    return msg;\n}\nvar hostname = topicParts[0];\n\n// Extract CPU Temp F from the payload. Assuming the payload is an array.\nvar cpuTemp = (msg.payload && msg.payload[0]) ? msg.payload[0][\"CPU Temp F\"] : undefined;\nif (cpuTemp === undefined) {\n    node.warn(\"CPU Temp F not found in payload for \" + hostname);\n    return msg;\n}\n\n// Retrieve the global tempData array, or initialize it if it doesn't exist\nvar tempData = global.get(\"tempDataF\") || [];\n\n// Find if there's already an entry for this hostname\nvar index = tempData.findIndex(function (entry) {\n    return entry.hostname === hostname;\n});\n\n// Create an updated reading object\nvar reading = {\n    hostname: hostname,\n    cpuTemp: cpuTemp,\n    timestamp: new Date()\n};\n\n// If found, update the existing entry; otherwise, push a new entry\nif (index !== -1) {\n    tempData[index] = reading;\n} else {\n    tempData.push(reading);\n}\n\n// Save the updated array back into the global context\nglobal.set(\"tempDataF\", tempData);\n\n// Optionally, log the update\nnode.log(\"Updated tempData for \" + hostname + \" with CPU Temp: \" + cpuTemp);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 420,
+        "wires": [
+            [
+                "3602f079cb52a24d"
+            ]
+        ]
+    },
+    {
+        "id": "60215c3f0d209abe",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "function 56",
+        "func": "// Parse the topic to extract the hostname (expected format: \"hostname/Status/Details\")\nvar topicParts = msg.topic.split(\"/\");\nif (topicParts.length < 3) {\n    node.warn(\"Unexpected topic format: \" + msg.topic);\n    return msg;\n}\nvar hostname = topicParts[0];\n\n// Extract CPU Temp F from the payload. Assuming the payload is an array.\nvar cpuTemp = (msg.payload && msg.payload[0]) ? msg.payload[0][\"CPU Temp C\"] : undefined;\nif (cpuTemp === undefined) {\n    node.warn(\"CPU Temp F not found in payload for \" + hostname);\n    return msg;\n}\n\n// Retrieve the global tempData array, or initialize it if it doesn't exist\nvar tempData = global.get(\"tempDataC\") || [];\n\n// Find if there's already an entry for this hostname\nvar index = tempData.findIndex(function (entry) {\n    return entry.hostname === hostname;\n});\n\n// Create an updated reading object\nvar reading = {\n    hostname: hostname,\n    cpuTemp: cpuTemp,\n    timestamp: new Date()\n};\n\n// If found, update the existing entry; otherwise, push a new entry\nif (index !== -1) {\n    tempData[index] = reading;\n} else {\n    tempData.push(reading);\n}\n\n// Save the updated array back into the global context\nglobal.set(\"tempDataC\", tempData);\n\n// Optionally, log the update\nnode.log(\"Updated tempData for \" + hostname + \" with CPU Temp: \" + cpuTemp);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 460,
+        "wires": [
+            [
+                "8f9de4de49fe174a"
+            ]
+        ]
+    },
+    {
+        "id": "3602f079cb52a24d",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "function 57",
+        "func": "var devices = global.get(\"tempDataF\") || [];\nvar outMsgs = [];\n\ndevices.forEach(function(device) {\n    var numericTemp = 0;\n    if (device.cpuTemp && device.cpuTemp !== \"N/A\") {\n        numericTemp = parseFloat(device.cpuTemp);\n        if (isNaN(numericTemp)) {\n            numericTemp = 0;\n        }\n    }\n    outMsgs.push({\n        topic: device.hostname,\n        payload: numericTemp\n    });\n});\n\n// Return as a two-dimensional array so all messages are sent on a single output\nreturn [ outMsgs ];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 420,
+        "wires": [
+            [
+                "f8f42429f6072242"
+            ]
+        ]
+    },
+    {
+        "id": "f8f42429f6072242",
+        "type": "delay",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "pauseType": "timed",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 790,
+        "y": 420,
+        "wires": [
+            [
+                "f83a6415c9577f33"
+            ]
+        ]
+    },
+    {
+        "id": "e81f2080c89bb1cd",
+        "type": "delay",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "pauseType": "timed",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 790,
+        "y": 460,
+        "wires": [
+            [
+                "37ac0a5d9a6038e4"
+            ]
+        ]
+    },
+    {
+        "id": "8f9de4de49fe174a",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "function 58",
+        "func": "var devices = global.get(\"tempDataC\") || [];\nvar outMsgs = [];\n\ndevices.forEach(function(device) {\n    var numericTemp = 0;\n    if (device.cpuTemp && device.cpuTemp !== \"N/A\") {\n        numericTemp = parseFloat(device.cpuTemp);\n        if (isNaN(numericTemp)) {\n            numericTemp = 0;\n        }\n    }\n    outMsgs.push({\n        topic: device.hostname,\n        payload: numericTemp\n    });\n});\n\n// Return as a two-dimensional array so all messages are sent on a single output\nreturn [ outMsgs ];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 460,
+        "wires": [
+            [
+                "e81f2080c89bb1cd"
+            ]
+        ]
+    },
+    {
+        "id": "f83a6415c9577f33",
+        "type": "ui-chart",
+        "z": "39d2c7aea4f81417",
+        "group": "7729410e8c205329",
+        "name": "CPU Temps F",
+        "label": "chart",
+        "order": 1,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "false",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 1000,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "37ac0a5d9a6038e4",
+        "type": "ui-chart",
+        "z": "39d2c7aea4f81417",
+        "group": "7729410e8c205329",
+        "name": "CPU Temps C",
+        "label": "chart",
+        "order": 2,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "false",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 1000,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f61b120b471e9ad7",
+        "type": "switch",
+        "z": "39d2c7aea4f81417",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Uptime",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "Details",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 490,
+        "y": 520,
+        "wires": [
+            [],
+            [],
+            [
+                "72ab886d45e6ba0a"
+            ]
+        ]
+    },
+    {
+        "id": "328e570a2854a117",
+        "type": "mqtt in",
+        "z": "39d2c7aea4f81417",
+        "name": "Subscribe to all posted Values",
+        "topic": "+/+/+",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3763e3b111ee67d0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 300,
+        "y": 520,
+        "wires": [
+            [
+                "f61b120b471e9ad7"
+            ]
+        ]
+    },
+    {
+        "id": "bb54bd87153904af",
+        "type": "ui-table",
+        "z": "39d2c7aea4f81417",
+        "group": "c4a9534639163df1",
+        "name": "",
+        "label": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": false,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 830,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "72ab886d45e6ba0a",
+        "type": "function",
+        "z": "39d2c7aea4f81417",
+        "name": "function 59",
+        "func": "// Check if msg.topic exists\nif (!msg.topic) {\n    node.warn(\"Missing topic in msg: \" + JSON.stringify(msg));\n    return null;\n}\n\n// Convert the payload string (e.g., \"1.5 Kw\") to a number\nvar rawValue = msg.payload;\nvar numValue = parseFloat(rawValue);\nif (isNaN(numValue)) {\n    node.warn(\"Unable to convert payload to number: \" + rawValue);\n    // Optionally, you could return null or keep the original value:\n    numValue = rawValue;\n}\n\n// Retrieve current ModbusValues from flow context or initialize an empty object.\n// Each key will store an object with the numeric value and a timestamp.\nvar modbusValues = flow.get(\"ModbusValues\") || {};\n\n// Update or add the value using msg.topic as the key\nmodbusValues[msg.topic] = {\n    value: numValue,\n    timestamp: Date.now()  // Record the update time\n};\n\n// Define an expiration threshold in milliseconds (e.g., 10 seconds)\nvar expirationThreshold = 10000;\nvar now = Date.now();\n\n// Remove any keys that haven't been updated within the threshold\nfor (var topic in modbusValues) {\n    if (now - modbusValues[topic].timestamp > expirationThreshold) {\n        delete modbusValues[topic];\n    }\n}\n\n// Save the updated object back to flow context\nflow.set(\"ModbusValues\", modbusValues);\n\n// Prepare the table data for the dashboard: each row has a topic and its numeric value\nvar tableData = [];\nfor (var topic in modbusValues) {\n    tableData.push({\n        topic: topic,\n        value: modbusValues[topic].value\n    });\n}\n\n// Set the table data as the new payload and output the message\nmsg.payload = tableData;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 520,
+        "wires": [
+            [
+                "bb54bd87153904af"
+            ]
+        ]
     },
     {
         "id": "6d2c4b5e549990f3",
@@ -2687,27 +3230,11 @@
         ]
     },
     {
-        "id": "272dce3859966c6d",
-        "type": "debug",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "debug 5",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1740,
-        "y": 540,
-        "wires": []
-    },
-    {
         "id": "662294c3fd43faaf",
         "type": "function",
         "z": "c87e73927481cb24",
         "name": "Collect Register Information",
-        "func": "// Step 1: Get all the global context keys and iterate over them\nvar allKeys = global.keys();\nvar modbusDataList = [];\n\n// Collect relevant Modbus data from the global context\nfor (var i = 0; i < allKeys.length; i++) {\n    var key = allKeys[i];\n    var dataObject = global.get(key);\n    \n    // Check if this object contains Modbus info (modbusIP as an identifier)\n    if (dataObject && dataObject.hasOwnProperty(\"modbusIP\")) {\n        // Create an entry containing key info for sorting\n        modbusDataList.push({\n            key: key,\n            startAddress: dataObject.startAddress,\n            length: dataObject.dataType === \"int16\" || dataObject.dataType === \"uint16\" ? 1 : 2,\n            data: dataObject\n        });\n    }\n}\n\n// Sort by startAddress for efficient reading\nmodbusDataList.sort((a, b) => a.startAddress - b.startAddress);\n\n// Set the list to message payload for further processing\nmsg.payload = modbusDataList;\nreturn msg;\n",
+        "func": "// Optionally, use a specific global variable name provided in msg.globalVarName\nvar modbusDataList = [];\n\nif (msg.hasOwnProperty('globalVarName') && msg.globalVarName) {\n    var dataObject = global.get(msg.globalVarName);\n    if (dataObject && dataObject.hasOwnProperty(\"SelectedRegister\")) {\n        var dt = (dataObject.DataType || \"\").toLowerCase();\n        var length = (dt === \"int16\" || dt === \"uint16\") ? 1 : 2;\n        modbusDataList.push({\n            key: msg.globalVarName,\n            startAddress: dataObject.SelectedRegister,\n            length: length,\n            data: dataObject\n        });\n    }\n} else {\n    // If no specific global variable name is provided, process all globals\n    var allKeys = global.keys();\n    for (var i = 0; i < allKeys.length; i++) {\n        var key = allKeys[i];\n        var dataObject = global.get(key);\n        if (dataObject && dataObject.hasOwnProperty(\"SelectedRegister\")) {\n            var dt = (dataObject.DataType || \"\").toLowerCase();\n            var length = (dt === \"int16\" || dt === \"uint16\") ? 1 : 2;\n            modbusDataList.push({\n                key: key,\n                startAddress: dataObject.SelectedRegister,\n                length: length,\n                data: dataObject\n            });\n        }\n    }\n}\n\n// Sort the list by startAddress for efficient processing\nmodbusDataList.sort((a, b) => a.startAddress - b.startAddress);\n\nmsg.payload = modbusDataList;\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2727,7 +3254,7 @@
         "type": "function",
         "z": "c87e73927481cb24",
         "name": "Group Registers",
-        "func": "// Step 1: Get all global context keys and iterate over them\nvar allKeys = global.keys();\nvar modbusDataList = [];\n\n// Collect relevant Modbus data from the global context\nfor (var i = 0; i < allKeys.length; i++) {\n    var key = allKeys[i];\n    var dataObject = global.get(key);\n    \n    // Check if this object contains Modbus info (modbusIP as an identifier)\n    if (dataObject && dataObject.hasOwnProperty(\"modbusIP\")) {\n        // Create an entry containing key info for sorting\n        modbusDataList.push({\n            key: key,\n            startAddress: dataObject.startAddress,\n            length: dataObject.dataType === \"int16\" || dataObject.dataType === \"uint16\" ? 1 : 2,\n            tcpHost: dataObject.modbusIP,\n            tcpPort: dataObject.modbusPort,\n            unitId: dataObject.slaveID,\n            fc: 3,  // Using function code 3 for reading holding registers, adjust based on your requirement\n            data: dataObject\n        });\n    }\n}\n\n// Sort by startAddress for efficient reading, but also consider grouping by tcpHost and unitId\nmodbusDataList.sort((a, b) => {\n    if (a.tcpHost === b.tcpHost) {\n        if (a.unitId === b.unitId) {\n            return a.startAddress - b.startAddress;\n        }\n        return a.unitId - b.unitId;\n    }\n    return a.tcpHost.localeCompare(b.tcpHost);\n});\n\n// Step 2: Group the registers for efficient reading\nvar readRequests = [];\nif (modbusDataList.length > 0) {\n    // Initialize the first read group\n    var currentGroup = {\n        tcpHost: modbusDataList[0].tcpHost,\n        tcpPort: modbusDataList[0].tcpPort,\n        unitId: modbusDataList[0].unitId,\n        startAddress: modbusDataList[0].startAddress,\n        endAddress: modbusDataList[0].startAddress + modbusDataList[0].length - 1,\n        length: modbusDataList[0].length,\n        fc: modbusDataList[0].fc  // Typically FC 3 or 4, based on requirements\n    };\n\n    // Iterate through the sorted registers\n    for (var i = 1; i < modbusDataList.length; i++) {\n        var currentRegister = modbusDataList[i];\n        \n        // If we are still with the same device (same tcpHost and unitId)\n        if (currentRegister.tcpHost === currentGroup.tcpHost && currentRegister.unitId === currentGroup.unitId) {\n            var nextStart = currentRegister.startAddress;\n            var nextEnd = currentRegister.startAddress + currentRegister.length - 1;\n\n            // Check if the next register can be added to the current group\n            if (nextStart <= currentGroup.endAddress + 1) {\n                // Expand the current group to include this register\n                currentGroup.endAddress = Math.max(currentGroup.endAddress, nextEnd);\n                currentGroup.length = currentGroup.endAddress - currentGroup.startAddress + 1;\n            } else {\n                // Push the completed group to the read requests\n                readRequests.push({ ...currentGroup });\n\n                // Start a new group\n                currentGroup = {\n                    tcpHost: currentRegister.tcpHost,\n                    tcpPort: currentRegister.tcpPort,\n                    unitId: currentRegister.unitId,\n                    startAddress: nextStart,\n                    endAddress: nextEnd,\n                    length: currentRegister.length,\n                    fc: currentRegister.fc\n                };\n            }\n        } else {\n            // Push the completed group to the read requests\n            readRequests.push({ ...currentGroup });\n\n            // Start a new group for the next device\n            currentGroup = {\n                tcpHost: currentRegister.tcpHost,\n                tcpPort: currentRegister.tcpPort,\n                unitId: currentRegister.unitId,\n                startAddress: currentRegister.startAddress,\n                endAddress: currentRegister.startAddress + currentRegister.length - 1,\n                length: currentRegister.length,\n                fc: currentRegister.fc\n            };\n        }\n    }\n\n    // Push the final group to the read requests\n    readRequests.push({ ...currentGroup });\n}\n\n// Set the grouped read requests to the message payload for further processing\nmsg.payload = readRequests;\nreturn msg;\n",
+        "func": "// Gather all global keys\nvar allKeys = global.keys();\nvar modbusDataList = [];\n\n// Step 1: Collect relevant info from each global variable\nallKeys.forEach(key => {\n    let dataObject = global.get(key);\n\n    // We need DataType and SelectedRegister to proceed\n    if (dataObject && dataObject.DataType && dataObject.SelectedRegister !== undefined) {\n\n        // Determine function code (FC)\n        // If DataType is \"bool\" -> FC1, else -> FC3\n        let typeLower = dataObject.DataType.toLowerCase();\n        let fc = (typeLower === \"bool\") ? 1 : 3;\n\n        // Determine how many registers to read for this data type\n        let length;\n        switch (typeLower) {\n            case \"bool\":\n            case \"int16\":\n            case \"uint16\":\n                length = 1;\n                break;\n            case \"int32\":\n            case \"uint32\":\n                length = 2;\n                break;\n            default:\n                // Fallback if unknown\n                length = 1;\n        }\n\n        modbusDataList.push({\n            key: key,\n            address: dataObject.SelectedRegister,\n            length: length,\n            fc: fc,\n            dataType: dataObject.DataType,  // Keep for grouping logic if desired\n            data: dataObject\n        });\n    }\n});\n\n// Step 2: Sort by address ascending\nmodbusDataList.sort((a, b) => a.address - b.address);\n\n// Step 3: Group adjacent registers\n//     - Same function code\n//     - Exactly adjacent (no gaps)\n//     - (Optional) Same data type if you prefer not to merge different types\nvar readRequests = [];\n\nif (modbusDataList.length > 0) {\n    // Initialize the first group from the first entry\n    let first = modbusDataList[0];\n    var currentGroup = {\n        startAddress: first.address,\n        endAddress: first.address + first.length - 1,\n        length: first.length,\n        fc: first.fc,\n        // Store dataType if you only want to merge identical types:\n        dataType: first.dataType\n    };\n\n    // Iterate through the rest\n    for (var i = 1; i < modbusDataList.length; i++) {\n        let reg = modbusDataList[i];\n\n        // Basic requirement: same function code\n        let sameFc = (reg.fc === currentGroup.fc);\n        // Optional requirement: same data type \n        // (Uncomment if you do NOT want to merge different data types)\n        //         let sameType = (reg.dataType.toLowerCase() === currentGroup.dataType.toLowerCase());\n        let sameType = true; // or false out if you want every read separate\n\n        // Next register should start exactly at currentGroup.endAddress + 1\n        let isAdjacent = (reg.address === currentGroup.endAddress + 1);\n\n        // Decide if we can merge\n        if (sameFc && sameType && isAdjacent) {\n            // Expand the current group to cover the new register\n            currentGroup.endAddress = reg.address + reg.length - 1;\n            currentGroup.length = currentGroup.endAddress - currentGroup.startAddress + 1;\n        } else {\n            // Close out the current group\n            readRequests.push({ ...currentGroup });\n\n            // Start a new group\n            currentGroup = {\n                startAddress: reg.address,\n                endAddress: reg.address + reg.length - 1,\n                length: reg.length,\n                fc: reg.fc,\n                dataType: reg.dataType\n            };\n        }\n    }\n\n    // Push the final group\n    readRequests.push({ ...currentGroup });\n}\n\n// Output the grouped read requests\nmsg.payload = readRequests;\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2759,11 +3286,11 @@
         "keepMsgProperties": false,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 1190,
+        "x": 1130,
         "y": 100,
         "wires": [
             [
-                "fe16fd1e7efca44e"
+                "7932536b4acf969a"
             ],
             []
         ]
@@ -2786,24 +3313,6 @@
             [
                 "3a751acbcd28ac13"
             ]
-        ]
-    },
-    {
-        "id": "fe16fd1e7efca44e",
-        "type": "function",
-        "z": "c87e73927481cb24",
-        "name": "function 20",
-        "func": "// Step 1: Retrieve necessary information from the incoming message\nvar readData = msg.payload;  // This is the array of Modbus read values (e.g., [139])\nvar startAddress = msg.startAddress;  // Starting address of the read (e.g., 1051)\nvar unitId = msg.unitId;  // Unit ID of the device being read\n\n// Step 2: Iterate through all global context keys to find the corresponding variable\nvar allKeys = global.keys();\n\nfor (var i = 0; i < allKeys.length; i++) {\n    var key = allKeys[i];\n    var dataObject = global.get(key);\n    \n    // Check if the object has matching startAddress and unitId\n    if (dataObject && dataObject.startAddress === startAddress && dataObject.unitId === unitId) {\n        // Update the value of the corresponding global context variable\n        if (readData.length === 1) {\n            // Assuming length of 1 for single register reads, assign the value\n            dataObject.value = readData[0] * (dataObject.dataMultiplier || 1);\n            \n            // Update the formatted value as well\n            dataObject.formattedValue = `${dataObject.name}: ${dataObject.value} ${dataObject.dimension}`.trim();\n            \n            // Save the updated dataObject back to global context\n            global.set(key, dataObject);\n            \n            node.status({ fill: \"green\", shape: \"dot\", text: `Updated ${dataObject.name} to ${dataObject.value}` });\n        } else {\n            node.warn(`Unexpected read length for ${dataObject.name}. Expected 1 but got ${readData.length}.`);\n        }\n    }\n}\n\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1410,
-        "y": 100,
-        "wires": [
-            []
         ]
     },
     {
@@ -2902,7 +3411,7 @@
         "group": "7acaf11819fd20d0",
         "name": "TCP Server IP",
         "label": "TCP Server IP",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "topic": "tcpHost",
@@ -2935,7 +3444,7 @@
         "group": "7acaf11819fd20d0",
         "name": "TCP Port",
         "label": "TCP Port",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "topic": "tcpPort",
@@ -2968,7 +3477,7 @@
         "group": "7acaf11819fd20d0",
         "name": "Unit ID",
         "label": "Unit ID",
-        "order": 3,
+        "order": 1,
         "width": 0,
         "height": 0,
         "topic": "unit_id",
@@ -3026,8 +3535,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 100,
+        "x": 400,
+        "y": 80,
         "wires": [
             [
                 "8f47e761f1e16429"
@@ -3041,7 +3550,7 @@
         "group": "7acaf11819fd20d0",
         "name": "Starting Address",
         "label": "Starting Address",
-        "order": 4,
+        "order": 5,
         "width": 0,
         "height": 0,
         "topic": "startingAddress",
@@ -3074,7 +3583,7 @@
         "group": "7acaf11819fd20d0",
         "name": "Quantity",
         "label": "Quantity",
-        "order": 5,
+        "order": 6,
         "width": 0,
         "height": 0,
         "topic": "Quantity",
@@ -3107,7 +3616,7 @@
         "group": "7acaf11819fd20d0",
         "name": "Function Code",
         "label": "Function Code",
-        "order": 6,
+        "order": 4,
         "width": 0,
         "height": 0,
         "topic": "FC",
@@ -3145,8 +3654,8 @@
         "server": "4fad382cc333fc8d",
         "emptyMsgOnFail": false,
         "configMsgOnChange": true,
-        "x": 610,
-        "y": 100,
+        "x": 650,
+        "y": 80,
         "wires": [
             []
         ]
@@ -3163,8 +3672,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 520,
+        "x": 410,
+        "y": 400,
         "wires": [
             [
                 "6f949d4d67e55eb4"
@@ -3176,7 +3685,7 @@
         "type": "function",
         "z": "c87e73927481cb24",
         "name": "function 19",
-        "func": "// Get the read group from the incoming message payload\nvar readGroup = msg.payload;\n\n// Prepare the message payload for the Modbus Flex Getter node\nmsg.payload = {\n    value: msg.payload,   // Keeping value same as original msg.payload\n    fc: readGroup.fc,     // Function Code (1..4)\n    unitid: readGroup.unitId,\n    address: readGroup.startAddress,\n    quantity: readGroup.length\n};\n\n// Optional: Add the connection parameters\nmsg.tcpHost = readGroup.tcpHost;\nmsg.tcpPort = readGroup.tcpPort;\n\nreturn msg;\n",
+        "func": "// Retrieve the read group from incoming message payload\nvar readGroup = msg.payload;\n\n// Retrieve the Unit ID from flow context (assuming flow variable is called \"unit_id\")\nvar unitIdStr = flow.get(\"unit_id\");         // e.g. \"1\"\nvar unitId = parseInt(unitIdStr, 10) || 1;   // Convert to integer, default to 1 if invalid\n\n// Prepare the message payload for the Modbus Flex Getter node\nmsg.payload = {\n    value: readGroup,\n    fc: readGroup.fc,          // Function Code (1..4)\n    unitid: unitId,            // Use the flow variable\n    address: readGroup.startAddress,\n    quantity: readGroup.length\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3198,7 +3707,7 @@
         "group": "7acaf11819fd20d0",
         "name": "Read Registers?",
         "label": "Read Registers?",
-        "order": 0,
+        "order": 7,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -3222,8 +3731,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 190,
-        "y": 520,
+        "x": 170,
+        "y": 400,
         "wires": [
             [
                 "3e75424d4855360f"
@@ -3247,8 +3756,8 @@
         "keepMsgProperties": true,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 650,
-        "y": 520,
+        "x": 630,
+        "y": 400,
         "wires": [
             [
                 "848d27e11bd8c8bd"
@@ -3265,8 +3774,8 @@
             "6f949d4d67e55eb4"
         ],
         "uncaught": false,
-        "x": 150,
-        "y": 580,
+        "x": 130,
+        "y": 520,
         "wires": [
             [
                 "b0b4649483e4117e"
@@ -3292,8 +3801,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 320,
-        "y": 580,
+        "x": 300,
+        "y": 520,
         "wires": [
             [
                 "fc9625096214932c"
@@ -3318,8 +3827,8 @@
         "raw": false,
         "className": "",
         "name": "Modbus Read Failed",
-        "x": 520,
-        "y": 580,
+        "x": 500,
+        "y": 520,
         "wires": [
             []
         ]
@@ -3336,8 +3845,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 820,
-        "y": 520,
+        "x": 800,
+        "y": 400,
         "wires": [
             [
                 "bc30e464d0913f15",
@@ -3350,7 +3859,7 @@
         "type": "ui-text",
         "z": "c87e73927481cb24",
         "group": "68855f1a6662bddb",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "Registers Found",
@@ -3363,8 +3872,8 @@
         "color": "#717171",
         "wrapText": false,
         "className": "payload.count",
-        "x": 1360,
-        "y": 480,
+        "x": 480,
+        "y": 440,
         "wires": []
     },
     {
@@ -3384,8 +3893,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 1030,
-        "y": 480,
+        "x": 150,
+        "y": 440,
         "wires": [
             [
                 "905434a481c8bfbc"
@@ -3411,8 +3920,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1180,
-        "y": 480,
+        "x": 300,
+        "y": 440,
         "wires": [
             [
                 "b68b266bb21d29e3"
@@ -3431,46 +3940,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1040,
-        "y": 540,
+        "x": 160,
+        "y": 480,
         "wires": [
             [
                 "271798983ed1a9b8"
             ]
-        ]
-    },
-    {
-        "id": "c43a6f8737b10513",
-        "type": "ui-dropdown",
-        "z": "c87e73927481cb24",
-        "group": "68855f1a6662bddb",
-        "name": "",
-        "label": "Select Option:",
-        "tooltip": "",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "multiple": false,
-        "chips": false,
-        "clearable": false,
-        "options": [
-            {
-                "label": "",
-                "value": "",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "typeIsComboBox": true,
-        "msgTrigger": "onChange",
-        "x": 2180,
-        "y": 540,
-        "wires": [
-            []
         ]
     },
     {
@@ -3492,68 +3967,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1370,
-        "y": 540,
+        "x": 490,
+        "y": 480,
         "wires": [
             [
-                "0b09045486888f80"
-            ]
-        ]
-    },
-    {
-        "id": "0b09045486888f80",
-        "type": "join",
-        "z": "c87e73927481cb24",
-        "name": "",
-        "mode": "auto",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "useparts": false,
-        "accumulate": true,
-        "timeout": "",
-        "count": "",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 1570,
-        "y": 540,
-        "wires": [
-            [
-                "58f9f3b2750c6c40"
-            ]
-        ]
-    },
-    {
-        "id": "58f9f3b2750c6c40",
-        "type": "change",
-        "z": "c87e73927481cb24",
-        "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "ui_update.options",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1820,
-        "y": 540,
-        "wires": [
-            [
-                "c43a6f8737b10513",
-                "e9087ac3a15968d9"
+                "12ac89de208f1c3b"
             ]
         ]
     },
@@ -3569,8 +3987,8 @@
         "stream": false,
         "addname": "",
         "property": "payload.options",
-        "x": 1170,
-        "y": 540,
+        "x": 290,
+        "y": 480,
         "wires": [
             [
                 "33ee3fed566069f8"
@@ -3578,20 +3996,479 @@
         ]
     },
     {
-        "id": "e9087ac3a15968d9",
-        "type": "debug",
+        "id": "12ac89de208f1c3b",
+        "type": "join",
         "z": "c87e73927481cb24",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2100,
-        "y": 460,
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": true,
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 710,
+        "y": 480,
+        "wires": [
+            [
+                "73541b5bcb9a724f"
+            ]
+        ]
+    },
+    {
+        "id": "73541b5bcb9a724f",
+        "type": "change",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ui_update.options",
+                "pt": "msg",
+                "to": "ui_update.optionsarray",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 480,
+        "wires": [
+            [
+                "a1b13b6bb9e5b5a4"
+            ]
+        ]
+    },
+    {
+        "id": "a1b13b6bb9e5b5a4",
+        "type": "ui-dropdown",
+        "z": "c87e73927481cb24",
+        "group": "68855f1a6662bddb",
+        "name": "",
+        "label": "Select Register:",
+        "tooltip": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "SelectedRegister",
+        "topicType": "str",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 1100,
+        "y": 480,
+        "wires": [
+            [
+                "74dab4c9cc46d8d8"
+            ]
+        ]
+    },
+    {
+        "id": "fce968463e492528",
+        "type": "ui-dropdown",
+        "z": "c87e73927481cb24",
+        "group": "68855f1a6662bddb",
+        "name": "",
+        "label": "Byte Order",
+        "tooltip": "",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [
+            {
+                "label": "Big Endian ",
+                "value": "BE",
+                "type": "str"
+            },
+            {
+                "label": "Little Endian ",
+                "value": "LE",
+                "type": "str"
+            },
+            {
+                "label": "N/A Single Register or Bool",
+                "value": "NA",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "ByteOrder",
+        "topicType": "str",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 170,
+        "y": 580,
+        "wires": [
+            [
+                "b043ae97a5c29f9f"
+            ]
+        ]
+    },
+    {
+        "id": "e7467eb734fb0d70",
+        "type": "ui-dropdown",
+        "z": "c87e73927481cb24",
+        "group": "68855f1a6662bddb",
+        "name": "",
+        "label": "Data Type ",
+        "tooltip": "",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [
+            {
+                "label": "int16",
+                "value": "int16",
+                "type": "str"
+            },
+            {
+                "label": "int32",
+                "value": "int32",
+                "type": "str"
+            },
+            {
+                "label": "uint16",
+                "value": "uint16",
+                "type": "str"
+            },
+            {
+                "label": "uint32",
+                "value": "uint32",
+                "type": "str"
+            },
+            {
+                "label": "float32",
+                "value": "float32",
+                "type": "str"
+            },
+            {
+                "label": "Boolean",
+                "value": "Bool",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "DataType",
+        "topicType": "str",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 170,
+        "y": 620,
+        "wires": [
+            [
+                "95b32833dda95a91"
+            ]
+        ]
+    },
+    {
+        "id": "13e0cac961863b79",
+        "type": "ui-text-input",
+        "z": "c87e73927481cb24",
+        "group": "68855f1a6662bddb",
+        "name": "Data Dimension ",
+        "label": "Data Dimension ",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "topic": "DataDimension",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "Formatted Data Dimension ( %, F, C, VDC ... )",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 160,
+        "y": 660,
+        "wires": [
+            [
+                "0b8837e10bb8685e"
+            ]
+        ]
+    },
+    {
+        "id": "b043ae97a5c29f9f",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 4",
+        "func": "// Check if msg.topic exists\nif (!msg.topic) {\n    node.error(\"msg.topic is missing. Cannot set flow context variable.\", msg);\n    return null;\n}\n\n// Remove spaces from msg.topic for the context key\nvar key = msg.topic.replace(/\\s+/g, '');\n\n// Check if msg.payload exists, if not, assign a default value (null in this case)\nif (typeof msg.payload === \"undefined\") {\n    node.warn(\"msg.payload is undefined. Creating flow variable with a null payload.\");\n    msg.payload = null;\n}\n\n// Combine topic and payload into an object\nvar combined = {\n    topic: msg.topic,\n    payload: msg.payload\n};\n\n// Set the flow context variable using the sanitized key\nflow.set(key, combined);\n\nnode.log(\"Flow context variable '\" + key + \"' set to: \" + JSON.stringify(combined));\n\n// Pass the message along\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "95b32833dda95a91",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 5",
+        "func": "// Check if msg.topic exists\nif (!msg.topic) {\n    node.error(\"msg.topic is missing. Cannot set flow context variable.\", msg);\n    return null;\n}\n\n// Remove spaces from msg.topic for the context key\nvar key = msg.topic.replace(/\\s+/g, '');\n\n// Check if msg.payload exists, if not, assign a default value (null in this case)\nif (typeof msg.payload === \"undefined\") {\n    node.warn(\"msg.payload is undefined. Creating flow variable with a null payload.\");\n    msg.payload = null;\n}\n\n// Combine topic and payload into an object\nvar combined = {\n    topic: msg.topic,\n    payload: msg.payload\n};\n\n// Set the flow context variable using the sanitized key\nflow.set(key, combined);\n\nnode.log(\"Flow context variable '\" + key + \"' set to: \" + JSON.stringify(combined));\n\n// Pass the message along\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0b8837e10bb8685e",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 6",
+        "func": "// Check if msg.topic exists\nif (!msg.topic) {\n    node.error(\"msg.topic is missing. Cannot set flow context variable.\", msg);\n    return null;\n}\n\n// Remove spaces from msg.topic for the context key\nvar key = msg.topic.replace(/\\s+/g, '');\n\n// Check if msg.payload exists, if not, assign a default value (null in this case)\nif (typeof msg.payload === \"undefined\") {\n    node.warn(\"msg.payload is undefined. Creating flow variable with a null payload.\");\n    msg.payload = null;\n}\n\n// Combine topic and payload into an object\nvar combined = {\n    topic: msg.topic,\n    payload: msg.payload\n};\n\n// Set the flow context variable using the sanitized key\nflow.set(key, combined);\n\nnode.log(\"Flow context variable '\" + key + \"' set to: \" + JSON.stringify(combined));\n\n// Pass the message along\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "74dab4c9cc46d8d8",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 7",
+        "func": "// Check if msg.topic exists\nif (!msg.topic) {\n    node.error(\"msg.topic is missing. Cannot set flow context variable.\", msg);\n    return null;\n}\n\n// Check if msg.payload exists, if not, assign a default value (null in this case)\nif (typeof msg.payload === \"undefined\") {\n    node.warn(\"msg.payload is undefined. Creating flow variable with a null payload.\");\n    msg.payload = null;\n}\n\n// Combine topic and payload into an object (adjust as needed)\nvar combined = {\n    topic: msg.topic,\n    payload: msg.payload\n};\n\n// Set the flow context variable using the topic as the key\nflow.set(msg.topic, combined);\n\nnode.log(\"Flow context variable '\" + msg.topic + \"' set to: \" + JSON.stringify(combined));\n\n// Pass the message along\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e0c3586a59454d2e",
+        "type": "ui-text-input",
+        "z": "c87e73927481cb24",
+        "group": "68855f1a6662bddb",
+        "name": "DataMultiplier",
+        "label": "Data Multiplier",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "topic": "DataMultiplier",
+        "topicType": "str",
+        "mode": "number",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 160,
+        "y": 700,
+        "wires": [
+            [
+                "de97126e09997382"
+            ]
+        ]
+    },
+    {
+        "id": "de97126e09997382",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 8",
+        "func": "// Check if msg.topic exists\nif (!msg.topic) {\n    node.error(\"msg.topic is missing. Cannot set flow context variable.\", msg);\n    return null;\n}\n\n// Remove spaces from msg.topic for the context key\nvar key = msg.topic.replace(/\\s+/g, '');\n\n// Check if msg.payload exists, if not, assign a default value (null in this case)\nif (typeof msg.payload === \"undefined\") {\n    node.warn(\"msg.payload is undefined. Creating flow variable with a null payload.\");\n    msg.payload = null;\n}\n\n// Combine topic and payload into an object\nvar combined = {\n    topic: msg.topic,\n    payload: msg.payload\n};\n\n// Set the flow context variable using the sanitized key\nflow.set(key, combined);\n\nnode.log(\"Flow context variable '\" + key + \"' set to: \" + JSON.stringify(combined));\n\n// Pass the message along\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b79d89cde9f104a3",
+        "type": "ui-text-input",
+        "z": "c87e73927481cb24",
+        "group": "68855f1a6662bddb",
+        "name": "ValueName",
+        "label": "Value Name",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "topic": "ValueName",
+        "topicType": "str",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "Enter custom Value Name to be formatted as MQTT topic",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 150,
+        "y": 740,
+        "wires": [
+            [
+                "f1eac6782b8138b9"
+            ]
+        ]
+    },
+    {
+        "id": "f1eac6782b8138b9",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 9",
+        "func": "// Check if msg.topic exists\nif (!msg.topic) {\n    node.error(\"msg.topic is missing. Cannot set flow context variable.\", msg);\n    return null;\n}\n\n// Remove spaces from msg.topic for the context key\nvar key = msg.topic.replace(/\\s+/g, '');\n\n// Check if msg.payload exists, if not, assign a default value (null in this case)\nif (typeof msg.payload === \"undefined\") {\n    node.warn(\"msg.payload is undefined. Creating flow variable with a null payload.\");\n    msg.payload = null;\n}\n\n// Combine topic and payload into an object\nvar combined = {\n    topic: msg.topic,\n    payload: msg.payload\n};\n\n// Set the flow context variable using the sanitized key\nflow.set(key, combined);\n\nnode.log(\"Flow context variable '\" + key + \"' set to: \" + JSON.stringify(combined));\n\n// Pass the message along\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7165351e7e499e2e",
+        "type": "ui-button",
+        "z": "c87e73927481cb24",
+        "group": "68855f1a6662bddb",
+        "name": "",
+        "label": "Save Register Info",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "Yes",
+        "payloadType": "str",
+        "topic": "SaveRegister",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 150,
+        "y": 780,
+        "wires": [
+            [
+                "108bc09012aa4027"
+            ]
+        ]
+    },
+    {
+        "id": "108bc09012aa4027",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 10",
+        "func": "// Gather flow variables\nlet ByteOrder        = flow.get(\"ByteOrder\");\nlet DataDimension    = flow.get(\"DataDimension\");\nlet DataMultiplier   = flow.get(\"DataMultiplier\");\nlet DataType         = flow.get(\"DataType\");\nlet SelectedRegister = flow.get(\"SelectedRegister\");\nlet ValueName        = flow.get(\"ValueName\");\n\n// Create a combined object\nlet combinedObject = {};\ncombinedObject[ByteOrder.topic]        = ByteOrder.payload;\ncombinedObject[DataDimension.topic]    = DataDimension.payload;\ncombinedObject[DataMultiplier.topic]   = DataMultiplier.payload;\ncombinedObject[DataType.topic]         = DataType.payload;\ncombinedObject[SelectedRegister.topic] = SelectedRegister.payload;\ncombinedObject[ValueName.topic]        = ValueName.payload;\n\n// Sanitize the global variable name (replace spaces with underscores)\nlet safeName = ValueName.payload.replace(/\\s/g, \"\");\n\n// Store combined object under the sanitized name\nglobal.set(safeName, combinedObject);\n\n// Send the combined object as msg.payload for debugging\nmsg.payload = combinedObject;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7932536b4acf969a",
+        "type": "link out",
+        "z": "c87e73927481cb24",
+        "name": "MQTT OUT",
+        "mode": "link",
+        "links": [
+            "300e130053082558"
+        ],
+        "x": 1265,
+        "y": 100,
         "wires": []
     }
 ]
