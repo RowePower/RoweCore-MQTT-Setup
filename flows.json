@@ -31,6 +31,14 @@
         "env": []
     },
     {
+        "id": "94e42ecfcf2b6f26",
+        "type": "tab",
+        "label": "Settings Initialization / restore ",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "3763e3b111ee67d0",
         "type": "mqtt-broker",
         "name": "Default MQTT Server",
@@ -466,6 +474,20 @@
         "groupType": "default"
     },
     {
+        "id": "ee1dfaba64207dec",
+        "type": "ui-group",
+        "name": "Modbus Values",
+        "page": "7c588f590618a40d",
+        "width": 6,
+        "height": 1,
+        "order": -1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
         "id": "cbcdd1ed9c84e5fa",
         "type": "inject",
         "z": "fc9c2f1e7b907c9a",
@@ -616,8 +638,7 @@
         "y": 420,
         "wires": [
             [
-                "be203c06505427bf",
-                "a18d619c362e5767"
+                "be203c06505427bf"
             ]
         ]
     },
@@ -778,22 +799,6 @@
         "info": "/**\n * This flow is triggered when an incoming MQTT data sync message is received.\n * \n * - Retrieves system status values from flow context variables, including:\n *   - **HostName**, **Wi-Fi IP Address**, **Ethernet IP Address**, **Up Time**\n *   - **Memory Usage**, **CPU Load (1m, 5m, 15m averages)**\n *   - **CPU Temperature (°F and °C)**\n * - Constructs an MQTT topic dynamically based on the device's hostname.\n *   - If no hostname is available, defaults to `\"UnknownDevice/Status/Details\"`.\n * - Formats the data into a structured JSON array containing a single object.\n * - Assigns the formatted data to `msg.payload`.\n * - Publishes the message to the dynamically generated MQTT topic for external monitoring or synchronization.\n */\n",
         "x": 750,
         "y": 420,
-        "wires": []
-    },
-    {
-        "id": "a18d619c362e5767",
-        "type": "debug",
-        "z": "fc9c2f1e7b907c9a",
-        "name": "debug 1",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
-        "y": 480,
         "wires": []
     },
     {
@@ -1993,7 +1998,7 @@
         "id": "bb54bd87153904af",
         "type": "ui-table",
         "z": "39d2c7aea4f81417",
-        "group": "c4a9534639163df1",
+        "group": "ee1dfaba64207dec",
         "name": "",
         "label": "",
         "order": 2,
@@ -2008,7 +2013,7 @@
         "mobileBreakpoint": "sm",
         "mobileBreakpointType": "defaults",
         "action": "replace",
-        "x": 830,
+        "x": 770,
         "y": 520,
         "wires": [
             []
@@ -2026,7 +2031,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
+        "x": 630,
         "y": 520,
         "wires": [
             [
@@ -2046,8 +2051,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 530,
-        "y": 640,
+        "x": 510,
+        "y": 280,
         "wires": [
             [
                 "f0957c64c9283049"
@@ -2066,8 +2071,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1630,
-        "y": 440,
+        "x": 1610,
+        "y": 160,
         "wires": [
             []
         ]
@@ -2083,8 +2088,8 @@
         "createDir": true,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 730,
-        "y": 640,
+        "x": 710,
+        "y": 280,
         "wires": [
             [
                 "cbc5748a516bc2d8"
@@ -2103,8 +2108,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "Reboot",
-        "x": 420,
-        "y": 880,
+        "x": 400,
+        "y": 520,
         "wires": [
             [],
             [],
@@ -2128,8 +2133,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
-        "y": 460,
+        "x": 150,
+        "y": 100,
         "wires": [
             [
                 "7d5ba20a500ef851"
@@ -2148,8 +2153,8 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 330,
-        "y": 460,
+        "x": 310,
+        "y": 100,
         "wires": [
             [
                 "041afcbfaad7e32a"
@@ -2164,8 +2169,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 490,
-        "y": 460,
+        "x": 470,
+        "y": 100,
         "wires": [
             [
                 "ed19589e3ba5b307"
@@ -2184,8 +2189,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 690,
-        "y": 460,
+        "x": 670,
+        "y": 100,
         "wires": [
             [
                 "b392ed6791fb8094"
@@ -2204,8 +2209,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
-        "y": 460,
+        "x": 920,
+        "y": 100,
         "wires": [
             [
                 "d445d230faf005bd"
@@ -2251,8 +2256,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 490,
-        "y": 680,
+        "x": 470,
+        "y": 320,
         "wires": [
             [
                 "e82b1f2a137589bb"
@@ -2271,8 +2276,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 850,
-        "y": 580,
+        "x": 830,
+        "y": 220,
         "wires": [
             [],
             [],
@@ -2291,8 +2296,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 630,
-        "y": 820,
+        "x": 610,
+        "y": 460,
         "wires": [
             [],
             [],
@@ -2311,8 +2316,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 490,
-        "y": 600,
+        "x": 470,
+        "y": 240,
         "wires": [
             [
                 "83e04b1182d38237"
@@ -2331,8 +2336,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 660,
-        "y": 760,
+        "x": 640,
+        "y": 400,
         "wires": [
             [],
             [],
@@ -2351,8 +2356,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 850,
-        "y": 700,
+        "x": 830,
+        "y": 340,
         "wires": [
             [],
             [],
@@ -2376,8 +2381,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 330,
-        "y": 640,
+        "x": 310,
+        "y": 280,
         "wires": [
             [
                 "6d2c4b5e549990f3"
@@ -2396,8 +2401,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 600,
+        "x": 630,
+        "y": 240,
         "wires": [
             [
                 "fca5dc268c77e96c"
@@ -2417,8 +2422,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 680,
+        "x": 630,
+        "y": 320,
         "wires": [
             [
                 "296336376cd27b93"
@@ -2427,247 +2432,13 @@
         ]
     },
     {
-        "id": "inject-startup",
-        "type": "inject",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Initialize on Startup",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "Check File",
-        "payloadType": "str",
-        "x": 190,
-        "y": 220,
-        "wires": [
-            [
-                "file-check"
-            ]
-        ]
-    },
-    {
-        "id": "file-check",
-        "type": "file in",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Check if File Exists",
-        "filename": "/home/admin/ConfigFiles/netconfig.json",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": true,
-        "encoding": "none",
-        "allProps": false,
-        "x": 390,
-        "y": 220,
-        "wires": [
-            [
-                "switch-file"
-            ]
-        ]
-    },
-    {
-        "id": "switch-file",
-        "type": "switch",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "File Exists?",
-        "property": "error",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "null"
-            },
-            {
-                "t": "nnull"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 570,
-        "y": 220,
-        "wires": [
-            [
-                "file-already-exists"
-            ],
-            [
-                "exec-create-file"
-            ]
-        ]
-    },
-    {
-        "id": "file-already-exists",
-        "type": "debug",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "File Already Exists",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "complete": "true",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 750,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "exec-create-file",
-        "type": "exec",
-        "z": "f0fb0bd6b5fcfabc",
-        "command": "sudo mkdir -p /home/admin/ConfigFiles && sudo touch /home/admin/ConfigFiles/netconfig.json && sudo chown admin:admin /home/admin/ConfigFiles/netconfig.json",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "Create File",
-        "x": 730,
-        "y": 240,
-        "wires": [
-            [
-                "debug-success",
-                "acf3f0da99b32f5d"
-            ],
-            [
-                "debug-error"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "debug-error",
-        "type": "debug",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Error",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "complete": "true",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1090,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "debug-success",
-        "type": "debug",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Success",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "complete": "true",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 940,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "acf3f0da99b32f5d",
-        "type": "function",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Set Default JSON Payload",
-        "func": "// Build default netconfig object\nconst defaultConfig = {\n    eth0: {\n        dhcp: true,\n        ip: \"192.168.1.100\",\n        subnet: \"255.255.255.0\",\n        gateway: \"192.168.1.1\",\n        dnsgateway: \"1.1.1.1\"\n    },\n    wifi: {\n        dhcp: true,\n        ip: \"192.168.1.125\",\n        subnet: \"255.255.255.0\",\n        gateway: \"192.168.1.1\",\n        dnsgateway: \"1.1.1.1\"\n    }\n};\n\n// Convert to pretty-printed JSON with an indent of 2 spaces\nmsg.payload = JSON.stringify(defaultConfig, null, 2);\n\n// Specify the filename\nmsg.filename = \"/home/admin/ConfigFiles/netconfig.json\";\n\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 960,
-        "y": 220,
-        "wires": [
-            [
-                "1d2099b93c126c99"
-            ]
-        ]
-    },
-    {
-        "id": "1d2099b93c126c99",
-        "type": "file",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Write Default JSON",
-        "filename": "filename",
-        "filenameType": "msg",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1190,
-        "y": 220,
-        "wires": [
-            [
-                "5474c50fd97f320f",
-                "40885aa9b0f5246b"
-            ]
-        ]
-    },
-    {
-        "id": "40885aa9b0f5246b",
-        "type": "exec",
-        "z": "f0fb0bd6b5fcfabc",
-        "command": "sudo nmcli con down \"Wired connection 1\" && sudo nmcli con up \"Wired connection 1\"",
-        "addpay": "",
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "",
-        "x": 1620,
-        "y": 180,
-        "wires": [
-            [],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "5474c50fd97f320f",
-        "type": "exec",
-        "z": "f0fb0bd6b5fcfabc",
-        "command": "sudo nmcli con down \"preconfigured\" && sudo nmcli con up \"preconfigured\"",
-        "addpay": "",
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "",
-        "x": 1590,
-        "y": 260,
-        "wires": [
-            [],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "e11e41fad668c460",
-        "type": "comment",
-        "z": "f0fb0bd6b5fcfabc",
-        "name": "Initialize Network Parameters",
-        "info": "/**\n * This function runs once upon deployment.\n * \n * - Checks for the existence of the file at `/home/administrator/ConfigFiles/netconfig.json`\n * - If the file exists, the flow exits with no action.\n * - If the file does not exist:\n *    - Creates the file.\n *    - Sets the appropriate read/write permissions.\n *    - Writes a set of default parameters in JSON format.\n *    - Resets Wifi and Eth Adapters upon Completion.\n * \n * The next flow will then read this file to set the required context variables.\n */\n",
-        "x": 220,
-        "y": 160,
-        "wires": []
-    },
-    {
         "id": "48921be4c82ca083",
         "type": "comment",
         "z": "f0fb0bd6b5fcfabc",
         "name": "Read Network Parameters to set Flow Variables ",
         "info": "/**\n * This flow triggers once after a 2-second delay.\n * \n * - The delay allows time for the initial setup to create the file and set parameters \n *   if this is the first time the device is being powered on.\n * - Reads the file created in the previous step.\n * - Parses the file content into JSON format.\n * - Sets the flow and UI variables so that:\n *    - Default parameters are available.\n *    - Custom values (if previously set by the user) are correctly displayed on the dashboard.\n */\n",
-        "x": 280,
-        "y": 420,
+        "x": 260,
+        "y": 60,
         "wires": []
     },
     {
@@ -2676,8 +2447,8 @@
         "z": "f0fb0bd6b5fcfabc",
         "name": "Write Customer Network Settings ",
         "info": "/**\n * This flow is triggered when a user presses the \"Write Settings\" button on the dashboard (`deviceip:1880/ui`).\n * \n * - Retrieves network configuration values from flow context variables:\n *    - Ethernet (`eth0`) and Wi-Fi (`wifi`) settings including IP, subnet, gateway, and DNS.\n * - Validates IP addresses and subnet masks to ensure proper formatting.\n * - Assembles a network configuration command using `nmcli`:\n *    - If DHCP is enabled, sets `ipv4.method` to 'auto'.\n *    - If DHCP is disabled, applies manual network settings after validation.\n * - Executes the command to apply the new network settings.\n * - After a short 100ms delay, another function fetches the updated network parameters,\n *   assembles them, and writes them back to `netconfig.json` to store the current configuration.\n */\n",
-        "x": 210,
-        "y": 600,
+        "x": 190,
+        "y": 240,
         "wires": []
     },
     {
@@ -2686,8 +2457,8 @@
         "z": "f0fb0bd6b5fcfabc",
         "name": "Reset Net Adapters / Reboot Device",
         "info": "/**\n * This flow handles three UI buttons on the dashboard for network and system management.\n * \n * 1. **Reset Ethernet Adapter**:\n *    - Executes: `sudo nmcli con down \"Wired connection 1\" && sudo nmcli con up \"Wired connection 1\"`\n *    - Brings down and then reactivates the Ethernet connection to apply changes or troubleshoot connectivity.\n * \n * 2. **Reset Wi-Fi Adapter**:\n *    - Executes: `sudo nmcli con down \"preconfigured\" && sudo nmcli con up \"preconfigured\"`\n *    - Restarts the Wi-Fi connection using the preconfigured network.\n * \n * 3. **Reboot Device**:\n *    - Executes: `sudo reboot now`\n *    - Immediately reboots the device to apply system-wide changes if necessary.\n */\n",
-        "x": 220,
-        "y": 720,
+        "x": 200,
+        "y": 360,
         "wires": []
     },
     {
@@ -2716,8 +2487,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 1290,
-        "y": 320,
+        "x": 1270,
+        "y": 40,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -2749,8 +2520,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 1280,
-        "y": 360,
+        "x": 1260,
+        "y": 80,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -2782,8 +2553,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 1290,
-        "y": 400,
+        "x": 1270,
+        "y": 120,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -2815,8 +2586,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 1310,
-        "y": 440,
+        "x": 1290,
+        "y": 160,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -2848,8 +2619,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 1320,
-        "y": 480,
+        "x": 1300,
+        "y": 200,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -2882,8 +2653,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 1290,
-        "y": 520,
+        "x": 1270,
+        "y": 240,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -2915,8 +2686,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 1280,
-        "y": 560,
+        "x": 1260,
+        "y": 280,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -2948,8 +2719,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 1290,
-        "y": 600,
+        "x": 1270,
+        "y": 320,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -2981,8 +2752,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 1310,
-        "y": 640,
+        "x": 1290,
+        "y": 360,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -3014,8 +2785,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 1320,
-        "y": 680,
+        "x": 1300,
+        "y": 400,
         "wires": [
             [
                 "abeab9f2fec9e5bb"
@@ -3053,8 +2824,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 160,
-        "y": 640,
+        "x": 140,
+        "y": 280,
         "wires": [
             [
                 "ad09f130521fe327"
@@ -3092,8 +2863,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 190,
-        "y": 760,
+        "x": 170,
+        "y": 400,
         "wires": [
             [
                 "2c5eb68777a0ff94"
@@ -3131,8 +2902,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 200,
-        "y": 820,
+        "x": 180,
+        "y": 460,
         "wires": [
             [
                 "fb4184d87390f079"
@@ -3170,8 +2941,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 200,
-        "y": 880,
+        "x": 180,
+        "y": 520,
         "wires": [
             [
                 "ae2b2108ffed2c48"
@@ -3196,8 +2967,8 @@
         "raw": false,
         "className": "",
         "name": "Notify ",
-        "x": 1070,
-        "y": 640,
+        "x": 1050,
+        "y": 280,
         "wires": [
             []
         ]
@@ -3221,8 +2992,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 920,
-        "y": 640,
+        "x": 900,
+        "y": 280,
         "wires": [
             [
                 "3a8cffdb58abbdf6"
@@ -3400,7 +3171,9 @@
         "wires": [
             [
                 "6f337ccf2f879e1e",
-                "c2f70c8f7315941a"
+                "c2f70c8f7315941a",
+                "507b9d4cb14dbe39",
+                "4e7173bc540277cc"
             ]
         ]
     },
@@ -3429,8 +3202,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 160,
-        "y": 160,
+        "x": 140,
+        "y": 360,
         "wires": [
             [
                 "5226818925e3d8a2"
@@ -3462,8 +3235,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 140,
-        "y": 200,
+        "x": 120,
+        "y": 400,
         "wires": [
             [
                 "5226818925e3d8a2"
@@ -3495,8 +3268,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 130,
-        "y": 240,
+        "x": 110,
+        "y": 440,
         "wires": [
             [
                 "5226818925e3d8a2"
@@ -3515,11 +3288,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 220,
+        "x": 340,
+        "y": 420,
         "wires": [
             [
-                "c2f70c8f7315941a"
+                "b7e201011cf60c87"
             ]
         ]
     },
@@ -3539,7 +3312,8 @@
         "y": 80,
         "wires": [
             [
-                "8f47e761f1e16429"
+                "8f47e761f1e16429",
+                "168560bfcea9d3a2"
             ]
         ]
     },
@@ -3568,8 +3342,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 160,
-        "y": 280,
+        "x": 140,
+        "y": 480,
         "wires": [
             [
                 "5226818925e3d8a2"
@@ -3601,8 +3375,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 140,
-        "y": 320,
+        "x": 120,
+        "y": 520,
         "wires": [
             [
                 "5226818925e3d8a2"
@@ -3634,8 +3408,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 160,
-        "y": 360,
+        "x": 140,
+        "y": 560,
         "wires": [
             [
                 "5226818925e3d8a2"
@@ -3672,8 +3446,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 400,
+        "x": 390,
+        "y": 600,
         "wires": [
             [
                 "6f949d4d67e55eb4"
@@ -3731,8 +3505,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 170,
-        "y": 400,
+        "x": 150,
+        "y": 600,
         "wires": [
             [
                 "3e75424d4855360f"
@@ -3756,8 +3530,8 @@
         "keepMsgProperties": true,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 630,
-        "y": 400,
+        "x": 610,
+        "y": 600,
         "wires": [
             [
                 "848d27e11bd8c8bd"
@@ -3774,8 +3548,8 @@
             "6f949d4d67e55eb4"
         ],
         "uncaught": false,
-        "x": 130,
-        "y": 520,
+        "x": 110,
+        "y": 720,
         "wires": [
             [
                 "b0b4649483e4117e"
@@ -3801,8 +3575,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 520,
+        "x": 280,
+        "y": 720,
         "wires": [
             [
                 "fc9625096214932c"
@@ -3827,8 +3601,8 @@
         "raw": false,
         "className": "",
         "name": "Modbus Read Failed",
-        "x": 500,
-        "y": 520,
+        "x": 480,
+        "y": 720,
         "wires": [
             []
         ]
@@ -3845,8 +3619,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 400,
+        "x": 780,
+        "y": 600,
         "wires": [
             [
                 "bc30e464d0913f15",
@@ -3872,8 +3646,8 @@
         "color": "#717171",
         "wrapText": false,
         "className": "payload.count",
-        "x": 480,
-        "y": 440,
+        "x": 460,
+        "y": 640,
         "wires": []
     },
     {
@@ -3893,8 +3667,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 150,
-        "y": 440,
+        "x": 130,
+        "y": 640,
         "wires": [
             [
                 "905434a481c8bfbc"
@@ -3920,8 +3694,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 440,
+        "x": 280,
+        "y": 640,
         "wires": [
             [
                 "b68b266bb21d29e3"
@@ -3940,8 +3714,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 160,
-        "y": 480,
+        "x": 140,
+        "y": 680,
         "wires": [
             [
                 "271798983ed1a9b8"
@@ -3967,8 +3741,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 490,
-        "y": 480,
+        "x": 470,
+        "y": 680,
         "wires": [
             [
                 "12ac89de208f1c3b"
@@ -3987,8 +3761,8 @@
         "stream": false,
         "addname": "",
         "property": "payload.options",
-        "x": 290,
-        "y": 480,
+        "x": 270,
+        "y": 680,
         "wires": [
             [
                 "33ee3fed566069f8"
@@ -4016,8 +3790,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 710,
-        "y": 480,
+        "x": 690,
+        "y": 680,
         "wires": [
             [
                 "73541b5bcb9a724f"
@@ -4043,8 +3817,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 890,
-        "y": 480,
+        "x": 870,
+        "y": 680,
         "wires": [
             [
                 "a1b13b6bb9e5b5a4"
@@ -4079,8 +3853,8 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 1100,
-        "y": 480,
+        "x": 1080,
+        "y": 680,
         "wires": [
             [
                 "74dab4c9cc46d8d8"
@@ -4125,8 +3899,8 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 170,
-        "y": 580,
+        "x": 150,
+        "y": 780,
         "wires": [
             [
                 "b043ae97a5c29f9f"
@@ -4186,8 +3960,8 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 170,
-        "y": 620,
+        "x": 150,
+        "y": 820,
         "wires": [
             [
                 "95b32833dda95a91"
@@ -4219,8 +3993,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 160,
-        "y": 660,
+        "x": 140,
+        "y": 860,
         "wires": [
             [
                 "0b8837e10bb8685e"
@@ -4239,8 +4013,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 580,
+        "x": 300,
+        "y": 780,
         "wires": [
             []
         ]
@@ -4257,8 +4031,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 620,
+        "x": 300,
+        "y": 820,
         "wires": [
             []
         ]
@@ -4275,8 +4049,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 660,
+        "x": 300,
+        "y": 860,
         "wires": [
             []
         ]
@@ -4293,8 +4067,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1260,
-        "y": 480,
+        "x": 1240,
+        "y": 680,
         "wires": [
             []
         ]
@@ -4324,8 +4098,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 160,
-        "y": 700,
+        "x": 140,
+        "y": 900,
         "wires": [
             [
                 "de97126e09997382"
@@ -4344,8 +4118,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 700,
+        "x": 300,
+        "y": 900,
         "wires": [
             []
         ]
@@ -4375,8 +4149,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 150,
-        "y": 740,
+        "x": 130,
+        "y": 940,
         "wires": [
             [
                 "f1eac6782b8138b9"
@@ -4395,8 +4169,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 740,
+        "x": 300,
+        "y": 940,
         "wires": [
             []
         ]
@@ -4432,8 +4206,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 150,
-        "y": 780,
+        "x": 130,
+        "y": 980,
         "wires": [
             [
                 "108bc09012aa4027"
@@ -4452,10 +4226,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 330,
-        "y": 780,
+        "x": 310,
+        "y": 980,
         "wires": [
-            []
+            [
+                "7071f43e508eccfa"
+            ]
         ]
     },
     {
@@ -4470,5 +4246,776 @@
         "x": 1265,
         "y": 100,
         "wires": []
+    },
+    {
+        "id": "7071f43e508eccfa",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "function 11",
+        "func": "// Retrieve all global context keys\nvar keys = global.keys();\nvar allGlobals = {};\n\n// Loop through each key and add it to the payload if it's not one of the ones to ignore\nkeys.forEach(function (key) {\n    if (key === \"tempDataC\" || key === \"tempDataF\") {\n        return;\n    }\n    allGlobals[key] = global.get(key);\n});\n\n// Set the JSON payload with all gathered globals\nmsg.payload = allGlobals;\n\n// Specify the filename\nmsg.filename = \"/home/admin/ConfigFiles/modbusconfig.json\";\n\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 980,
+        "wires": [
+            [
+                "50f74c59dd0db332"
+            ]
+        ]
+    },
+    {
+        "id": "50f74c59dd0db332",
+        "type": "file",
+        "z": "c87e73927481cb24",
+        "name": "Write Default JSON",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 670,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "168560bfcea9d3a2",
+        "type": "file",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "filename": "/home/admin/ConfigFiles/tcpconfig.json",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 700,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7e201011cf60c87",
+        "type": "link out",
+        "z": "c87e73927481cb24",
+        "name": "Write TCP Params",
+        "mode": "link",
+        "links": [
+            "f0b861003d61a82d"
+        ],
+        "x": 435,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f0b861003d61a82d",
+        "type": "link in",
+        "z": "c87e73927481cb24",
+        "name": "link in 4",
+        "links": [
+            "b7e201011cf60c87"
+        ],
+        "x": 195,
+        "y": 120,
+        "wires": [
+            [
+                "c2f70c8f7315941a"
+            ]
+        ]
+    },
+    {
+        "id": "507b9d4cb14dbe39",
+        "type": "file in",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "filename": "/home/admin/ConfigFiles/tcpconfig.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 400,
+        "y": 180,
+        "wires": [
+            [
+                "9a2d1a29bd565d9d"
+            ]
+        ]
+    },
+    {
+        "id": "9a2d1a29bd565d9d",
+        "type": "json",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 180,
+        "wires": [
+            [
+                "bccaf5ef9b7a0941"
+            ]
+        ]
+    },
+    {
+        "id": "bccaf5ef9b7a0941",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "Restore TCP Values",
+        "func": "// Loop through each property in msg.payload\nObject.keys(msg.payload).forEach(function (key) {\n    // Set each property as a flow variable\n    flow.set(key, msg.payload[key]);\n});\n\n// Optionally, you can add a log or debug message\n//node.warn(\"Flow variables set: \" + JSON.stringify(msg.payload));\n\n// Pass on the message if needed\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4e7173bc540277cc",
+        "type": "file in",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "filename": "/home/admin/ConfigFiles/modbusconfig.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 410,
+        "y": 220,
+        "wires": [
+            [
+                "e14606f1e8833f30"
+            ]
+        ]
+    },
+    {
+        "id": "e14606f1e8833f30",
+        "type": "json",
+        "z": "c87e73927481cb24",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 650,
+        "y": 220,
+        "wires": [
+            [
+                "46e1285b4abb4917"
+            ]
+        ]
+    },
+    {
+        "id": "46e1285b4abb4917",
+        "type": "function",
+        "z": "c87e73927481cb24",
+        "name": "Restore Modbus Values",
+        "func": "// Loop through each property in the incoming payload\nfor (let key in msg.payload) {\n    if (msg.payload.hasOwnProperty(key)) {\n        global.set(key, msg.payload[key]);\n    }\n}\n\n// Optional: Log the keys that were set as global variables\n//node.warn(\"global variables set for: \" + Object.keys(msg.payload).join(\", \"));\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "inject-startup",
+        "type": "inject",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Initialize on Startup",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Check File",
+        "payloadType": "str",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "file-check",
+                "c924d21ba1ab507a"
+            ]
+        ]
+    },
+    {
+        "id": "file-check",
+        "type": "file in",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Check if File Exists",
+        "filename": "/home/admin/ConfigFiles/netconfig.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "allProps": false,
+        "x": 370,
+        "y": 140,
+        "wires": [
+            [
+                "switch-file"
+            ]
+        ]
+    },
+    {
+        "id": "switch-file",
+        "type": "switch",
+        "z": "94e42ecfcf2b6f26",
+        "name": "File Exists?",
+        "property": "error",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 140,
+        "wires": [
+            [
+                "file-already-exists"
+            ],
+            [
+                "exec-create-file"
+            ]
+        ]
+    },
+    {
+        "id": "file-already-exists",
+        "type": "debug",
+        "z": "94e42ecfcf2b6f26",
+        "name": "File Already Exists",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "exec-create-file",
+        "type": "exec",
+        "z": "94e42ecfcf2b6f26",
+        "command": "sudo mkdir -p /home/admin/ConfigFiles && sudo touch /home/admin/ConfigFiles/netconfig.json && sudo chown admin:admin /home/admin/ConfigFiles/netconfig.json",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Create File",
+        "x": 710,
+        "y": 160,
+        "wires": [
+            [
+                "debug-success",
+                "acf3f0da99b32f5d"
+            ],
+            [
+                "debug-error"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "debug-error",
+        "type": "debug",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Error",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "debug-success",
+        "type": "debug",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Success",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "acf3f0da99b32f5d",
+        "type": "function",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Set Default JSON Payload",
+        "func": "// Build default netconfig object\nconst defaultConfig = {\n    eth0: {\n        dhcp: true,\n        ip: \"192.168.1.100\",\n        subnet: \"255.255.255.0\",\n        gateway: \"192.168.1.1\",\n        dnsgateway: \"1.1.1.1\"\n    },\n    wifi: {\n        dhcp: true,\n        ip: \"192.168.1.125\",\n        subnet: \"255.255.255.0\",\n        gateway: \"192.168.1.1\",\n        dnsgateway: \"1.1.1.1\"\n    }\n};\n\n// Convert to pretty-printed JSON with an indent of 2 spaces\nmsg.payload = JSON.stringify(defaultConfig, null, 2);\n\n// Specify the filename\nmsg.filename = \"/home/admin/ConfigFiles/netconfig.json\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 100,
+        "wires": [
+            [
+                "1d2099b93c126c99"
+            ]
+        ]
+    },
+    {
+        "id": "1d2099b93c126c99",
+        "type": "file",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Write Default JSON",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1170,
+        "y": 100,
+        "wires": [
+            [
+                "5474c50fd97f320f",
+                "40885aa9b0f5246b"
+            ]
+        ]
+    },
+    {
+        "id": "40885aa9b0f5246b",
+        "type": "exec",
+        "z": "94e42ecfcf2b6f26",
+        "command": "sudo nmcli con down \"Wired connection 1\" && sudo nmcli con up \"Wired connection 1\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Restart Wired 1",
+        "x": 1380,
+        "y": 80,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5474c50fd97f320f",
+        "type": "exec",
+        "z": "94e42ecfcf2b6f26",
+        "command": "sudo nmcli con down \"preconfigured\" && sudo nmcli con up \"preconfigured\"",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Restart Preconfigured",
+        "x": 1400,
+        "y": 140,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e11e41fad668c460",
+        "type": "comment",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Initialize Network Parameters",
+        "info": "/**\n * This function runs once upon deployment.\n * \n * - Checks for the existence of the file at `/home/administrator/ConfigFiles/netconfig.json`\n * - If the file exists, the flow exits with no action.\n * - If the file does not exist:\n *    - Creates the file.\n *    - Sets the appropriate read/write permissions.\n *    - Writes a set of default parameters in JSON format.\n *    - Resets Wifi and Eth Adapters upon Completion.\n * \n * The next flow will then read this file to set the required context variables.\n */\n",
+        "x": 200,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6dbef351e4a24a1f",
+        "type": "comment",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Save / Restore Modbus TCP Connection settings",
+        "info": "/**\n * This function runs once upon deployment.\n * \n * - Checks for the existence of the file at `/home/administrator/ConfigFiles/netconfig.json`\n * - If the file exists, the flow exits with no action.\n * - If the file does not exist:\n *    - Creates the file.\n *    - Sets the appropriate read/write permissions.\n *    - Writes a set of default parameters in JSON format.\n *    - Resets Wifi and Eth Adapters upon Completion.\n * \n * The next flow will then read this file to set the required context variables.\n */\n",
+        "x": 240,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "56882507564bf9b7",
+        "type": "switch",
+        "z": "94e42ecfcf2b6f26",
+        "name": "File Exists?",
+        "property": "error",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 300,
+        "wires": [
+            [
+                "a91f8e4780d8ea51"
+            ],
+            [
+                "b9ca08e6d2ce7d61"
+            ]
+        ]
+    },
+    {
+        "id": "a91f8e4780d8ea51",
+        "type": "debug",
+        "z": "94e42ecfcf2b6f26",
+        "name": "File Already Exists",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b9ca08e6d2ce7d61",
+        "type": "exec",
+        "z": "94e42ecfcf2b6f26",
+        "command": "sudo touch /home/admin/ConfigFiles/tcpconfig.json && sudo chown admin:admin /home/admin/ConfigFiles/tcpconfig.json",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Create File",
+        "x": 710,
+        "y": 320,
+        "wires": [
+            [
+                "c126619aa25efe5f",
+                "90ee03bb1bf21961"
+            ],
+            [
+                "6c5b534af423ec1c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "6c5b534af423ec1c",
+        "type": "debug",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Error",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c126619aa25efe5f",
+        "type": "debug",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Success",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "90ee03bb1bf21961",
+        "type": "function",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Set Default JSON Payload",
+        "func": "// Build default tcpconfig object\n\n// Assemble the payload according to the TCP options for the modbus flex connector\nconst defaultTCP = {\n    connectorType: \"TCP\",\n    tcpHost: \"192.168.1.25\",\n    tcpPort: \"502\",\n    unitId: \"1\",\n    \n};\n// Convert to pretty-printed JSON with an indent of 2 spaces\n\nmsg.payload = JSON.stringify(defaultTCP, null, 2);\n\n// Specify the filename\nmsg.filename = \"/home/admin/ConfigFiles/tcpconfig.json\";\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 260,
+        "wires": [
+            [
+                "85b327b016f8d335"
+            ]
+        ]
+    },
+    {
+        "id": "85b327b016f8d335",
+        "type": "file",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Write Default JSON",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1170,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a46f9d71329b5bde",
+        "type": "file in",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Check if File Exists",
+        "filename": "/home/admin/ConfigFiles/tcpconfig.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "allProps": false,
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "56882507564bf9b7"
+            ]
+        ]
+    },
+    {
+        "id": "c924d21ba1ab507a",
+        "type": "delay",
+        "z": "94e42ecfcf2b6f26",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "a46f9d71329b5bde",
+                "e3e463cf1e1e28c4"
+            ]
+        ]
+    },
+    {
+        "id": "61601eedb17d7bcb",
+        "type": "comment",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Save / Restore Modbus TCP Connection settings",
+        "info": "/**\n * This function runs once upon deployment.\n * \n * - Checks for the existence of the file at `/home/administrator/ConfigFiles/netconfig.json`\n * - If the file exists, the flow exits with no action.\n * - If the file does not exist:\n *    - Creates the file.\n *    - Sets the appropriate read/write permissions.\n *    - Writes a set of default parameters in JSON format.\n *    - Resets Wifi and Eth Adapters upon Completion.\n * \n * The next flow will then read this file to set the required context variables.\n */\n",
+        "x": 240,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "d499ec412c0447a3",
+        "type": "switch",
+        "z": "94e42ecfcf2b6f26",
+        "name": "File Exists?",
+        "property": "error",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 460,
+        "wires": [
+            [
+                "9539de12d6bcb79f"
+            ],
+            [
+                "9dc2bcbf3d58a071"
+            ]
+        ]
+    },
+    {
+        "id": "9539de12d6bcb79f",
+        "type": "debug",
+        "z": "94e42ecfcf2b6f26",
+        "name": "File Already Exists",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "9dc2bcbf3d58a071",
+        "type": "exec",
+        "z": "94e42ecfcf2b6f26",
+        "command": "sudo touch /home/admin/ConfigFiles/modbusconfig.json && sudo chown admin:admin /home/admin/ConfigFiles/modbusconfig.json",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Create File",
+        "x": 710,
+        "y": 480,
+        "wires": [
+            [
+                "a6430fdd69a7fd12"
+            ],
+            [
+                "ed9df561276ad235"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ed9df561276ad235",
+        "type": "debug",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Error",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "a6430fdd69a7fd12",
+        "type": "debug",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Success",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "true",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a8c0c0d72b06ca59",
+        "type": "file in",
+        "z": "94e42ecfcf2b6f26",
+        "name": "Check if File Exists",
+        "filename": "/home/admin/ConfigFiles/modbusconfig.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "allProps": false,
+        "x": 370,
+        "y": 460,
+        "wires": [
+            [
+                "d499ec412c0447a3"
+            ]
+        ]
+    },
+    {
+        "id": "e3e463cf1e1e28c4",
+        "type": "delay",
+        "z": "94e42ecfcf2b6f26",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 170,
+        "y": 460,
+        "wires": [
+            [
+                "a8c0c0d72b06ca59"
+            ]
+        ]
     }
 ]
